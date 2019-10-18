@@ -7,7 +7,7 @@ https://docs.microsoft.com/en-us/dotnet/core/
 
 ## Java and .Net Core (c#) project side by side
 
-## Java App start, .NET Core way
+## Java App start the .NET Core way
 
 ### Program.java
 ```
