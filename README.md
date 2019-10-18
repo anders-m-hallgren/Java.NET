@@ -9,13 +9,15 @@ https://docs.microsoft.com/en-us/dotnet/core/
 ## Java App start, .NET Core way
 
 ### Program.java
+```
 public class Program {
     public static void main(String[] args) {
         App.Run(new Startup());
     }
 }
-
+```
 ### Startup.java
+```
 public class Startup {
     public void ConfigureServices(IServiceCollection.Builder services) {
        services
@@ -31,3 +33,4 @@ public class Startup {
         app.UseSms();
     }
 }
+```
