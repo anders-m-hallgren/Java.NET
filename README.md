@@ -66,7 +66,7 @@ http://localhost:8080/data
 http://localhost  
 
 ## Option
-###Run Angular/Frontend separatly
+### Run Angular/Frontend separatly
 cd ClientApp  
 ng serve  
   
