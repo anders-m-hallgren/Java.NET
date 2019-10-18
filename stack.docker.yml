@@ -1,0 +1,47 @@
+version: '3.7'
+
+services:
+  dotnet:
+    depends_on:
+      - redis
+    image: dotnet
+    ports:
+      - 80:80
+      - 443:443
+    deploy:
+      resources:
+        limits:
+          cpus: '0.20'
+          memory: 30M
+        reservations:
+          cpus: '0.10'
+          memory: 15M
+      restart_policy:
+        condition: on-failure
+        delay: 30s
+        max_attempts: 3
+        window: 60s
+  java:
+    depends_on:
+      - redis
+    image: java
+    ports:
+      - 8080:8080
+    deploy:
+      resources:
+        limits:
+          cpus: '0.20'
+          memory: 30M
+        reservations:
+          cpus: '0.10'
+          memory: 15M
+      restart_policy:
+        condition: on-failure
+        delay: 30s
+        max_attempts: 3
+        window: 60s
+  redis:
+    image: redis:alpine
+#not used yet
+volumes:
+  app_data: {}

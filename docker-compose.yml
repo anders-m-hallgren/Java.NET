@@ -1,0 +1,22 @@
+version: '3.7'
+services:
+  dotnet:
+    build:
+      context: .
+      dockerfile: dotnet.Dockerfile
+    image: dotnet
+    ports:
+      - 80:80
+      - 443:443
+  java:
+    build:
+      context: .
+      dockerfile: java.Dockerfile
+    image: java
+    ports:
+      - 8080:8080
+  redis:
+    image: redis:alpine
+#not used yet
+volumes:
+  app_data: {}
