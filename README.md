@@ -35,3 +35,9 @@ public class Startup {
     }
 }
 ```
+
+## Run java
+mvn test
+
+## Run dotnet
+dotnet run
