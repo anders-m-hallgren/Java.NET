@@ -9,18 +9,14 @@ https://docs.microsoft.com/en-us/dotnet/core/
 ## Java App start, .NET Core way
 
 ### Program.java
-
 public class Program {
-
     public static void main(String[] args) {
         App.Run(new Startup());
     }
 }
 
-
 ### Startup.java
 public class Startup {
-
     public void ConfigureServices(IServiceCollection.Builder services) {
        services
             .AddSingleton(IMessageService.class, EmailService.class)
@@ -30,11 +26,8 @@ public class Startup {
             .AddEmail()
             .AddSms();
     }
-    
     public void Configure(IApplication.Builder app){
         app.UseEmail();
         app.UseSms();
     }
 }
-
-
