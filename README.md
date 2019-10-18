@@ -5,7 +5,7 @@ Domain and test driven
 
 https://docs.microsoft.com/en-us/dotnet/core/
 
-## Java and .Net Core (c#) project side by side
+## Java and .NET Core (c#) project side by side
 
 ## Java App start the .NET Core way
 
