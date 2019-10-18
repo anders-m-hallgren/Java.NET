@@ -1,7 +1,6 @@
 # Java.NETcore
-Attempt to provide unappinionated aid in language transition between one and the other
-Using Clean architecture and design patterns
-Pipeline, IOC, Mediator and CQR
+Attempt to provide unappinionated aid in language transition between one and the other.
+Using Clean architecture and design patterns, such as Pipeline, IOC, Mediator and CQRS.
 Domain and test driven
 
 https://docs.microsoft.com/en-us/dotnet/core/
