@@ -39,9 +39,9 @@ public class Startup {
 with VS code, hit F5
 ## OR
 ### Run java
-mvn exec:exec
+> mvn exec:exec
 ### Run dotnet
-dotnet run
+> dotnet run
 
 ## Docker
 > docker build -t java -f java.Dockerfile .  
