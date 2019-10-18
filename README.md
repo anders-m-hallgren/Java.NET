@@ -37,9 +37,9 @@ public class Startup {
 ```
 ## IDE
 with VS code, hit F5
-### OR
-## Run java
+## OR
+### Run java
 mvn test
 
-## Run dotnet
+### Run dotnet
 dotnet run
