@@ -2,18 +2,28 @@ package core.controller;
 
 public class ActionResult implements IActionResult {
     private IResponse response;
+    private IRequest request;
 
     public ActionResult() {
         super();
         response = new Response();
+        SetStatus(ResultStatus.Status.UNPROCESSED);
     }
 
     public IResponse getResponse() {
         return response;
     }
 
-    public void setResponse(IResponse response) {
+    /* public void setResponse(IResponse response) {
         this.response = response;
+    }
+ */
+    public IRequest getRequest() {
+        return request;
+    }
+
+    public void setRequest(IRequest request) {
+        this.request = request;
     }
 
     public String GetContent() {

@@ -24,8 +24,14 @@ import javax.servlet.http.HttpUpgradeHandler;
 import javax.servlet.http.Part;
 
 public class ServletRequest implements HttpServletRequest {
-    public ServletRequest() {
+    private String method;
+    private String protocol;
+    private String contextPath;
+    public ServletRequest(String protocol, String method, String contextPath) {
         super();
+        this.protocol = protocol;
+        this.method = method;
+        this.contextPath = contextPath;
     }
     @Override
     public Object getAttribute(String name) {
@@ -101,8 +107,7 @@ public class ServletRequest implements HttpServletRequest {
 
     @Override
     public String getProtocol() {
-        // TODO Auto-generated method stub
-        return null;
+        return protocol;
     }
 
     @Override
@@ -294,8 +299,7 @@ public class ServletRequest implements HttpServletRequest {
 
     @Override
     public String getMethod() {
-        // TODO Auto-generated method stub
-        return null;
+        return method;
     }
 
     @Override
@@ -312,8 +316,7 @@ public class ServletRequest implements HttpServletRequest {
 
     @Override
     public String getContextPath() {
-        // TODO Auto-generated method stub
-        return null;
+        return contextPath;
     }
 
     @Override

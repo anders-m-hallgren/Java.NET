@@ -51,7 +51,8 @@ public class App {
         // controllers should perhaps be pub/sub or observers
         //controller init then send request to pipeline then doPost
         ctrl.init();
-        ctrl.service();
+
+        //ctrl.service();
 
         //Run mode
         //var result = ctrl.Get(); //Reflection?

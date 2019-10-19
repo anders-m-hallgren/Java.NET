@@ -28,7 +28,7 @@ public abstract class AppController extends HttpServlet implements IController {
     public void postService() {
 
     }
-    public void service() {
+   /*  public void service() {
         System.out.println("AppController - service");
         IRequest req = (IRequest) Di.GetSingleton(IRequest.class, Request.class);
         IResponse res = (IResponse) Di.GetSingleton(IResponse.class, Response.class);
@@ -42,7 +42,7 @@ public abstract class AppController extends HttpServlet implements IController {
         }
         // sendToPipeline
     }
-
+ */
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
