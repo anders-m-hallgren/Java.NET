@@ -7,6 +7,7 @@ public class Server {
     private boolean isRunning = true;
     private int port = 8080;
     private static Server server;
+    public static String serverName = "Clouds.se server v1.0";
 
     public static void Run() {
         try {

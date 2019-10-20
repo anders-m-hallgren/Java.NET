@@ -2,23 +2,20 @@ package core.server;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.nio.file.Files;
 import java.util.Date;
-import java.util.StringTokenizer;
 
-import core.app.Router;
-import core.controller.ActionResult;
 import core.controller.IActionResult;
-import core.controller.Request;
 import core.controller.ResultStatus.Status;
 
 public class RunnableServlet implements Runnable {
     private Socket client;
-    private static final boolean debug = false;
 
     public RunnableServlet(Socket client) {
         super();
@@ -31,13 +28,9 @@ public class RunnableServlet implements Runnable {
                 var out = new PrintWriter(new OutputStreamWriter(client.getOutputStream(), "UTF-8"), true);
                 var data = new BufferedOutputStream(client.getOutputStream());) {
 
-            ActionResult result = new ActionResult();
-
-            ReadRequestFromClient(result, in);
-            ShowRequest(result);
-
+            var result = new RequestProcessor().HandleRequest(in, out, data);
             SendResultToClient(result, out, data);
-            ShowResponse(result);
+            //ShowResponse(result);
 
         } catch (IOException e) {
             System.out.println(e.getMessage());
@@ -46,114 +39,73 @@ public class RunnableServlet implements Runnable {
 
     public void SendResultToClient(IActionResult result, PrintWriter out, BufferedOutputStream data)
             throws IOException {
-        // write the file contents, if serving static
-        // dataOut.write(data, 0, data.length); dataOut.flush();
-        var defaultContentMimeType = "text/html";
-        var serverName = "Clouds.se server v1.0";
+        //var defaultContentMimeType = "text/html";
 
-        prepareClientResult(result);
         var status = result.getResponse().getStatus();
         var statusCode = Status.valueOf(String.valueOf(status));
 
-        out.println("HTTP/1.1 " + statusCode);
-        out.println("Server: " + serverName);
+        out.println("HTTP/1.1 " + statusCode.status);
+        out.println("Server: " + Server.serverName);
         out.println("Date: " + new Date());
 
         switch (status) {
         case UNPROCESSED:
+            //todo add thread safety
+            //static?
+            //check not any controller then assume static
+            //if(result.getRequest().getContextPath().equals("/")) {
+                var path = result.getRequest().getContextPath();
+                if (path.equals("/"))
+                    path = "/index.html";
+                var staticHome="ClientApp/dist";
+                var content = Files.readAllBytes(new File(staticHome + path).toPath());
+                System.out.println("writing file: " + staticHome + path + ", " + content.length);
+                result.getResponse().setStatus(Status.OK);
+                //out.println("HTTP/1.1 " + Status.OK);
+                //out.println("Server: " + Server.serverName);
+                //out.println("Date: " + new Date());
+                if (path.endsWith(".js"))
+                    out.println("Content-Type: text/javascript; charset=utf-8");
+                if (path.endsWith(".css"))
+                    out.println("Content-Type: text/css; charset=utf-8");
+                else
+                    out.println("Content-Type: text/html; charset=utf-8");
+                out.println("Content-Length: " + content.length);
+                out.println();
+                data.write(content);
+            //}
             //throw new Exception();
             break;
         case OK:
             out.println("Content-Type: application/json; charset=utf-8");
-            var content = result.GetContent().getBytes();
+            content = result.GetContent().getBytes();
             out.println("Content-Length: " + content.length);
             out.println();
             data.write(content);
             break;
         case NOT_FOUND:
-            out.println("Content-type: " + defaultContentMimeType);
-            out.println();
+            //out.println("Content-type: " + defaultContentMimeType);
             break;
-        case BAD_REQUEST:
+            case BAD_REQUEST:
             break;
-        case NOT_IMPLEMENTED:
+            case NOT_IMPLEMENTED:
             break;
-        case METHOD_NOT_ALLOWED:
+            case METHOD_NOT_ALLOWED:
             break;
-        case SERVICE_UNAVAILABLE:
+            case SERVICE_UNAVAILABLE:
             break;
         }
+        out.println();
+
+
+                //data.flush();
+                //data.close();
+
     }
 
-    public void ReadRequestFromClient(IActionResult result, BufferedReader reader) throws IOException {
-        var httpRequest = reader.readLine();
-        if (httpRequest == null) {
-            result.getResponse().setStatus(Status.BAD_REQUEST);
-        }
 
-        var parse = new StringTokenizer(httpRequest);
-        var method = parse.nextToken().toUpperCase();
-        var contextPath = parse.nextToken();
-        var protocol = parse.nextToken();
 
-        var request = new Request(protocol, method, contextPath);
-        result.setRequest(request);
-        if (debug) {
 
-            var line = reader.readLine();
-            while (!line.isEmpty()) {
-                System.out.println(line);
-                line = reader.readLine();
-            }
-        }
-    }
-
-    public void prepareClientResult(IActionResult result) throws IOException {
-        // we support only GET for now
-        if (result.getRequest().getMethod().equals("POST") && result.getRequest().getContextPath().equals("/inform")) {
-            result.getResponse().setStatus(Status.OK);
-            System.out.println("initial HTTP setup: inform");
-            result.SetContent("");
-            return;
-        }
-        if (!result.getRequest().getMethod().equals("GET")) {
-            result.getResponse().setStatus(Status.METHOD_NOT_ALLOWED);
-            result.SetContent("");
-            return;
-        }
-        if (result.getRequest().getContextPath().equals("/favicon.ico")) {
-            result.getResponse().setStatus(Status.NOT_FOUND);
-            result.SetContent("");
-            return;
-        }
-
-        GetControllerResultFromPath(result);
-        return;
-    }
-
-    public void GetControllerResultFromPath(IActionResult result) {
-        // Todo add validations
-        System.out.println("Trying to find controller in router for path:" + result.getRequest().getContextPath());
-        var ctrl = Router.GetController(result.getRequest().getContextPath());
-        if (ctrl == null) {
-            result.SetContent("");
-            result.getResponse().setStatus(Status.NOT_FOUND);
-            System.out.println("Check controller router path, add error throws information");
-            //return result;
-        }
-
-        var ctrlResult = (ActionResult) ctrl.Get();
-
-        if (result == null || result.toString().isEmpty()) {
-            System.out.println("Check controller result, add error throws information");
-            result.getResponse().setStatus(Status.SERVICE_UNAVAILABLE);
-            //return result;
-        }
-        System.out.println("OK");
-        result.getResponse().setStatus(Status.OK);
-        result.SetContent(ctrlResult.GetContent());
-        //return result;
-    }
 
     private void ShowRequest(IActionResult result) {
         var req = result.getRequest();
