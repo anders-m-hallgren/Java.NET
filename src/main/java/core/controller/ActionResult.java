@@ -3,6 +3,7 @@ package core.controller;
 public class ActionResult implements IActionResult {
     private IResponse response;
     private IRequest request;
+    private String staticPath;
 
     public ActionResult() {
         super();
@@ -40,6 +41,22 @@ public class ActionResult implements IActionResult {
 
     public void SetStatus(ResultStatus.Status status) {
         getResponse().setStatus(status);
+    }
+
+    @Override
+    public byte[] GetByteContent() {
+        return getResponse().getServletResponse().getByteContent();
+    }
+
+    @Override
+    public void SetStaticPath(String staticPath) {
+        this.staticPath = staticPath;
+
+    }
+
+    @Override
+    public String GetStaticPath() {
+        return staticPath;
     }
 
 }

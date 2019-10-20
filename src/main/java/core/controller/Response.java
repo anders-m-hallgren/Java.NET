@@ -39,4 +39,10 @@ public class Response implements IResponse {
         return (ServletResponse)wrapper.getResponse();
     }
 
+    @Override
+    public byte[] getByteContent() {
+        // TODO Auto-generated method stub
+        return getServletResponse().getByteContent();
+    }
+
 }

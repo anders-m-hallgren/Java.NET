@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletResponse;
 public class ResultStatus {
     public static enum Status {
         UNPROCESSED(-1),
+        STATIC(1),
         OK(HttpServletResponse.SC_OK),
         NOT_FOUND(HttpServletResponse.SC_NOT_FOUND),
         BAD_REQUEST(HttpServletResponse.SC_BAD_REQUEST),

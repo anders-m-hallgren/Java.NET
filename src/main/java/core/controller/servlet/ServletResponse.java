@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 public class ServletResponse implements HttpServletResponse {
     private int status;
     private String content;
+    private byte[] byteContent;
     private PrintWriter writer;
 
     public ServletResponse() {
@@ -245,6 +246,14 @@ public class ServletResponse implements HttpServletResponse {
     public Collection<String> getHeaderNames() {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    public byte[] getByteContent() {
+        return byteContent;
+    }
+
+    public void setByteContent(byte[] byteContent) {
+        this.byteContent = byteContent;
     }
 
 }

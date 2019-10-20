@@ -2,13 +2,16 @@ package core.server;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
 import java.util.StringTokenizer;
 
 import core.app.Router;
 import core.controller.ActionResult;
 import core.controller.IActionResult;
+import core.controller.IController;
 import core.controller.Request;
 import core.controller.ResultStatus.Status;
 
@@ -54,7 +57,7 @@ public class RequestProcessor {
 
         if (result.getRequest().getMethod().equals("POST") && result.getRequest().getContextPath().equals("/inform")) {
             result.getResponse().setStatus(Status.OK);
-            System.out.println("initial HTTP setup: inform");
+            System.out.println("initial HTTP setup: /inform");
             result.SetContent("");
             return;
         }
@@ -63,28 +66,37 @@ public class RequestProcessor {
             result.SetContent("");
             return;
         }
-        if (result.getRequest().getContextPath().equals("/favicon.ico")) {
+
+        var path = result.getRequest().getContextPath();
+
+        if (path.equals("/favicon.ico")) {
             result.getResponse().setStatus(Status.NOT_FOUND);
             result.SetContent("");
             return;
         }
 
-        //TODO add handling for  all registered controllers
-        if(result.getRequest().getContextPath().equals("/data")) { //other static paths?
-            GetControllerResultFromPath(result);
+        // TODO add handling for  all registered controllers
+        //var ctrlPath = ((IController)Di.Get(IController.class)).getRoutePath();
+
+        System.out.println("Trying to find controller in router for path:" + path);
+
+        var ctrl = Router.GetController(path);
+        if(ctrl != null) {
+            GetControllerResultFromPath(result, ctrl);
         }
+        // then treat request as a request for static resources
+        result.getResponse().setStatus(Status.STATIC);
+        if (path.equals("/"))
+            path = "/index.html";
+        var staticHome="ClientApp/dist";
+        var content = Files.readAllBytes(new File(staticHome + path).toPath());
+        System.out.println("writing file: " + staticHome + path + ", " + content.length);
+        result.SetStaticPath(path);
+        result.getResponse().getServletResponse().setByteContent(content);
     }
 
-    public void GetControllerResultFromPath(IActionResult result) {
-        // Todo add validations
-        System.out.println("Trying to find controller in router for path:" + result.getRequest().getContextPath());
-        var ctrl = Router.GetController(result.getRequest().getContextPath());
-        if (ctrl == null) {
-            result.SetContent("");
-            result.getResponse().setStatus(Status.NOT_FOUND);
-            System.out.println("Check controller router path, add error throws information");
-            //return result;
-        }
+    public void GetControllerResultFromPath(IActionResult result, IController ctrl) {
+        // TODO add validations
 
         var ctrlResult = (ActionResult) ctrl.Get();
 
