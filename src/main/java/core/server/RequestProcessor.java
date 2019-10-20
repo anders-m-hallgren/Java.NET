@@ -75,39 +75,35 @@ public class RequestProcessor {
             return;
         }
 
-        // TODO add handling for  all registered controllers
-        //var ctrlPath = ((IController)Di.Get(IController.class)).getRoutePath();
-
         System.out.println("Trying to find controller in router for path:" + path);
 
         var ctrl = Router.GetController(path);
         if(ctrl != null) {
             GetControllerResultFromPath(result, ctrl);
+            return;
         }
-        // then treat request as a request for static resources
+
+        //treat request as a request for static resources
         result.getResponse().setStatus(Status.STATIC);
         if (path.equals("/"))
-            path = "/index.html";
-        var staticHome="ClientApp/dist";
-        var content = Files.readAllBytes(new File(staticHome + path).toPath());
-        System.out.println("writing file: " + staticHome + path + ", " + content.length);
+            path = "/" + Server.staticHomeDefaultFile;
+
+        var content = Files.readAllBytes(new File(Server.staticHome + path).toPath());
         result.SetStaticPath(path);
         result.getResponse().getServletResponse().setByteContent(content);
     }
 
     public void GetControllerResultFromPath(IActionResult result, IController ctrl) {
-        // TODO add validations
 
         var ctrlResult = (ActionResult) ctrl.Get();
 
         if (result == null || result.toString().isEmpty()) {
             System.out.println("Check controller result, add error throws information");
             result.getResponse().setStatus(Status.SERVICE_UNAVAILABLE);
-            //return result;
+            return;
         }
         System.out.println("OK");
         result.getResponse().setStatus(Status.OK);
         result.SetContent(ctrlResult.GetContent());
-        //return result;
     }
 }

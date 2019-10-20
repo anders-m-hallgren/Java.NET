@@ -6,8 +6,6 @@ import core.controller.servlet.ServletResponse;
 
 
 public class Response implements IResponse {
-
-
     private ResultStatus.Status status;
     public ResponseWrapper wrapper = new ResponseWrapper();
 
@@ -41,8 +39,6 @@ public class Response implements IResponse {
 
     @Override
     public byte[] getByteContent() {
-        // TODO Auto-generated method stub
         return getServletResponse().getByteContent();
     }
-
 }

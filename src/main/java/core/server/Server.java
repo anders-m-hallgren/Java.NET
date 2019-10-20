@@ -3,11 +3,12 @@ package core.server;
 import java.net.ServerSocket;
 
 public class Server {
-
     private boolean isRunning = true;
-    private int port = 8080;
+    private static int port = 8080;
     private static Server server;
-    public static String serverName = "Clouds.se server v1.0";
+    protected static String serverName = "Clouds.se server v1.0";
+    protected static String staticHome = "ClientApp/dist";
+    protected static String staticHomeDefaultFile = "index.html";
 
     public static void Run() {
         try {
@@ -21,8 +22,8 @@ public class Server {
     }
 
     private void RunMain() throws Exception {
-        final ServerSocket server = new ServerSocket(port);
-        System.out.println("Listening for connection on port: " + port);
+        final ServerSocket server = new ServerSocket(Server.port);
+        System.out.println("Listening for connection on port: " + Server.port);
         while (isRunning) {
             var servlet = new RunnableServlet(server.accept());
             Thread thread = new Thread(servlet);
@@ -30,5 +31,4 @@ public class Server {
         }
         server.close();
     }
-
 }
