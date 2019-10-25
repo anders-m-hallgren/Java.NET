@@ -3,10 +3,10 @@ package core.di;
 import java.util.LinkedList;
 import java.util.List;
 
-import core.pipeline.IPipeResponse;
-import core.pipeline.Step;
-import core.Services.EmailService;
-import core.Services.SmsService;
+import core.flow.pipeline.IPipeResponse;
+import core.flow.pipeline.Step;
+import services.EmailService;
+import services.SmsService;
 
 public class IApplication {
     public List<Step<IPipeResponse,IPipeResponse>> app = new LinkedList<Step<IPipeResponse,IPipeResponse>>();

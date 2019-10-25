@@ -9,19 +9,16 @@ public class ErrorController extends AppController {
     private static String routePath = "/error";
     public ErrorController() {
         super(routePath);
-        // TODO Auto-generated constructor stub
     }
 
-    private static final long serialVersionUID = 9988877L;
+    private static final long serialVersionUID = 9988866L;
 
     public IActionResult Get() {
-        var result =new ActionResult();
-        result.SetStatus(ResultStatus.Status.OK);
-        return result;
-    }
+        var result = new ActionResult();
 
-    @Override
-    public String getRoutePath() {
-        return null;
+        result.SetContent("Error");
+        result.SetStatus(ResultStatus.Status.OK);
+
+        return result;
     }
 }

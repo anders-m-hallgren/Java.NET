@@ -3,6 +3,7 @@ package core.di;
 import java.util.LinkedList;
 import java.util.List;
 
+import core.app.Router;
 import core.controller.IController;
 import core.service.IMessageService;
 import core.service.IService;
@@ -18,8 +19,9 @@ public class IServiceCollection {
             return this;
         }
 
-        public <DataController> Builder AddController(Class<DataController> clazz) {
-            Di.GetSingleton(IController.class, clazz);
+        public <DataController> Builder AddController(String path, Class<? extends IController> clazz) {
+            //Di.GetSingleton(IController.class, clazz);
+            Router.Add(path, clazz);
 			return this;
         }
 

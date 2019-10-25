@@ -1,8 +1,8 @@
 package core.service;
 
 import core.di.IServiceCollection;
-import core.pipeline.IPipeResponse;
-import core.pipeline.Step;
+import core.flow.pipeline.IPipeResponse;
+import core.flow.pipeline.Step;
 
 public interface IService extends Step<IPipeResponse, IPipeResponse>{
     IPipeResponse Process(IPipeResponse response);

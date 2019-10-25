@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletRequestWrapper;
 import core.controller.servlet.ServletRequest;
 
 public class Request implements IRequest {
-    RequestWrapper wrapper;
+    public RequestWrapper wrapper;
 
     public Request(String protocol, String method, String contextPath) {
         super();
@@ -20,7 +20,7 @@ public class Request implements IRequest {
     }
 
     @Override
-    public ServletRequest getRequest() {
+    public ServletRequest getServletRequest() {
         return (ServletRequest)wrapper.getRequest();
     }
 

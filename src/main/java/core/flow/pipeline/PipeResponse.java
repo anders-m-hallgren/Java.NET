@@ -1,4 +1,4 @@
-package core.pipeline;
+package core.flow.pipeline;
 
 public class PipeResponse implements IPipeResponse {
     private String _response;

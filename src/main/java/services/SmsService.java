@@ -1,10 +1,10 @@
-package core.Services;
+package services;
 
 import java.util.LinkedList;
 
 import core.di.IServiceCollection;
-import core.pipeline.IPipeResponse;
-import core.pipeline.Step;
+import core.flow.pipeline.IPipeResponse;
+import core.flow.pipeline.Step;
 import core.service.IMessageService;
 
 public class SmsService implements IMessageService, Step<IPipeResponse, IPipeResponse>  {

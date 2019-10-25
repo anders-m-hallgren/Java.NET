@@ -1,6 +1,6 @@
-package core.pipeline;
+package core.flow.pipeline;
 
-public interface Step<I, O> {
+public interface Step<In, Out> {
     public static class StepException extends RuntimeException {
         private static final long serialVersionUID = 12344321L;
 
@@ -8,5 +8,5 @@ public interface Step<I, O> {
             super(t);
         }
     }
-    public O Process(I input) throws StepException;
+    public Out Process(In input) throws StepException;
 }

@@ -8,7 +8,9 @@
            "type": "java",
            "name": "Java Debug (Launch)",
            "request": "launch",
-           "mainClass": "app.Program"
+           "mainClass": "app.Program",
+           //"vmArgs": "-Djavax.net.debug=ssl:handshake:verbose"
+           //"vmArgs": "-Djavax.net.debug=all -Djavax.net.debug=ssl:handshake:verbose"
        },
         {
             "name": ".NET Core Launch (web)",

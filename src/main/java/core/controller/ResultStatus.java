@@ -3,8 +3,10 @@ import javax.servlet.http.HttpServletResponse;
 
 public class ResultStatus {
     public static enum Status {
+        MOVED_TEMPORARILY(HttpServletResponse.SC_MOVED_TEMPORARILY),
         UNPROCESSED(-1),
         STATIC(1),
+        SWITCHING_PROTOCOL(101),
         OK(HttpServletResponse.SC_OK),
         NOT_FOUND(HttpServletResponse.SC_NOT_FOUND),
         BAD_REQUEST(HttpServletResponse.SC_BAD_REQUEST),
