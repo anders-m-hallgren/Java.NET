@@ -1,4 +1,4 @@
-# Java.NETcore
+# Java.NET
 Attempt to provide unopinionated aid in language transition between one and the other.
 Using clean architecture and design patterns, such as Pipeline, IOC, Mediator and CQRS.
 Domain and test driven
