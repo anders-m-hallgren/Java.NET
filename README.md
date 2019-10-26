@@ -52,7 +52,8 @@ with VS code, hit F5
 > docker logs -f dotnet  
 
 ## OR
-> docker-compose up
+> docker-compose build  
+> docker-compose up  
 
 ## OR
 (docker swarm - docker swarm init)  
