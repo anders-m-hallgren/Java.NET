@@ -4,6 +4,20 @@
    // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
    "version": "0.2.0",
    "configurations": [
+   {
+       "type": "java",
+       "name": "Debug (Launch) - Current File",
+       "request": "launch",
+       "mainClass": "${file}"
+   },
+   {
+    "type": "java",
+    "name": "Java MediatorDemo (Launch)",
+    "request": "launch",
+    "mainClass": "app.MediatorDemo",
+    //"vmArgs": "-Djavax.net.debug=ssl:handshake:verbose"
+    //"vmArgs": "-Djavax.net.debug=all -Djavax.net.debug=ssl:handshake:verbose"
+},
        {
            "type": "java",
            "name": "Java Debug (Launch)",

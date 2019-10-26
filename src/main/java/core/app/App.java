@@ -8,7 +8,6 @@ import core.controller.IController;
 import core.di.Di;
 import core.di.IApplication;
 import core.di.IServiceCollection;
-import core.mediator.Mediator;
 import core.server.Server;
 
 public class App {
@@ -17,7 +16,7 @@ public class App {
         Build(startup);
         //new FlowEngine().ProcessMsgFlow();
         //ShowPipelineResult();
-        new Mediator();
+        //new Mediator();
         //Mediator.attachController()
 
         //Set controller in run mode if not using HTTP server
