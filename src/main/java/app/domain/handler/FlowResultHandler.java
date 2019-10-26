@@ -15,10 +15,6 @@ public class FlowResultHandler implements IRequestHandler<GetFlowResult, IPipeRe
 
     private Mediatr<IPipeResponse> mediatr = (Mediatr)Di.GetSingleton(IMediator.class, Mediatr.class);
 
-    public FlowResultHandler() {
-        super();
-    }
-
     public IPipeResponse Handle(GetFlowResult request) {
         var flowResult = new FlowEngine<IPipeResponse,IPipeResponse>()
             .ConstructPipeFlow()
@@ -27,14 +23,10 @@ public class FlowResultHandler implements IRequestHandler<GetFlowResult, IPipeRe
     }
 
     public Task RegisterAndPublish(FlowResultHandler handler, GetFlowResult request) {
-        var task = getTask(handler, request);
+        var task = new Task(handler, request);
         mediatr.addRequestObserver(request, task);
         mediatr.Send(request, new PipeResponse()); //not needed ActionResult?
         return task;
-    }
-
-    public Task getTask(FlowResultHandler handler, GetFlowResult request) {
-        return new Task(handler, request);
     }
 
     public class Task implements Runnable{
