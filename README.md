@@ -62,9 +62,9 @@ with VS code, hit F5
 > docker service logs -f app_dotnet  
 > docker service logs -f app_java  
 
-point your browser to
-http://localhost:8080/data
-http://localhost
+point your browser to  
+http://localhost:8080/data  
+http://localhost  
 
 ## Option
 ### Run Angular/Frontend separatly
