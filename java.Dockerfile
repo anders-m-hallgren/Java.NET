@@ -25,6 +25,7 @@ RUN mvn package
 
 COPY appsettings*json ./
 COPY myPrivateServerCert.pfx ./
+COPY ClientApp/dist ./ClientApp/dist
 #COPY --from=build-env /app/target/classes .
 #COPY --from=build-env /build/target/app-1.0-jar-with-dependencies.jar ./
 #ENTRYPOINT ["java", "-jar", "app-1.0-SNAPSHOT-jar-with-dependencies.jar"]

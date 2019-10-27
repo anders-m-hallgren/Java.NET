@@ -52,9 +52,9 @@ public class HttpServer {
 
         server.setConnectors(new Connector[] {http2Connector});
 
-        /* ResourceHandler staticCtx = new ResourceHandler();
+        ResourceHandler staticCtx = new ResourceHandler();
         staticCtx.setDirectoriesListed(true);
-        staticCtx.setResourceBase("ClientApp/dist"); */
+        staticCtx.setResourceBase("ClientApp/dist");
 
         ContextHandlerCollection contexts = new ContextHandlerCollection();
         //server.setHandler(contexts);
@@ -70,7 +70,7 @@ public class HttpServer {
 
         HandlerCollection handlers = new HandlerCollection();
         HandlerList list = new HandlerList();
-        //list.setHandlers(new Handler[] { staticCtx });
+        list.setHandlers(new Handler[] { staticCtx });
         handlers.setHandlers(new Handler[] { list, contexts, new DefaultHandler() });
 
         server.setHandler(handlers);
