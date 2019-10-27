@@ -44,22 +44,23 @@ with VS code, hit F5
 > dotnet run
 
 # Docker
-> docker build -t java -f java.Dockerfile .
-> docker build -t dotnet -f dotnet.Dockerfile .
-> docker run --name java --rm -p 8080:8080 -dit java
-> docker run --name dotnet --rm -p 80:80 -dit dotnet
-> docker logs -f java
-> docker logs -f dotnet
+> docker build -t java -f java.Dockerfile .  
+> docker build -t dotnet -f dotnet.Dockerfile .  
+> docker run --name java --rm -p 8080:8080 -dit java  
+> docker run --name dotnet --rm -p 80:80 -dit dotnet  
+> docker logs -f java  
+> docker logs -f dotnet  
 
 ## OR
-> docker-compose up
+> docker-compose build  
+> docker-compose up  
 
 ## OR
-(docker swarm - docker swarm init)
-> docker stack deploy -c stack.docker.yml app
-> docker service ls
-> docker service logs -f app_dotnet
-> docker service logs -f app_java
+(docker swarm - docker swarm init)  
+> docker stack deploy -c stack.docker.yml app    
+> docker service ls  
+> docker service logs -f app_dotnet  
+> docker service logs -f app_java  
 
 point your browser to
 http://localhost:8080/data
@@ -67,90 +68,90 @@ http://localhost
 
 ## Option
 ### Run Angular/Frontend separatly
-> cd ClientApp
-> ng serve
+> cd ClientApp  
+> ng serve  
 
 ## scale up stacked container
 > docker service update --replica 2 app_redis
 
 ## Cleanup
-> docker-compose stop
-> docker-compose rm
-> docker stack rm app
-> docker system prune
+> docker-compose stop   
+> docker-compose rm  
+> docker stack rm app  
+> docker system prune  
 
 
 # TLS
 ## Caution here !!! with your certificates and private keys even in development mode
 ## Java
 ### Generate private server self-signed root certificate
-> <java>/bin/keytool -genkey
-> -alias myPrivateServer
-> -keyalg EC
-> -keypass changeit
-> -storepass changeit
-> -validity 30
-> -dname "CN=PrivateServer, OU=Unknown, O=Unknown, L=Unknown, ST=Unknown, C=Unknown"
-> -ext san=dns:localhost,dns:Anders-Mac.local,ip:127.0.0.1,ip:::1
-> -storetype PKCS12
-> -keystore myPrivateServerCert.pfx
+> <java>/bin/keytool -genkey   
+> -alias myPrivateServer  
+> -keyalg EC  
+> -keypass changeit   
+> -storepass changeit  
+> -validity 30  
+> -dname "CN=PrivateServer, OU=Unknown, O=Unknown, L=Unknown, ST=Unknown, C=Unknown"  
+> -ext san=dns:localhost,dns:Anders-Mac.local,ip:127.0.0.1,ip:::1  
+> -storetype PKCS12  
+> -keystore myPrivateServerCert.pfx   
 
-### Generate private client certificate
-> <java>/bin/keytool -genkey
-> -alias myPrivate
-> -keyalg EC
-> -keypass changeit
-> -storepass changeit
-> -storetype PKCS12
-> -validity 30
-> -dname "CN=PrivateClient, OU=Unknown, O=Unknown, L=Unknown, ST=Unknown, C=Unknown"
-> -keystore myPrivateClientCert.pfx
+### Generate private client certificate  
+> <java>/bin/keytool -genkey  
+> -alias myPrivate  
+> -keyalg EC   
+> -keypass changeit   
+> -storepass changeit   
+> -storetype PKCS12  
+> -validity 30  
+> -dname "CN=PrivateClient, OU=Unknown, O=Unknown, L=Unknown, ST=Unknown, C=Unknown"  
+> -keystore myPrivateClientCert.pfx  
 
-### Export public server certificate
-> <java>/bin/keytool -export
-> -alias myPrivateServer
-> -storepass changeit
-> -storetype PKCS12
-> -keystore myPrivateServerCert.pfx
-> -file myPublicServer.cer
+### Export public server certificate  
+> <java>/bin/keytool -export  
+> -alias myPrivateServer  
+> -storepass changeit  
+> -storetype PKCS12   
+> -keystore myPrivateServerCert.pfx  
+> -file myPublicServer.cer   
 
-### Export public client certificate
-> <java>/bin/keytool -export
-> -alias myPrivate
-> -storepass changeit
-> -storetype PKCS12
-> -keystore myPrivateClientCert.pfx
-> -file myPublicClient.cer
+### Export public client certificate  
+> <java>/bin/keytool -export  
+> -alias myPrivate  
+> -storepass changeit  
+> -storetype PKCS12  
+> -keystore myPrivateClientCert.pfx  
+> -file myPublicClient.cer  
 
 
 
-### Add public server certificate to client truststore
-> <java>/bin/keytool -import -v -trustcacerts
-> -alias publicServer
-> -file myPublicServer.cer
-> -keypass changeit
-> -storepass changeit
-> -storetype PKCS12
-> -keystore clienttruststore.pfx
+### Add public server certificate to client truststore  
+> <java>/bin/keytool -import -v -trustcacerts  
+> -alias publicServer  
+> -file myPublicServer.cer  
+> -keypass changeit  
+> -storepass changeit  
+> -storetype PKCS12  
+> -keystore clienttruststore.pfx  
 
-### Add public server certificate to client truststore
-> <java>/bin/keytool -import -v -trustcacerts
-> -alias publicClient
-> -file myPublicClient.cer
-> -keypass changeit
-> -storepass changeit
-> -storetype PKCS12
-> -keystore clienttruststore.pfx
+### Add public server certificate to client truststore  
+> <java>/bin/keytool -import -v -trustcacerts  
+> -alias publicClient  
+> -file myPublicClient.cer  
+> -keypass changeit  
+> -storepass changeit  
+> -storetype PKCS12  
+> -keystore clienttruststore.pfx  
 
-## Option
-### Add to Mac or where you run request (browser)
-drag myPrivateServerCert.pfx to login keychain
-For Certificate in login keychain, setup Trust for SSL
-add publicClient certificate to request or in code setNeedClientAuth(false)
+## Option  
+### Add to Mac or where you run request (browser)  
+drag myPrivateServerCert.pfx to login keychain  
+For Certificate in login keychain, setup Trust for SSL  
+add publicClient certificate to request or in code setNeedClientAuth(false) 
 
 ### Check
-> <java>/bin/keytool -printcert -file myPublicServer.cer
-> <java>/bin/keytool -list -v -keystore myPrivateServerCert.pfx
+> <java>/bin/keytool -printcert -file myPublicServer.cer  
+> <java>/bin/keytool -list -v -keystore myPrivateServerCert.pfx  
 
 ### Code check
 ```
