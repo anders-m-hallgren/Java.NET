@@ -11,7 +11,7 @@ RUN yum install -y apache-maven
 #RUN mvn compile
 #RUN mvn dependency:go-offline -B
 #RUN mvn install
-RUN mvn package
+RUN mvn package assembly:single
 #ENTRYPOINT ["mvn", "exec:exec"]
 # or
 #RUN gradle build
@@ -20,13 +20,15 @@ RUN mvn package
 # Build runtime image
 ## use oracle ? store/oracle/serverjre
 
-#FROM openjdk:13.0.1-oracle
-#WORKDIR /app
-
+FROM openjdk:13.0.1-oracle
+WORKDIR /app
+EXPOSE 8080
 COPY appsettings*json ./
 COPY myPrivateServerCert.pfx ./
 COPY ClientApp/dist ./ClientApp/dist
 #COPY --from=build-env /app/target/classes .
-#COPY --from=build-env /build/target/app-1.0-jar-with-dependencies.jar ./
-#ENTRYPOINT ["java", "-jar", "app-1.0-SNAPSHOT-jar-with-dependencies.jar"]
-ENTRYPOINT ["mvn", "exec:exec"]
+COPY --from=build-env /build/target/app-1.0-jar-with-dependencies.jar ./
+# DEBUG add
+# -Dorg.eclipse.jetty.util.log.class=org.eclipse.jetty.util.log.StdErrLog -Dorg.eclipse.jetty.LEV=DEBUG
+CMD ["java", "-jar", "app-1.0-jar-with-dependencies.jar"]
+#ENTRYPOINT ["mvn", "exec:exec"]
