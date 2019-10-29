@@ -2,6 +2,7 @@
 FROM openjdk:13.0.1-oracle AS build-env
 WORKDIR /build
 COPY src/ ./src
+COPY assembly.xml ./
 COPY pom.xml ./
 RUN yum install -y wget && wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm && rpm -ivh epel-release-latest-7.noarch.rpm
 RUN yum install -y unzip zip which
@@ -27,8 +28,8 @@ COPY appsettings*json ./
 COPY myPrivateServerCert.pfx ./
 COPY ClientApp/dist ./ClientApp/dist
 #COPY --from=build-env /app/target/classes .
-COPY --from=build-env /build/target/app-1.0-jar-with-dependencies.jar ./
+COPY --from=build-env /build/target/app-1.0-bundle.jar ./
 # DEBUG add
 # -Dorg.eclipse.jetty.util.log.class=org.eclipse.jetty.util.log.StdErrLog -Dorg.eclipse.jetty.LEV=DEBUG
-CMD ["java", "-jar", "app-1.0-jar-with-dependencies.jar"]
+CMD ["java", "-jar", "app-1.0-bundle.jar"]
 #ENTRYPOINT ["mvn", "exec:exec"]
