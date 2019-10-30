@@ -173,6 +173,6 @@ var expDate = cert.GetExpirationDateString();
 ```
 
 ## Cleanup
-remove certificate from keychain
-docker compose down
-docker stack rm app
+> remove certificate from keychain  
+> docker compose down  
+> docker stack rm app . 
