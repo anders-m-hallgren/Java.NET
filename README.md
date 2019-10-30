@@ -54,15 +54,12 @@ with VS code, hit F5
 > docker logs -f dotnet  
 
 ## OR
-> docker-compose -f stack.docker.yml build  
-> docker-compose -f stack.docker.yml up  
-
-## OR
 (docker swarm - docker swarm init)  
+> docker-compose -f stack.docker.yml build  
 > docker stack deploy -c stack.docker.yml app    
-> docker service ls  
-> docker service logs -f app_dotnet  
-> docker service logs -f app_java  
+>   docker service ls  
+>   docker service logs -f app_dotnet  
+>   docker service logs -f app_java  
 
 point your browser to  
 http://localhost:8080  
@@ -76,12 +73,9 @@ http://localhost
 ## scale up stacked container
 > docker service update --replicas 2 app_redis
 
-## Cleanup
-> docker-compose stop   
-> docker-compose rm  
+## Cleanup 
 > docker stack rm app  
 > docker system prune  
-
 
 # TLS
 ## Caution here !!! with your certificates and private keys even in development mode
@@ -98,17 +92,6 @@ http://localhost
 > -storetype PKCS12  
 > -keystore myPrivateServerCert.pfx   
 
-### Generate private client certificate  
-> [java]/bin/keytool -genkey  
-> -alias myPrivate  
-> -keyalg EC   
-> -keypass changeit   
-> -storepass changeit   
-> -storetype PKCS12  
-> -validity 30  
-> -dname "CN=PrivateClient, OU=Unknown, O=Unknown, L=Unknown, ST=Unknown, C=Unknown"  
-> -keystore myPrivateClientCert.pfx  
-
 ### Export public server certificate  
 > [java]/bin/keytool -export  
 > -alias myPrivateServer  
@@ -116,25 +99,6 @@ http://localhost
 > -storetype PKCS12   
 > -keystore myPrivateServerCert.pfx  
 > -file myPublicServer.cer   
-
-### Export public client certificate  
-> [java]/bin/keytool -export  
-> -alias myPrivate  
-> -storepass changeit  
-> -storetype PKCS12  
-> -keystore myPrivateClientCert.pfx  
-> -file myPublicClient.cer  
-
-
-
-### Add public server certificate to client truststore  
-> [java]/bin/keytool -import -v -trustcacerts  
-> -alias publicServer  
-> -file myPublicServer.cer  
-> -keypass changeit  
-> -storepass changeit  
-> -storetype PKCS12  
-> -keystore clienttruststore.pfx  
 
 ### Add public server certificate to client truststore  
 > [java]/bin/keytool -import -v -trustcacerts  
@@ -163,7 +127,7 @@ var expDate = cer.getNotAfter()
 
 ## .NET Core
 ### Export developer certificate
-dotnet dev-certs https -ep mycert.pfx -p changeit
+dotnet dev-certs https -ep myPrivateServerCert.pfx -p changeit
 ### Trust developer certificate
 dotnet dev-certs https --trust
 ### code check certificate (X509) for expiry date
@@ -174,5 +138,5 @@ var expDate = cert.GetExpirationDateString();
 
 ## Cleanup
 > remove certificate from keychain  
-> docker compose -f stack.docker.yml down  
 > docker stack rm app  
+> rm myPrivateServerCert.pfx myPublicServer.cer clienttruststore.pfx
