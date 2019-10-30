@@ -40,30 +40,32 @@ public class Startup {
 ## IDE
 with VS code, hit F5
 ## OR
-### Run java
+### Run Java
 > mvn exec:exec
-### Run dotnet
+### Run .NET
 > dotnet run
 
 # Docker
 > docker build -t java -f java.Dockerfile .  
 > docker build -t dotnet -f dotnet.Dockerfile .  
 > docker run --name java --rm -p 8080:8080 -dit java  
-> docker run --name dotnet --rm -p 80:80 -dit dotnet  
-> docker logs -f java  
-> docker logs -f dotnet  
+> docker run --name dotnet --rm -p 443:443 -dit dotnet  
+> - docker logs -f java  
+> - docker logs -f dotnet  
 
 ## OR
 (docker swarm - docker swarm init)  
 > docker-compose -f stack.docker.yml build  
 > docker stack deploy -c stack.docker.yml app    
->   docker service ls  
->   docker service logs -f app_dotnet  
->   docker service logs -f app_java  
+> - docker service ls  
+> - docker service logs -f app_dotnet  
+> - docker service logs -f app_java  
+> - docker service ps app_java --no-trunc  
+> - docker service inspect app_java  
 
 point your browser to  
-http://localhost:8080  
-http://localhost  
+https://localhost:8080  
+https://localhost  
 
 ## Option
 ### Run Angular/Frontend separatly
