@@ -50,8 +50,8 @@ with VS code, hit F5
 > docker build -t dotnet -f dotnet.Dockerfile .  
 > docker run --name java --rm -p 8080:8080 -dit java  
 > docker run --name dotnet --rm -p 80:80 -dit dotnet  
-> docker logs -f java  
-> docker logs -f dotnet  
+> - docker logs -f java  
+> - docker logs -f dotnet  
 
 ## OR
 (docker swarm - docker swarm init)  
