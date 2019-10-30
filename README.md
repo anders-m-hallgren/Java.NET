@@ -1,7 +1,9 @@
 # Java.NET
 Attempt to provide unopinionated aid in language transition between one and the other.
 Using clean architecture and design patterns, such as Pipeline, IOC, Mediator and CQRS.
-Domain and test driven
+Domain and test driven.
+
+Serving SPA over HTTP2
 
 https://docs.microsoft.com/en-us/dotnet/core/
 
@@ -24,7 +26,7 @@ public class Startup {
        services
             .AddSingleton(IMessageService.class, EmailService.class)
             .AddSingleton(IShortMessageService.class, SmsService.class)
-            .AddController(DataController.class)
+            .AddController("/weatherforecast", WeatherForecastController.class)
 
             .AddEmail()
             .AddSms();
@@ -52,8 +54,8 @@ with VS code, hit F5
 > docker logs -f dotnet  
 
 ## OR
-> docker-compose build  
-> docker-compose up  
+> docker-compose -f stack.docker.yml build  
+> docker-compose -f stack.docker.yml up  
 
 ## OR
 (docker swarm - docker swarm init)  
@@ -63,7 +65,7 @@ with VS code, hit F5
 > docker service logs -f app_java  
 
 point your browser to  
-http://localhost:8080/data  
+http://localhost:8080  
 http://localhost  
 
 ## Option
@@ -72,7 +74,7 @@ http://localhost
 > ng serve  
 
 ## scale up stacked container
-> docker service update --replica 2 app_redis
+> docker service update --replicas 2 app_redis
 
 ## Cleanup
 > docker-compose stop   
@@ -85,7 +87,7 @@ http://localhost
 ## Caution here !!! with your certificates and private keys even in development mode
 ## Java
 ### Generate private server self-signed root certificate
-> <java>/bin/keytool -genkey   
+> [java]/bin/keytool -genkey   
 > -alias myPrivateServer  
 > -keyalg EC  
 > -keypass changeit   
@@ -97,7 +99,7 @@ http://localhost
 > -keystore myPrivateServerCert.pfx   
 
 ### Generate private client certificate  
-> <java>/bin/keytool -genkey  
+> [java]/bin/keytool -genkey  
 > -alias myPrivate  
 > -keyalg EC   
 > -keypass changeit   
@@ -108,7 +110,7 @@ http://localhost
 > -keystore myPrivateClientCert.pfx  
 
 ### Export public server certificate  
-> <java>/bin/keytool -export  
+> [java]/bin/keytool -export  
 > -alias myPrivateServer  
 > -storepass changeit  
 > -storetype PKCS12   
@@ -116,7 +118,7 @@ http://localhost
 > -file myPublicServer.cer   
 
 ### Export public client certificate  
-> <java>/bin/keytool -export  
+> [java]/bin/keytool -export  
 > -alias myPrivate  
 > -storepass changeit  
 > -storetype PKCS12  
@@ -126,7 +128,7 @@ http://localhost
 
 
 ### Add public server certificate to client truststore  
-> <java>/bin/keytool -import -v -trustcacerts  
+> [java]/bin/keytool -import -v -trustcacerts  
 > -alias publicServer  
 > -file myPublicServer.cer  
 > -keypass changeit  
@@ -135,7 +137,7 @@ http://localhost
 > -keystore clienttruststore.pfx  
 
 ### Add public server certificate to client truststore  
-> <java>/bin/keytool -import -v -trustcacerts  
+> [java]/bin/keytool -import -v -trustcacerts  
 > -alias publicClient  
 > -file myPublicClient.cer  
 > -keypass changeit  
@@ -150,8 +152,8 @@ For Certificate in login keychain, setup Trust for SSL
 add publicClient certificate to request or in code setNeedClientAuth(false) 
 
 ### Check
-> <java>/bin/keytool -printcert -file myPublicServer.cer  
-> <java>/bin/keytool -list -v -keystore myPrivateServerCert.pfx  
+> [java]/bin/keytool -printcert -file myPublicServer.cer  
+> [java]/bin/keytool -list -v -keystore myPrivateServerCert.pfx  
 
 ### Code check
 ```
@@ -171,4 +173,6 @@ var expDate = cert.GetExpirationDateString();
 ```
 
 ## Cleanup
-remove certificate from keychain
+> remove certificate from keychain  
+> docker compose -f stack.docker.yml down  
+> docker stack rm app  
