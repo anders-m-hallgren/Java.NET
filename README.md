@@ -60,6 +60,8 @@ with VS code, hit F5
 >   docker service ls  
 >   docker service logs -f app_dotnet  
 >   docker service logs -f app_java  
+>   docker service ps app_java --no-trunc
+>   docker service inspect app_java
 
 point your browser to  
 http://localhost:8080  
