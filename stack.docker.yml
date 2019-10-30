@@ -4,6 +4,9 @@ services:
   dotnet:
     depends_on:
       - redis
+    build:
+      context: .
+      dockerfile: dotnet.Dockerfile
     image: dotnet
     ports:
       - 80:80
@@ -25,13 +28,16 @@ services:
     depends_on:
       - redis
     image: java
+    build:
+      context: .
+      dockerfile: java.Dockerfile
     ports:
       - 8080:8080
     deploy:
       resources:
         limits:
-          cpus: '0.20'
-          memory: 30M
+          cpus: '0.50'
+          memory: 60M
         reservations:
           cpus: '0.10'
           memory: 15M

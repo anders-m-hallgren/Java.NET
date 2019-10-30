@@ -15,16 +15,18 @@ import app.domain.handler.ControllerResultHandler;
 import app.domain.handler.FlowResultHandler;
 import app.domain.query.GetControllerResult;
 import app.domain.query.GetFlowResult;
+import core.controller.IController;
 
 @SuppressWarnings("serial")
 public class AsyncControllerServlet extends HttpServlet {
-
+    private boolean includePipeProcessingResult = false;
     private String ctxPath;
     private static String content;
 
-    public AsyncControllerServlet(String ctxPath) {
+    public AsyncControllerServlet(IController ctrl) {
         super();
-        this.ctxPath=ctxPath;
+        this.ctxPath=ctrl.getRoutePath();
+        this.includePipeProcessingResult = ctrl.getIncludePipeProcessing();
     }
 
     @Override
@@ -34,9 +36,11 @@ public class AsyncControllerServlet extends HttpServlet {
         var handler = new ControllerResultHandler();
         content = handler.RegisterAndPublish(handler, request).getContent();
 
-        var flowRequest = new GetFlowResult(); //shared i.e. Notification
-        var flowHandler = new FlowResultHandler();
-        content += flowHandler.RegisterAndPublish(flowHandler, flowRequest).getContent().Response();
+        if (includePipeProcessingResult){
+            var flowRequest = new GetFlowResult(); //shared i.e. Notification
+            var flowHandler = new FlowResultHandler();
+            content += flowHandler.RegisterAndPublish(flowHandler, flowRequest).getContent().Response();
+        }
 
         ByteBuffer bb = ByteBuffer.wrap(content.getBytes(StandardCharsets.UTF_8));
         AsyncContext async = servletRequest.startAsync();

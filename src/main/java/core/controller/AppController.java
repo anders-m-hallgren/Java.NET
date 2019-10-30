@@ -10,15 +10,26 @@ import javax.servlet.http.HttpServletResponse;
 
 public abstract class AppController extends HttpServlet implements IController {
     private String routePath;
+    private boolean includePipeProcessingResult = true;
     private static final long serialVersionUID = 1L;
+
+    public AppController(String path, boolean includePipeProcessingResult) {
+        super();
+        this.routePath=path;
+        this.includePipeProcessingResult = includePipeProcessingResult;
+    }
 
     public AppController(String path) {
         super();
-        routePath=path;
+        this.routePath=path;
     }
 
     public String getRoutePath() {
         return routePath;
+    }
+
+    public boolean getIncludePipeProcessing() {
+        return includePipeProcessingResult;
     }
     public void init() {
     }
@@ -39,5 +50,13 @@ public abstract class AppController extends HttpServlet implements IController {
 
     @Override
     public void destroy() {
+    }
+
+    public boolean isIncludePipeProcessingResult() {
+        return includePipeProcessingResult;
+    }
+
+    public void setIncludePipeProcessingResult(boolean includePipeProcessingResult) {
+        this.includePipeProcessingResult = includePipeProcessingResult;
     }
 }

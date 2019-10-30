@@ -1,7 +1,6 @@
 package app;
 
-import app.Controllers.DataController;
-import app.Controllers.ErrorController;
+import app.Controllers.WeatherForecastController;
 import core.di.IApplication;
 import core.di.IServiceCollection;
 import core.service.IMessageService;
@@ -15,8 +14,7 @@ public class Startup {
        services
             .AddSingleton(IMessageService.class, EmailService.class)
             .AddSingleton(IShortMessageService.class, SmsService.class)
-            .AddController("/error", ErrorController.class)
-            .AddController("/data", DataController.class)
+            .AddController("/weatherforecast", WeatherForecastController.class)
 
             .AddEmail()
             .AddSms();

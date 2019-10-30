@@ -22,6 +22,7 @@ import org.eclipse.jetty.util.ssl.SslContextFactory;
 import core.app.Router;
 
 public class HttpServer {
+    private boolean includePipeProcessingResult = false;
     private static Server server;
 
     public static void start(TlsEngine tls, int port) throws Exception {
@@ -63,9 +64,10 @@ public class HttpServer {
         ServletContextHandler root = new ServletContextHandler(contexts, "/",
         ServletContextHandler.SESSIONS);
 
+        //TODO fix this to controll if pipe result should be included
         var ctrls = Router.GetAllControllers();
-        ctrls.forEach(ctxPath -> {
-            root.addServlet(new ServletHolder(new AsyncControllerServlet(ctxPath)), ctxPath);
+        ctrls.forEach(ctrl -> {
+            root.addServlet(new ServletHolder(new AsyncControllerServlet(ctrl.getValue())), ctrl.getKey());
         });
 
         HandlerCollection handlers = new HandlerCollection();

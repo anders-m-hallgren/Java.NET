@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.Map.Entry;
 
 import core.controller.AppController;
 import core.controller.IController;
@@ -35,7 +36,11 @@ public class Router {
         return container.get(path);
     }
 
-    public static Set<String> GetAllControllers(){
+    public static Set<String> GetAllControllersPath(){
         return container.keySet();
+    }
+
+    public static Set<Entry<String, IController>> GetAllControllers(){
+        return container.entrySet();
     }
 }
