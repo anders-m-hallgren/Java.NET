@@ -40,9 +40,9 @@ public class Startup {
 ## IDE
 with VS code, hit F5
 ## OR
-### Run java
+### Run Java
 > mvn exec:exec
-### Run dotnet
+### Run .NET
 > dotnet run
 
 # Docker
