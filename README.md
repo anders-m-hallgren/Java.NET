@@ -74,7 +74,7 @@ http://localhost
 > ng serve  
 
 ## scale up stacked container
-> docker service update --replica 2 app_redis
+> docker service update --replicas 2 app_redis
 
 ## Cleanup
 > docker-compose stop   
