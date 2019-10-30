@@ -12,7 +12,8 @@ import core.controller.AppController;
 import core.controller.IActionResult;
 import core.controller.ResultStatus;
 
-public class WeatherForecastController extends AppController {
+public class WeatherForecastController extends AppController
+{
     private static String routePath = "/weatherforecast";
     private static final long serialVersionUID = 998887766L;
     private static String[] Summaries = new String[]
@@ -20,12 +21,14 @@ public class WeatherForecastController extends AppController {
         "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
     };
 
-    public WeatherForecastController() {
+    public WeatherForecastController()
+    {
         super(routePath, false);
     }
 
 
-    public IActionResult Get() {
+    public IActionResult Get()
+    {
         var result = new ActionResult();
         var asJson = ToJson();
         System.out.println(asJson);
@@ -39,14 +42,11 @@ public class WeatherForecastController extends AppController {
     {
         JSONArray arr = new JSONArray();
 
-        var forecasts = new Random().ints(5, -20, 50)
-            .mapToObj(rndNumber ->
-                new WeatherForecast(rndNumber, Summaries[new Random().nextInt((Summaries.length))])
-                    .AsMap())
-            .collect(Collectors.toList());
-
-        forecasts.stream()
-            .map(w -> arr.put(new JSONObject(w))).collect(Collectors.toList());
+        new Random().ints(5, -20, 50)
+            .mapToObj(rnd ->
+                arr.put(new JSONObject(
+                    new WeatherForecast(rnd, Summaries[new Random().nextInt((Summaries.length))])
+                        .AsMap()))).collect(Collectors.toList());
 
         return JSONObject.valueToString(arr);
     }
