@@ -54,8 +54,8 @@ with VS code, hit F5
 > docker logs -f dotnet  
 
 ## OR
-> docker-compose build  
-> docker-compose up  
+> docker-compose -f stack.docker.yml build  
+> docker-compose -f stack.docker.yml up  
 
 ## OR
 (docker swarm - docker swarm init)  
@@ -174,5 +174,5 @@ var expDate = cert.GetExpirationDateString();
 
 ## Cleanup
 > remove certificate from keychain  
-> docker compose down  
+> docker compose -f stack.docker.yml down  
 > docker stack rm app  
