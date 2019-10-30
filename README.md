@@ -64,8 +64,8 @@ with VS code, hit F5
 > - docker service inspect app_java  
 
 point your browser to  
-http://localhost:8080  
-http://localhost  
+https://localhost:8080  
+https://localhost  
 
 ## Option
 ### Run Angular/Frontend separatly
