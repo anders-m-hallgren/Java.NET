@@ -73,6 +73,11 @@ https://localhost
 ### Run Angular/Frontend separatly
 > cd ClientApp  
 > ng serve  
+### Run Java server with Jetty
+> docker run --name jetty --rm -v war:/var/lib/jetty -v [local path to wars]:/myvol vol -it -p 80:8080 jetty:9-jre11  
+> cp /myvol/webapps/*.war webapps  
+point your browser to  
+http://localhost/app-1.0/hello  
 
 ## scale up stacked container
 > docker service update --replicas 2 app_redis
