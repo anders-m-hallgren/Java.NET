@@ -56,12 +56,14 @@ with VS code, hit F5
 ## OR
 (docker swarm - docker swarm init)  
 > docker-compose -f stack.docker.yml build  
-> docker stack deploy -c stack.docker.yml app    
+> docker stack deploy -c stack.docker.yml app  
+  
 > - docker service ls  
 > - docker service logs -f app_dotnet  
 > - docker service logs -f app_java  
 > - docker service ps app_java --no-trunc  
 > - docker service inspect app_java  
+> - docker run -it --entrypoint /bin/bash $IMAGE_NAME -s
 
 point your browser to  
 https://localhost:8080  
