@@ -2,12 +2,12 @@ version: '3.7'
 
 services:
   dotnet:
-    depends_on:
-      - redis
+    image: dotnetapp
+    networks:
+      - app
     build:
       context: .
       dockerfile: dotnet.Dockerfile
-    image: dotnet
     ports:
       - 80:80
       - 443:443
@@ -22,28 +22,97 @@ services:
         delay: 30s
         max_attempts: 3
         window: 60s
-  java:
     depends_on:
       - redis
-    image: java
+  java:
+    image: javanetapp
+    networks:
+      - app
     build:
       context: .
       dockerfile: java.Dockerfile
-    ports:
-      - 8080:8080
     deploy:
+      endpoint_mode: vip
+      replicas: 1
       resources:
         limits:
-          memory: 100M
-        reservations:
-          memory: 15M
-      restart_policy:
-        condition: on-failure
-        delay: 30s
-        max_attempts: 3
-        window: 60s
+          memory: 30M
+    ports:
+      - 8080:8080
+    depends_on:
+      - redis
+    #healthcheck:
+    #  test: ["CMD", "curl", "-f", "http://localhost:25000"]
+    #  interval: 1m30s
+    #  timeout: 10s
+    #  retries: 3
+    #  start_period: 40s
+  graphdb:
+    image: tinkerpop/gremlin-server
+    network_mode: "host"
+    networks:
+      - app
+    volumes:
+      - ./graphdb:/opt/gremlin-server/graph
+    configs:
+      - source: gremlin-server
+        target: /opt/gremlin-server/conf/gremlin-server.yaml
+        uid: '103'
+        gid: '103'
+        mode: 0440
+    #configs:
+    #  - source: graphdb
+    ##    target: /opt/gremlin-server/data/graphdb.json
+     #   uid: '103'
+     #   gid: '103'
+     #   mode: 0440
+    configs:
+      - source: load-graphdb
+        target: /opt/gremlin-server/data/load-graphdb.groovy
+        uid: '103'
+        gid: '103'
+        mode: 0440
   redis:
-    image: redis:alpine
-#not used yet
+    image: redis:5-alpine
+    entrypoint: redis-server /etc/redis.conf
+    networks:
+      - app
+    deploy:
+      endpoint_mode: vip
+      replicas: 1
+    configs:
+      - source: my_redis_config
+        target: /etc/redis.conf
+        uid: '103'
+        gid: '103'
+        mode: 0440
+  #jetty:
+  #  image: jetty:9-alpine
+  #  networks:
+  #    - app
+  #  volumes:
+  #    - /Users/anders/DATA/volume:/myvol
+  #    - war:/var/lib/jetty
+  #  ports:
+  #    - 880:8080
+  #    - 8443:8443
+
+configs:
+  gremlin-server:
+    file: ./conf/gremlin-server.yaml
+  #graphdb:
+  #  file: ./conf/graphdb.json
+  load-graphdb:
+    file: ./conf/load-graphdb.groovy
+  my_redis_config:
+    file: ./conf/my-redis.conf
+  my_other_config:
+    external: true
+
 volumes:
-  app_data: {}
+  data:
+  war:
+
+networks:
+  app:
+
