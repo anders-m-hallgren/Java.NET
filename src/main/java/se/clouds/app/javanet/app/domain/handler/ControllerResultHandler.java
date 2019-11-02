@@ -13,9 +13,7 @@ public class ControllerResultHandler implements IRequestHandler<GetControllerRes
 
     private Mediatr<IActionResult> mediatr = (Mediatr)Di.GetSingleton(IMediator.class, Mediatr.class);
 
-    public ControllerResultHandler() {
-        super();
-    }
+    public ControllerResultHandler() {}
 
     public IActionResult Handle(GetControllerResult request) {
         var ctrl = Router.GetController(request.getPath());

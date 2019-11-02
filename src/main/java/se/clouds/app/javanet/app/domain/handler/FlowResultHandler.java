@@ -15,6 +15,8 @@ public class FlowResultHandler implements IRequestHandler<GetFlowResult, IPipeRe
 
     private Mediatr<IPipeResponse> mediatr = (Mediatr)Di.GetSingleton(IMediator.class, Mediatr.class);
 
+    public FlowResultHandler() {}
+
     public IPipeResponse Handle(GetFlowResult request) {
         var flowResult = new FlowEngine<IPipeResponse,IPipeResponse>()
             .ConstructPipeFlow()

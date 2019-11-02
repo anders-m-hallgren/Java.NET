@@ -23,7 +23,7 @@ public class WeatherForecastController extends AppController
 
     public WeatherForecastController()
     {
-        super(routePath, false);
+        super(routePath, true); //TODO make this mandatory, for now true to include PipeFlowProcessing
     }
 
 

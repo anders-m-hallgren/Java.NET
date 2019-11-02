@@ -13,15 +13,7 @@ public class App {
 
     public static void Run(Startup startup) {
         Build(startup);
-        //new FlowEngine().ProcessMsgFlow();
-        //ShowPipelineResult();
-        //new Mediator();
-        //Mediator.attachController()
-
-        //Set controller in run mode if not using HTTP server
-        //ShowCtrlResult();
         Server.Run();
-
     }
 
     private static void Build(Startup startup) {
@@ -39,14 +31,14 @@ public class App {
         IApplication.Builder appBuilder = new IApplication.Builder(serviceCollection);
         startup.Configure(appBuilder);
         IApplication app = appBuilder.Build();
-        Di.Add(IApplication.class, app);
-        
+
+        Di.AddSingleton(IApplication.class, app);
+
         //Di.Show();
-        
+
     }
 
     public static void ShowCtrlResult(){
-        //if controller is in run mode
         //var writer = new PrintWriter(System.out);
         var result = (IActionResult)Di.Get(IActionResult.class);
         System.out.println("Result from ctrl: " + result.getResponse().getServletResponse().getContent());

@@ -22,7 +22,8 @@ public class FlowEngine<In,Out> {
         }
         pipeline = pipeline.pipe(new FinalStep(response));
         //register flow
-        Di.Add(FlowEngine.class, this);
+        Di.AddSingleton(FlowEngine.class, this);
+
         return this;
     }
 
