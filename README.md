@@ -6,6 +6,7 @@ Domain and test driven.
 Serving SPA over HTTP2
 
 https://docs.microsoft.com/en-us/dotnet/core/
+https://github.com/jbogard/MediatR
 
 ### Stack & tools
 Java13, .NETcore3 C#8, Angular8, Gradle6, Maven3, Docker3, Jetty9, Redis5, Tinkerpop3, Alpine3
