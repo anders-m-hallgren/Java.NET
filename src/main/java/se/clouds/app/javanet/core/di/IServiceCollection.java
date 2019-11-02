@@ -44,11 +44,13 @@ public class IServiceCollection {
 
         public List<IService> services = new LinkedList<IService>();
 
-        public Builder AddHandlers(String domainHandlersPackage) {
-            // first try service loader
+        public Builder AddServiceLoadedHandlers() {
             for (IRequestHandler handler : handlerLoader) {
                 Di.Add(IRequestHandler.class, handler);
             }
+            return this;
+        }
+        public Builder AddHandlers(String domainHandlersPackage) {
             Class<?>[] classes=null;
             Object instance = null;
             try {
@@ -85,7 +87,6 @@ public class IServiceCollection {
             var service = (IService)Di.GetSingleton(IShortMessageService.class, null);
             return service.Add(this);
         }
-
 
         public IServiceCollection Build() {
             IServiceCollection serviceCollection = new IServiceCollection();

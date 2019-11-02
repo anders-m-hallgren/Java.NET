@@ -25,6 +25,10 @@ public class App {
         // Services
         IServiceCollection.Builder serviceBuilder = new IServiceCollection.Builder();
         startup.ConfigureServices(serviceBuilder);
+        //Handlers
+        serviceBuilder.AddServiceLoadedHandlers();
+        //serviceBuilder.AddHandlers("se.clouds.app.javanet.app.domain.handler");
+        //TODO add Querys and Commands
         var serviceCollection = serviceBuilder.Build();
 
         // App

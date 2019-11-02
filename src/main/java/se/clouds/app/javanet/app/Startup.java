@@ -17,7 +17,7 @@ public class Startup {
             .AddSingleton(IMessageService.class, EmailService.class)
             .AddSingleton(IShortMessageService.class, SmsService.class)
             .AddController("/weatherforecast", WeatherForecastController.class)
-            .AddHandlers("se.clouds.app.javanet.app.domain.handler") //or via service loader
+            //.AddHandlers("se.clouds.app.javanet.app.domain.handler") //or via service loader
 
             .AddEmail()
             .AddSms();
