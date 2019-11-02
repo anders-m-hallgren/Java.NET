@@ -46,8 +46,8 @@ with VS code, hit F5
 > dotnet run
 
 # Docker
-> docker build -t java -f java.Dockerfile .  
-> docker build -t dotnet -f dotnet.Dockerfile .  
+> docker build -t java -f docker/java.Dockerfile .  
+> docker build -t dotnet -f docker/dotnet.Dockerfile .  
 > docker run --name java --rm -p 8080:8080 -dit java  
 > docker run --name dotnet --rm -p 443:443 -dit dotnet  
 > - docker logs -f java  
