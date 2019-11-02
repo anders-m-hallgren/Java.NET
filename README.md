@@ -11,9 +11,10 @@ https://docs.microsoft.com/en-us/dotnet/core/
 Java13, .NETcore3 C#8, Angular8, Gradle6, Maven3, Docker3, Jetty9, Redis5, Tinkerpop3, Alpine3
 
 ### Run
-> docker stack deploy -c stack.docker.yml app  
-
-> point your browser to  
+```
+docker stack deploy -c stack.docker.yml app  
+```
+point your browser to  
 > https://localhost:8080   
 > https://localhost  
 
