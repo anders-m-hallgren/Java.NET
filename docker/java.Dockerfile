@@ -1,9 +1,9 @@
-FROM openjdk:14-alpine AS BUILD
+FROM openjdk:14-alpine AS build-env
 WORKDIR /build
 COPY src/ ./src
-COPY assembly.xml ./
 COPY pom.xml ./
-RUN apk add maven && apk add gradle && mvn package assembly:single
+RUN apk add maven
+RUN apk add gradle && mvn package assembly:single
 
 FROM openjdk:14-alpine
 WORKDIR /app
@@ -11,7 +11,7 @@ WORKDIR /app
 COPY appsettings*json ./
 COPY myPrivateServerCert.pfx ./
 COPY ClientApp/dist ./ClientApp/dist
-COPY --from=BUILD /build/target/javanetapp-1.0-bundle.jar ./
+COPY --from=build-env /build/target/javanetapp-1.0-bundle.jar ./
 COPY target/javanetapp-1.0-bundle.jar ./
 
 ENTRYPOINT ["java", "-jar"]

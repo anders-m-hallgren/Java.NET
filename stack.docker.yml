@@ -7,7 +7,7 @@ services:
       - app
     build:
       context: .
-      dockerfile: dotnet.Dockerfile
+      dockerfile: docker/dotnet.Dockerfile
     ports:
       - 80:80
       - 443:443
@@ -30,7 +30,7 @@ services:
       - app
     build:
       context: .
-      dockerfile: java.Dockerfile
+      dockerfile: docker/java.Dockerfile
     deploy:
       endpoint_mode: vip
       replicas: 1
@@ -50,10 +50,8 @@ services:
   graphdb:
     image: tinkerpop/gremlin-server
     network_mode: "host"
-    networks:
-      - app
     volumes:
-      - ./graphdb:/opt/gremlin-server/graph
+      - ./docker/graphdb:/opt/gremlin-server/graph
     configs:
       - source: gremlin-server
         target: /opt/gremlin-server/conf/gremlin-server.yaml
@@ -99,13 +97,13 @@ services:
 
 configs:
   gremlin-server:
-    file: ./conf/gremlin-server.yaml
+    file: docker/conf/gremlin-server.yaml
   #graphdb:
   #  file: ./conf/graphdb.json
   load-graphdb:
-    file: ./conf/load-graphdb.groovy
+    file: docker/conf/load-graphdb.groovy
   my_redis_config:
-    file: ./conf/my-redis.conf
+    file: docker/conf/my-redis.conf
   my_other_config:
     external: true
 
