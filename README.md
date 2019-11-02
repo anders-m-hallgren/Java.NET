@@ -12,6 +12,7 @@ Java13, .NETcore3 C#8, Angular8, Gradle6, Maven3, Docker3, Jetty9, Redis5, Tinke
 
 ### Run
 ```
+(docker swarm - docker swarm init)
 docker stack deploy -c stack.docker.yml app  
 ```
 point your browser to  
