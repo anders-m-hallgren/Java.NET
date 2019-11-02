@@ -1,0 +1,26 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+sourceCompatibility = 13
+targetCompatibility = 13
+
+application {
+    mainClassName = 'se.clouds.app.javanet.app.Program'
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile group: 'org.json', name: 'json', version: '20190722'
+    compile group: 'org.eclipse.jetty', name: 'jetty-server', version: '10.0.0-alpha0'
+    compile group: 'org.eclipse.jetty', name: 'jetty-alpn-java-server', version: '10.0.0-alpha0'
+    compile group: 'org.eclipse.jetty.http2', name: 'http2-server', version: '10.0.0-alpha0'
+    compile group: 'org.eclipse.jetty', name: 'jetty-servlet', version: '10.0.0-alpha0'
+
+    testImplementation 'junit:junit:4.12'
+}
+

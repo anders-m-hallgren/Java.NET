@@ -7,7 +7,9 @@
     <IsPackable>false</IsPackable>
     <SpaRoot>ClientApp\</SpaRoot>
     <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
-
+    <!-- <RunWorkingDirectory>$(MSBuildThisFileDirectory)</RunWorkingDirectory> -->
+    <!-- <RunWorkingDirectory>$(MSBuildProjectDirectory)</RunWorkingDirectory> -->
+    <!-- <RunWorkingDirectory>src/main/dotnet</RunWorkingDirectory> -->
     <!-- Set this to true if you enable server-side prerendering -->
     <BuildServerSideRenderer>false</BuildServerSideRenderer>
   </PropertyGroup>

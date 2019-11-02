@@ -1,11 +1,8 @@
-
-using System.Net;
 using System.Security.Cryptography.X509Certificates;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Hosting;
 
-namespace Java.NETcore
+namespace se.clouds.app.javanet
 {
     public class Program
     {

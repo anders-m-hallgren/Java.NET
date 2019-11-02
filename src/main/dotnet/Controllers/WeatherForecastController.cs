@@ -4,7 +4,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace Java.NETcore.Controllers
+namespace se.clouds.app.javanet.Controllers
 {
     [ApiController]
     [Route("[controller]")]

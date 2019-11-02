@@ -69,7 +69,7 @@
             <arguments>
               <argument>-classpath</argument>
               <classpath/>
-              <argument>se.clouds.app.javanet.SocketClient</argument>
+              <argument>se.clouds.app.javanet.app.Program</argument>
             </arguments>
           </configuration>
         </plugin>
