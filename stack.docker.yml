@@ -70,8 +70,17 @@ services:
         uid: '103'
         gid: '103'
         mode: 0440
+  rabbit:
+    image: rabbitmq:3-management
+    networks:
+      - app
+    ports:
+      - 15672:15672
+    #/etc/rabbitmq/rabbitmq.config
   redis:
     image: redis:5-alpine
+    ports:
+      - 6666:6666
     entrypoint: redis-server /etc/redis.conf
     networks:
       - app
