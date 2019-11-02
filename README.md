@@ -10,6 +10,13 @@ https://docs.microsoft.com/en-us/dotnet/core/
 ### Stack & tools
 Java13, .NETcore3 C#8, Angular8, Gradle6, Maven3, Docker3, Jetty9, Redis5, Tinkerpop3, Alpine3
 
+### Run
+> docker stack deploy -c stack.docker.yml app  
+
+> point your browser to  
+> https://localhost:8080   
+> https://localhost  
+
 
 ## Java and .NET Core (c#) project side by side
 
@@ -59,16 +66,20 @@ https://localhost:8080
 https://localhost  
 
 ## Docker hints
+#### check
 > - docker service ls  
 > - docker service logs -f app_dotnet  
 > - docker service logs -f app_java  
 > - docker service ps app_java --no-trunc  
 > - docker service inspect app_java  
-> - docker run -it --entrypoint /bin/bash $IMAGE_NAME -s
-> - docker build -t javanetapp -f docker/java.Dockerfile .
-> - docker build -t dotnetapp -f docker/dotnet.Dockerfile .
+> - docker run -it --entrypoint /bin/bash $IMAGE_NAME -s  
+
+#### build & run
+> - docker build -t javanetapp -f docker/java.Dockerfile 
+> - docker build -t dotnetapp -f docker/dotnet.Dockerfile  
 > - docker run -it --rm --name javanetapp -p 8080:8080 javanetapp
 > - docker run -it --rm --name dotnetapp -p 80:80 -p 443:443 dotnetapp
+
 ## Option
 ### Run Angular/Frontend separatly
 > cd ClientApp  
