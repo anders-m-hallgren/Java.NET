@@ -11,8 +11,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import se.clouds.app.javanet.app.domain.command.StoreInCache;
 import se.clouds.app.javanet.app.domain.handler.ControllerResultHandler;
 import se.clouds.app.javanet.app.domain.handler.FlowResultHandler;
+import se.clouds.app.javanet.app.domain.handler.StoreCacheHandler;
 import se.clouds.app.javanet.app.domain.query.GetControllerResult;
 import se.clouds.app.javanet.app.domain.query.GetFlowResult;
 import se.clouds.app.javanet.core.controller.IController;
@@ -36,8 +38,6 @@ public class AsyncControllerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest servletRequest, HttpServletResponse response) throws IOException {
 
-        //TODO add query to DI serviceloader
-        //var request = new GetControllerResult(); //shared i.e. Notification
         var request = (GetControllerResult)Di.GetQuery(IRequest.class, GetControllerResult.class);
         request.setPath(ctxPath);
 
@@ -46,10 +46,14 @@ public class AsyncControllerServlet extends HttpServlet {
         content = handler.RegisterAndPublish(handler, request).getContent();
 
         if (includePipeProcessingResult){
+            var cache = (StoreCacheHandler)Di.GetHandler(IRequestHandler.class, StoreCacheHandler.class);
+            cache.RegisterAndPublish(cache, new StoreInCache());
+
             var flowRequest = new GetFlowResult(); //shared i.e. Notification
             var flowHandler = (FlowResultHandler)Di.GetHandler(IRequestHandler.class, FlowResultHandler.class);
            //TODO do some actions instead of adding to content
             // content += flowHandler.RegisterAndPublish(flowHandler, flowRequest).getContent().Response();
+            System.out.println("AsyncControllerServlet: " + flowHandler.RegisterAndPublish(flowHandler, flowRequest).getContent().Response());
         }
 
         ByteBuffer bb = ByteBuffer.wrap(content.getBytes(StandardCharsets.UTF_8));
