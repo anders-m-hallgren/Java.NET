@@ -78,6 +78,11 @@ https://localhost
 > cp /myvol/webapps/*.war webapps  
 point your browser to  
 http://localhost/app-1.0/hello  
+## Gradle
+> ./gradlew run  
+### OR
+> ./gradlew install  
+> build/install/Java.NETcore/bin/Java.NETcore
 
 ## scale up stacked container
 > docker service update --replicas 2 app_redis
