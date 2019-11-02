@@ -7,6 +7,10 @@ Serving SPA over HTTP2
 
 https://docs.microsoft.com/en-us/dotnet/core/
 
+### Stack & tools
+Java13, .NETcore3 C#8, Angular8, Gradle6, Maven3, Docker3, Jetty9, Redis5, Tinkerpop3, Alpine3
+
+
 ## Java and .NET Core (c#) project side by side
 
 ## Java App start the .NET Core way
