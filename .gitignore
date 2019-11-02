@@ -1,5 +1,5 @@
-.settings
-.vscode
+.settings/
+.vscode/
 .project
 .classpath
 # Ignore Gradle project-specific cache directory
