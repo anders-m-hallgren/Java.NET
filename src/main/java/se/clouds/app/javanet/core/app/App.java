@@ -27,6 +27,7 @@ public class App {
         startup.ConfigureServices(serviceBuilder);
         //Handlers
         serviceBuilder.AddServiceLoadedHandlers();
+        serviceBuilder.AddServiceLoadedQuerys();
         //serviceBuilder.AddHandlers("se.clouds.app.javanet.app.domain.handler");
         //TODO add Querys and Commands
         var serviceCollection = serviceBuilder.Build();

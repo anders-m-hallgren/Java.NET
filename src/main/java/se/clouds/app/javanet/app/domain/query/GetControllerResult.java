@@ -7,10 +7,13 @@ public class GetControllerResult implements IRequest<IActionResult> {
     private IActionResult result;
 
     private String path=null;
-    public GetControllerResult(String path) {
-        super();
+
+    public GetControllerResult() {}
+
+    public void setPath(String path){
         this.path = path;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this instanceof GetControllerResult)

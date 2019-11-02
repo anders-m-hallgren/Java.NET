@@ -17,6 +17,7 @@ import se.clouds.app.javanet.app.domain.query.GetControllerResult;
 import se.clouds.app.javanet.app.domain.query.GetFlowResult;
 import se.clouds.app.javanet.core.controller.IController;
 import se.clouds.app.javanet.core.di.Di;
+import se.clouds.app.javanet.core.mediator.IRequest;
 import se.clouds.app.javanet.core.mediator.IRequestHandler;
 
 @SuppressWarnings("serial")
@@ -36,7 +37,10 @@ public class AsyncControllerServlet extends HttpServlet {
     protected void doGet(HttpServletRequest servletRequest, HttpServletResponse response) throws IOException {
 
         //TODO add query to DI serviceloader
-        var request = new GetControllerResult(ctxPath); //shared i.e. Notification
+        //var request = new GetControllerResult(); //shared i.e. Notification
+        var request = (GetControllerResult)Di.GetQuery(IRequest.class, GetControllerResult.class);
+        request.setPath(ctxPath);
+
         //TODO transient
         var handler = (ControllerResultHandler)Di.GetHandler(IRequestHandler.class, ControllerResultHandler.class);
         content = handler.RegisterAndPublish(handler, request).getContent();

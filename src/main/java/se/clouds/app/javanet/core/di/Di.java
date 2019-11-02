@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import se.clouds.app.javanet.core.mediator.IRequest;
 import se.clouds.app.javanet.core.mediator.IRequestHandler;
 
 public abstract class Di {
@@ -53,10 +54,26 @@ public abstract class Di {
         return clazz.isInstance(obj);
     }
 
+    public static IRequest GetQuery(Class<?> type, Class<? extends IRequest> filterQuery){
+        IRequest query=null;
+        if (container.containsKey(type)){
+            var instances = container.entrySet();
+            Optional<List<Object>> queriesOpt = instances.stream()
+                .filter(i -> i.getKey() == type)
+                .map(i -> i.getValue())
+                .findFirst();
+            var queries = queriesOpt.orElseThrow();
+            Optional<Object> queryOpt = queries.stream()
+                .filter(h -> IsOf(filterQuery,h))
+                .findFirst();
+            query = (IRequest)queryOpt.orElseThrow();
+        }
+        return query;
+    }
+
     public static IRequestHandler GetHandler(Class<?> type, Class<? extends IRequestHandler> filterHandler){
         IRequestHandler handler=null;
         if (container.containsKey(type)){
-            //TODO find the correct handler, transient or scoped
             var instances = container.entrySet();
             Optional<List<Object>> handlersOpt = instances.stream()
                 .filter(i -> i.getKey() == type)
@@ -67,32 +84,9 @@ public abstract class Di {
                 .filter(h -> IsOf(filterHandler,h))
                 .findFirst();
             handler = (IRequestHandler)handlerOpt.orElseThrow();
-                /* var handlerEntryOpt = instances.stream()
-                .filter(i -> IsOf(filterHandler, ((List)i.getValue()).get(0))) //TODO fix
-                .findFirst(); */
-                //var handlerEntry = handlerEntryOpt.orElseThrow();
-                //handler = (IRequestHandler)((List)handlerEntry.getValue()).get(0); //TODO fix
         }
         return handler;
     }
-
-/*     Object Get(Class<?> clazz) {
-        if (!Di.container.containsKey(clazz))
-            return container.get(clazz);
-        else {
-            Object instance = null;
-            try {
-                instance = clazz.getConstructor().newInstance();
-            } catch (InstantiationException | IllegalAccessException | IllegalArgumentException
-            | InvocationTargetException | NoSuchMethodException | SecurityException e) {
-                e.printStackTrace();
-            }
-            var service = (Object)instance;
-            Di.container.put(clazz, service);
-
-            return service;
-        }
-    } */
 
     public static void Show() {
         for (var set : container.entrySet()){
