@@ -79,7 +79,9 @@ https://localhost
 point your browser to  
 http://localhost/app-1.0/hello  
 ## Gradle
-> ./gradlew install
+> ./gradlew run  
+### OR
+> ./gradlew install  
 > build/install/Java.NETcore/bin/Java.NETcore
 
 ## scale up stacked container
