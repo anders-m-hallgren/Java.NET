@@ -5,13 +5,16 @@ Domain and test driven.
 
 Serving SPA over HTTP2
 
-https://docs.microsoft.com/en-us/dotnet/core/
+https://docs.microsoft.com/en-us/dotnet/core/  
+https://github.com/jbogard/MediatR  
 
 ### Stack & tools
 Java13, .NETcore3 C#8, Angular8, Gradle6, Maven3, Docker3, Jetty9, Redis5, Tinkerpop3, Alpine3
 
 ### Run
 ```
+(docker swarm - docker swarm init)
+docker-compose -f stack.docker.yml build
 docker stack deploy -c stack.docker.yml app  
 ```
 point your browser to  
@@ -145,18 +148,18 @@ add publicClient certificate to request or in code setNeedClientAuth(false)
 > [java]/bin/keytool -printcert -file myPublicServer.cer  
 > [java]/bin/keytool -list -v -keystore myPrivateServerCert.pfx  
 
-### Code check
+### Java code check certificate (X509) for expiry date
 ```
 var cer = (X509Certificate) CertificateFactory.getInstance("X.509").generateCertificate(new FileInputStream ("myPublicServer.cer"));
 var expDate = cer.getNotAfter()
 ```
 
-## .NET Core
+## .NET
 ### Export developer certificate
 dotnet dev-certs https -ep myPrivateServerCert.pfx -p changeit
 ### Trust developer certificate
 dotnet dev-certs https --trust
-### code check certificate (X509) for expiry date
+### .NET code check certificate (X509) for expiry date
 ```
 var cert = X509Certificate.CreateFromCertFile("myPublicServer.cer");
 var expDate = cert.GetExpirationDateString();
