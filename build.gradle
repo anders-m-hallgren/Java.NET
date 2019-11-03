@@ -20,6 +20,9 @@ dependencies {
     compile group: 'org.eclipse.jetty', name: 'jetty-alpn-java-server', version: '10.0.0-alpha0'
     compile group: 'org.eclipse.jetty.http2', name: 'http2-server', version: '10.0.0-alpha0'
     compile group: 'org.eclipse.jetty', name: 'jetty-servlet', version: '10.0.0-alpha0'
+    compile group: 'redis.clients', name: 'jedis', version: '3.1.0'
+
+
 
     testImplementation 'junit:junit:4.12'
 }

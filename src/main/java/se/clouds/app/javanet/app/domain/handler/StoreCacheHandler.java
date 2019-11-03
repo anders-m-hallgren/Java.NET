@@ -1,5 +1,6 @@
 package se.clouds.app.javanet.app.domain.handler;
 
+import redis.clients.jedis.Jedis;
 import se.clouds.app.javanet.app.domain.command.StoreInCache;
 import se.clouds.app.javanet.core.di.Di;
 import se.clouds.app.javanet.core.mediator.IMediator;
@@ -10,7 +11,9 @@ public class StoreCacheHandler implements IRequestHandler<StoreInCache, Void> {
 //TODO how many Mediatr instances?
     private Mediatr<Void> mediatr = (Mediatr)Di.GetSingleton(IMediator.class, Mediatr.class);
 
-    public StoreCacheHandler() {}
+    public StoreCacheHandler() {
+        Jedis jedis = new Jedis("localhost");
+    }
 
     public Void Handle(StoreInCache request) {
         return null;
