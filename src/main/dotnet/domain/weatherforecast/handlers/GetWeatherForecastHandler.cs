@@ -1,5 +1,7 @@
 using System;
 using System.Linq;
+using System.Text;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
@@ -23,18 +25,35 @@ namespace se.clouds.app.javanet.domain.weatherforecast.handlers
             _logger = logger;
             _cache =  cache;
         }
-        public Task<WeatherForecast[]> Handle(GetWeatherForecast request, CancellationToken cancellationToken)
+        public async Task<WeatherForecast[]> Handle(GetWeatherForecast request, CancellationToken cancellationToken)
         {
-            var rng = new Random();
+            WeatherForecast[] result;
+            var keyId ="WeatherForecast-0";
 
-            var result = Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            var cacheResp = await _cache.GetAsync(keyId, cancellationToken);
+            if (cacheResp != null)
             {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToArray();
-            return Task.FromResult(result);
+                _logger.LogDebug($"--- Redis: {Encoding.UTF8.GetString(cacheResp)}");
+                return JsonSerializer.Deserialize<WeatherForecast[]>(Encoding.UTF8.GetString(cacheResp));
+            }
+            else {
+                _logger.LogDebug($"--- No cache entry could be found");
+                var rng = new Random();
+
+                result = Enumerable.Range(1, 5).Select(index => new WeatherForecast
+                {
+                    Date = DateTime.Now.AddDays(index),
+                    TemperatureC = rng.Next(-20, 55),
+                    Summary = Summaries[rng.Next(Summaries.Length)]
+                })
+                .ToArray();
+
+                var serialized = JsonSerializer.Serialize<WeatherForecast[]>(result);
+                var options = new DistributedCacheEntryOptions().SetSlidingExpiration(CachedTime);
+                await _cache.SetAsync(keyId, Encoding.UTF8.GetBytes(serialized), options, cancellationToken);
+            }
+
+            return result;
         }
 
     }

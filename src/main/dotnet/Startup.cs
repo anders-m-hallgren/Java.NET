@@ -20,6 +20,11 @@ namespace se.clouds.app.javanet
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMediatR(typeof(WeatherForecast).Assembly);
+            services.AddStackExchangeRedisCache(options =>
+                {
+                    options.Configuration = Configuration["Redis:Host"]; //, defaultDatabase=0";
+                    options.InstanceName = "dotnet-";
+                });
             services.AddControllersWithViews();
             services.AddSpaStaticFiles(configuration =>
             {
