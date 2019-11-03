@@ -17,18 +17,31 @@ class Storage<T> {
         return value;
     }
 
-    void setValue(Mediatr<T> mediator, IRequest requestObject, T value) {
+    void setValue(Mediatr<T> mediator, IRequest<T> requestObject, T value) {
         this.value = value;
         mediator.notifyObservers(requestObject);
     }
 }
 
 public class Mediatr<T> implements IMediator{
+    static int nrOfMediatr;
     private final HashMap<IRequest<T>, Storage<T>> requestMap = new HashMap<>();
     private final CopyOnWriteArrayList<Consumer<Object>> requestObservers = new CopyOnWriteArrayList<>();
 
+    public Mediatr() {
+        nrOfMediatr++;
+    }
+    public void setValue(IRequest<T> requestObject, T value) {
+        Storage<T> storage = requestMap.computeIfAbsent(requestObject, name -> new Storage<T>());
+        storage.setValue(this, requestObject, value);
+      }
+
+      public Optional<T> getValue(IRequest<T> requestObject) {
+        return Optional.ofNullable(requestMap.get(requestObject)).map(Storage::getValue);
+      }
+
     public void Send(IRequest<T> requestObject, T value) {
-        Storage storage = requestMap.computeIfAbsent(requestObject, key -> new Storage());
+        Storage<T> storage = requestMap.computeIfAbsent(requestObject, key -> new Storage<T>());
         storage.setValue(this, requestObject, value);
     }
 
@@ -52,5 +65,11 @@ public class Mediatr<T> implements IMediator{
 
   void notifyObservers(IRequest<T> request) {
     requestObservers.forEach(observer -> observer.accept(request));
+  }
+
+  public void ShowMediatr() {
+      System.out.println("nrOfMediatr:" + nrOfMediatr);
+      System.out.println("requestMap:" + requestMap);
+      System.out.println("requestObservers:" + requestObservers);
   }
 }

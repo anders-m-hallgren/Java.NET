@@ -10,8 +10,9 @@ public class GetControllerResult implements IRequest<IActionResult> {
 
     public GetControllerResult() {}
 
-    public void setPath(String path){
+    public GetControllerResult setPath(String path){
         this.path = path;
+        return this;
     }
 
     @Override
