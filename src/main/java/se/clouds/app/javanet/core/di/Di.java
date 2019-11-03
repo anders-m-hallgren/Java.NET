@@ -5,30 +5,32 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import se.clouds.app.javanet.core.mediator.IRequest;
 import se.clouds.app.javanet.core.mediator.IRequestHandler;
 
 public abstract class Di {
-    // TODO add meta data DiClassMeta, DiTypeMeta
-    //public static Map<Class<?>, Object> container = new HashMap<Class<?>, Object>();
     public static Map<Class<?>, List<Object>> container = new HashMap<Class<?>, List<Object>>();
 
-    public static Object GetSingleton(Class<?> type, Class<?> clazz) {
-        if (container.containsKey(type))
-            return ((List)container.get(type)).get(0);
-        else {
-            Object instance = null;
+    public static Object GetSingleton(Class<?> type, Class<?> clazz)
+    {
+        Object instance = null;
+        try {
+            instance = container.get(type).stream().findFirst().orElseThrow();
+            return instance;
+        }
+        catch (NullPointerException | NoSuchElementException noElEx)
+        {
             try {
                 instance = clazz.getConstructor().newInstance();
-            } catch (InstantiationException | IllegalAccessException | IllegalArgumentException
-            | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+            }
+            catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e)
+            {
                 e.printStackTrace();
             }
             container.computeIfAbsent(type, k -> new ArrayList<>()).add(instance);
-
             return instance;
         }
     }
@@ -38,15 +40,26 @@ public abstract class Di {
         container.computeIfAbsent(type, k -> new ArrayList<>()).add(instance);
     }
 
+    //transient dedicated Map?
+    public void AddTransient(Class<?> type, Object instance){
+        if (!container.containsKey(type))
+        container.computeIfAbsent(type, k -> new ArrayList<>()).add(instance);
+    }
+    public static Object GetTransient(Class<?> type) throws NoSuchElementException{
+        var classes = container.get(type);
+        var classOpt = classes.stream().findFirst();
+        var instance = classOpt.orElseThrow();
+        return instance;
+    }
+
     public static void Add(Class<?> type, Object instance){
-        //container.put(type, instance);
         container.computeIfAbsent(type, k -> new ArrayList<>()).add(instance);
     }
 
-    public static Object Get(Class<?> type){
-        Object instance=null;
-        if (container.containsKey(type))
-            instance = ((List)container.get(type)).get(0); //TODO multiple for transient and scope
+    public static Object Get(Class<?> type) throws NoSuchElementException{
+        var classes = container.get(type);
+        var classOpt = classes.stream().findFirst();
+        var instance = classOpt.orElseThrow();
         return instance;
     }
 
