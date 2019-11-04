@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import se.clouds.app.javanet.app.WeatherForecast;
+import se.clouds.app.javanet.app.domain.weatherforecast.WeatherForecast;
 import se.clouds.app.javanet.core.controller.ActionResult;
 import se.clouds.app.javanet.core.controller.AppController;
 import se.clouds.app.javanet.core.controller.IActionResult;

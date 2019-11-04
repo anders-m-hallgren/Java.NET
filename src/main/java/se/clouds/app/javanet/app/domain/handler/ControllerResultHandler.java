@@ -2,7 +2,7 @@ package se.clouds.app.javanet.app.domain.handler;
 
 import java.util.Optional;
 
-import se.clouds.app.javanet.app.domain.query.GetControllerResult;
+import se.clouds.app.javanet.app.domain.weatherforecast.query.GetControllerResult;
 import se.clouds.app.javanet.core.app.Router;
 import se.clouds.app.javanet.core.controller.IActionResult;
 import se.clouds.app.javanet.core.di.Di;

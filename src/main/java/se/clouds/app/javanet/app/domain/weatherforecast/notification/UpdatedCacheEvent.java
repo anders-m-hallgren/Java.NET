@@ -1,4 +1,4 @@
-package se.clouds.app.javanet.app.domain.notification;
+package se.clouds.app.javanet.app.domain.weatherforecast.notification;
 
 import se.clouds.app.javanet.core.mediator.INotification;
 

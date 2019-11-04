@@ -1,4 +1,4 @@
-package se.clouds.app.javanet.app;
+package se.clouds.app.javanet.app.domain.weatherforecast;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -46,7 +46,7 @@ public class WeatherForecast {
 
     public Map<String, Object> AsMap(){
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("date", this.Date);
+        map.put("date", Date);
         map.put("temperatureC", TemperatureC);
         map.put("summary", Summary);
         return map;

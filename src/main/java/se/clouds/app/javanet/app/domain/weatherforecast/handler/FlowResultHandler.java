@@ -1,8 +1,8 @@
-package se.clouds.app.javanet.app.domain.handler;
+package se.clouds.app.javanet.app.domain.weatherforecast.handler;
 
 import java.util.Optional;
 
-import se.clouds.app.javanet.app.domain.query.GetFlowResult;
+import se.clouds.app.javanet.app.domain.weatherforecast.query.GetFlowResult;
 import se.clouds.app.javanet.core.controller.Response;
 import se.clouds.app.javanet.core.di.Di;
 import se.clouds.app.javanet.core.flow.FirstStep;

@@ -1,10 +1,8 @@
-package se.clouds.app.javanet.app.domain.handler;
+package se.clouds.app.javanet.app.domain.weatherforecast.handler;
 
-import java.util.Arrays;
 import java.util.Optional;
-
 import redis.clients.jedis.Jedis;
-import se.clouds.app.javanet.app.domain.command.StoreInCache;
+import se.clouds.app.javanet.app.domain.weatherforecast.command.StoreInCache;
 import se.clouds.app.javanet.core.configuration.Configuration;
 import se.clouds.app.javanet.core.di.Di;
 import se.clouds.app.javanet.core.mediator.IMediator;

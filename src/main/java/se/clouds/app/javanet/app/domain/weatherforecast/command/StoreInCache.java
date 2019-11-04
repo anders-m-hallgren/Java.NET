@@ -1,4 +1,4 @@
-package se.clouds.app.javanet.app.domain.command;
+package se.clouds.app.javanet.app.domain.weatherforecast.command;
 
 import se.clouds.app.javanet.core.mediator.IRequest;
 

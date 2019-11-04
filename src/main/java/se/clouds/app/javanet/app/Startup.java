@@ -1,5 +1,6 @@
 package se.clouds.app.javanet.app;
 
+import se.clouds.app.javanet.app.Controllers.FeatureController;
 import se.clouds.app.javanet.app.Controllers.WeatherForecastController;
 import se.clouds.app.javanet.core.di.IApplication;
 import se.clouds.app.javanet.core.di.IServiceCollection;
@@ -15,6 +16,7 @@ public class Startup {
             .AddSingleton(IMessageService.class, EmailService.class)
             .AddSingleton(IShortMessageService.class, SmsService.class)
             .AddController("/weatherforecast", WeatherForecastController.class)
+            .AddController("/feature", FeatureController.class)
 
             .AddEmail()
             .AddSms();

@@ -1,6 +1,6 @@
-package se.clouds.app.javanet.app.domain.handler;
+package se.clouds.app.javanet.app.domain.weatherforecast.handler;
 
-import se.clouds.app.javanet.app.domain.notification.UpdatedCacheEvent;
+import se.clouds.app.javanet.app.domain.weatherforecast.notification.UpdatedCacheEvent;
 import se.clouds.app.javanet.core.di.Di;
 import se.clouds.app.javanet.core.mediator.IMediator;
 import se.clouds.app.javanet.core.mediator.INotificationHandler;

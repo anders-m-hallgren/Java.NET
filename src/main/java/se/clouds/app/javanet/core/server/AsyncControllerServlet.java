@@ -11,18 +11,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import se.clouds.app.javanet.app.domain.command.StoreInCache;
 import se.clouds.app.javanet.app.domain.handler.ControllerResultHandler;
-import se.clouds.app.javanet.app.domain.handler.FlowResultHandler;
-import se.clouds.app.javanet.app.domain.handler.StoreCacheHandler;
-import se.clouds.app.javanet.app.domain.query.GetControllerResult;
-import se.clouds.app.javanet.app.domain.query.GetFlowResult;
+import se.clouds.app.javanet.app.domain.weatherforecast.command.StoreInCache;
+import se.clouds.app.javanet.app.domain.weatherforecast.handler.FlowResultHandler;
+import se.clouds.app.javanet.app.domain.weatherforecast.handler.StoreCacheHandler;
+import se.clouds.app.javanet.app.domain.weatherforecast.query.GetControllerResult;
+import se.clouds.app.javanet.app.domain.weatherforecast.query.GetFlowResult;
 import se.clouds.app.javanet.core.controller.IController;
 import se.clouds.app.javanet.core.di.Di;
-import se.clouds.app.javanet.core.mediator.IMediator;
-import se.clouds.app.javanet.core.mediator.IRequest;
 import se.clouds.app.javanet.core.mediator.IRequestHandler;
-import se.clouds.app.javanet.core.mediator.Mediatr;
 
 @SuppressWarnings("serial")
 public class AsyncControllerServlet extends HttpServlet {
@@ -39,7 +36,7 @@ public class AsyncControllerServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest servletRequest, HttpServletResponse response) throws IOException {
-
+        //todo no dependencies to domain here, fix !
         var request = new GetControllerResult().setPath(ctxPath);
         Di.Show();
         var handler = (ControllerResultHandler)Di.GetHandler(IRequestHandler.class, ControllerResultHandler.class);
