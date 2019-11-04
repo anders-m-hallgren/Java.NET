@@ -11,11 +11,12 @@ https://github.com/jbogard/MediatR
 ### Stack & tools
 Java13, .NETcore3 C#8, Angular8, Gradle6, Maven3, Docker3, Jetty9, Redis5, Tinkerpop3, Alpine3
 
+### Features
+Build all from Gradle, Http2, serviceloader(java), redis cache
+
 ### Run
 ```
-(docker swarm - docker swarm init)
-docker-compose -f stack.docker.yml build
-docker stack deploy -c stack.docker.yml app  
+./gradlew stackRun
 ```
 point your browser to  
 > https://localhost:8080   
