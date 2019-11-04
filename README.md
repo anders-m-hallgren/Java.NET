@@ -56,21 +56,24 @@ public class Startup {
 ## IDE
 with VS code, hit F5
 ## OR
-### Run Java
-> mvn exec:exec
 ### Run .NET
 > dotnet run
+### Run Java
+> ./gradlew run  
+#### OR
+> mvn exec:exec
 
-# Docker
+# Docker hints
+#### stack
 (docker swarm - docker swarm init)  
 > docker-compose -f stack.docker.yml build  
 > docker stack deploy -c stack.docker.yml app  
+> docker service ls
 
 point your browser to  
 https://localhost:8080  
 https://localhost  
 
-## Docker hints
 #### check
 > - docker service ls  
 > - docker service logs -f app_dotnet  
@@ -95,8 +98,6 @@ https://localhost
 point your browser to  
 http://localhost/app-1.0/hello  
 ## Gradle
-> ./gradlew run  
-### OR
 > ./gradlew install  
 > build/install/Java.NETcore/bin/Java.NETcore
 
