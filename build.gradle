@@ -22,8 +22,20 @@ dependencies {
     compile group: 'org.eclipse.jetty', name: 'jetty-servlet', version: '10.0.0-alpha0'
     compile group: 'redis.clients', name: 'jedis', version: '3.1.0'
 
-
-
     testImplementation 'junit:junit:4.12'
 }
 
+task dotnetBuild(type: Exec, group: '.NET', description: 'build dotnet') {
+    workingDir './'
+    commandLine "dotnet", "build"
+}
+
+task dotnetPublish(type: Exec, group: '.NET', description: 'publish dotnet') {
+    workingDir './'
+    commandLine "dotnet", "publish", "-c", "Release", "-o", "out"
+}
+
+task dotnetRun(type: Exec, group: '.NET', description: 'run dotnet') {
+    workingDir './'
+    commandLine "dotnet", "run"
+}
