@@ -8,12 +8,6 @@ Serving SPA over HTTP2
 https://docs.microsoft.com/en-us/dotnet/core/  
 https://github.com/jbogard/MediatR  
 
-### Stack & tools
-Java13, .NETcore3 C#8, Angular8, Gradle6, Maven3, Docker3, Jetty9, Redis5, Tinkerpop3, Alpine3
-
-### Features
-Build all from Gradle, Http2, serviceloader(java), redis cache
-
 ### Run
 ```
 ./gradlew stackRun
@@ -22,6 +16,12 @@ point your browser to
 > https://localhost:8080   
 > https://localhost  
 
+### Stack & tools
+Java13, .NETcore3 C#8, Angular8, Gradle6, Maven3, Docker3, Jetty9, Redis5, Tinkerpop3, Alpine3
+
+### Features
+Build complete stack from Gradle, Http2, serviceloader(java), redis cache,
+separate domain logic to handlers, querys, commands and notifications 
 
 ## Java and .NET Core (c#) project side by side
 
