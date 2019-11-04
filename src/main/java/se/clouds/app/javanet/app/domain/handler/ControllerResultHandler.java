@@ -14,7 +14,6 @@ import se.clouds.app.javanet.core.mediator.Mediatr;
 public class ControllerResultHandler implements IRequestHandler<GetControllerResult, IActionResult> {
 
     private Mediatr<IActionResult> mediatr = (Mediatr)Di.GetSingleton(IMediator.class, Mediatr.class);
-    private Task task;
 
     public ControllerResultHandler() {
         //mediatr.addRequestObserver(requestObject, observer);
@@ -35,7 +34,7 @@ public class ControllerResultHandler implements IRequestHandler<GetControllerRes
     } */
 
     public void Register(GetControllerResult request) {
-        task = new Task(this, request);
+        var task = new Task(this, request);
         mediatr.addRequestObserver(request, task);
     }
 

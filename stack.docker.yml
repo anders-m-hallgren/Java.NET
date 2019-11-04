@@ -36,7 +36,7 @@ services:
       replicas: 1
       resources:
         limits:
-          memory: 30M
+          memory: 60M
     ports:
       - 8080:8080
     depends_on:
@@ -49,7 +49,6 @@ services:
     #  start_period: 40s
   graphdb:
     image: tinkerpop/gremlin-server
-    network_mode: "host"
     volumes:
       - ./docker/graphdb:/opt/gremlin-server/graph
     configs:
@@ -80,7 +79,7 @@ services:
   redis:
     image: redis:5-alpine
     ports:
-      - 6666:6666
+      - 6379:6379
     entrypoint: redis-server /etc/redis.conf
     networks:
       - app
@@ -122,4 +121,4 @@ volumes:
 
 networks:
   app:
-
+    attachable: true

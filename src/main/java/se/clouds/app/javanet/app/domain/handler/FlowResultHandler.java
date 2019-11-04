@@ -1,5 +1,7 @@
 package se.clouds.app.javanet.app.domain.handler;
 
+import java.util.Optional;
+
 import se.clouds.app.javanet.app.domain.query.GetFlowResult;
 import se.clouds.app.javanet.core.controller.Response;
 import se.clouds.app.javanet.core.di.Di;
@@ -15,7 +17,9 @@ public class FlowResultHandler implements IRequestHandler<GetFlowResult, IPipeRe
 
     private Mediatr<IPipeResponse> mediatr = (Mediatr)Di.GetSingleton(IMediator.class, Mediatr.class);
 
-    public FlowResultHandler() {}
+    public FlowResultHandler() {
+        Register(new GetFlowResult());
+    }
 
     public IPipeResponse Handle(GetFlowResult request) {
         var flowResult = new FlowEngine<IPipeResponse,IPipeResponse>()
@@ -24,16 +28,26 @@ public class FlowResultHandler implements IRequestHandler<GetFlowResult, IPipeRe
         return flowResult;
     }
 
-    public Task RegisterAndPublish(FlowResultHandler handler, GetFlowResult request) {
-        var task = new Task(handler, request);
+    public void Register(GetFlowResult request) {
+        var task = new Task(this, request);
         mediatr.addRequestObserver(request, task);
-        mediatr.Send(request, new PipeResponse()); //not needed ActionResult?
-        return task;
+    }
+
+    public void Publish(GetFlowResult request) {
+        //var task = getTask(handler, request);
+        mediatr.setValue(request, Handle(request)); //not needed ActionResult?
+    }
+
+    public Optional<IPipeResponse> Send(GetFlowResult request) {
+        //var task = getTask(handler, request);
+        Publish(request);
+        var result = mediatr.getValue(request); //not needed ActionResult?
+        return result;
     }
 
     public class Task implements Runnable{
         private FlowResultHandler handler;
-        private IPipeResponse content;
+        private IPipeResponse response;
         private GetFlowResult request;
         public Task(FlowResultHandler handler, GetFlowResult request) {
             super();
@@ -42,11 +56,11 @@ public class FlowResultHandler implements IRequestHandler<GetFlowResult, IPipeRe
         }
         @Override
         public void run() {
-            content = handler.Handle(request);
+            response = handler.Handle(request);
         }
 
-        public IPipeResponse getContent() {
-            return content;
+        public IPipeResponse getResponse() {
+            return response;
         }
     }
 }

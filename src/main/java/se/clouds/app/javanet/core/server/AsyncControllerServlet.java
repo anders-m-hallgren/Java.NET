@@ -41,18 +41,17 @@ public class AsyncControllerServlet extends HttpServlet {
     protected void doGet(HttpServletRequest servletRequest, HttpServletResponse response) throws IOException {
 
         var request = new GetControllerResult().setPath(ctxPath);
+        Di.Show();
         var handler = (ControllerResultHandler)Di.GetHandler(IRequestHandler.class, ControllerResultHandler.class);
         content  = handler.Send(handler, request).orElseThrow().GetContent();
 
         if (includePipeProcessingResult){
             var cache = (StoreCacheHandler)Di.GetHandler(IRequestHandler.class, StoreCacheHandler.class);
-            cache.RegisterAndPublish(cache, new StoreInCache());
+            cache.Send(new StoreInCache());
 
-            var flowRequest = new GetFlowResult(); //shared i.e. Notification
-            var flowHandler = (FlowResultHandler)Di.GetHandler(IRequestHandler.class, FlowResultHandler.class);
-           //TODO do some actions instead of adding to content
-            // content += flowHandler.RegisterAndPublish(flowHandler, flowRequest).getContent().Response();
-            System.out.println("AsyncControllerServlet: " + flowHandler.RegisterAndPublish(flowHandler, flowRequest).getContent().Response());
+            var flow = (FlowResultHandler)Di.GetHandler(IRequestHandler.class, FlowResultHandler.class);
+            var flowResponse = flow.Send(new GetFlowResult()).orElseThrow().Response();
+            System.out.println("flowResponse: " + flowResponse);
         }
 
         ByteBuffer bb = ByteBuffer.wrap(content.getBytes(StandardCharsets.UTF_8));

@@ -1,10 +1,11 @@
 FROM openjdk:14-alpine AS build-env
 WORKDIR /build
-COPY src/ ./src
+COPY src/main/java ./src/main/java
+COPY src/main/resources ./src/main/resources
+COPY src/assembly.xml ./src/assembly.xml
 COPY pom.xml ./
 RUN apk add maven gradle
 RUN mvn package assembly:single
-RUN ls target
 
 FROM openjdk:14-alpine
 WORKDIR /app
