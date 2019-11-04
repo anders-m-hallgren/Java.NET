@@ -88,7 +88,7 @@ task Run(type: Exec, group: 'Docker', description: 'Run all in Docker swarm') {
 
 StackBuildAndRun.dependsOn CheckSwarm
 StackBuildAndRun.dependsOn StackStop
-StackBuildAndRun.mustRunAfter DockerBuildJava
-StackBuildAndRun.mustRunAfter DockerBuildDotnet
+StackBuildAndRun.dependsOn DockerBuildJava
+StackBuildAndRun.dependsOn DockerBuildDotnet
 
 Run.dependsOn StackBuildAndRun
