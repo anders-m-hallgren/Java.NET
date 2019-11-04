@@ -25,22 +25,22 @@ dependencies {
     testImplementation 'junit:junit:4.12'
 }
 
-task dotnetBuild(type: Exec, group: '.NET', description: 'build dotnet') {
+task DotnetBuild(type: Exec, group: '.NET', description: 'Build dotnet') {
     workingDir './'
     commandLine "dotnet", "build"
 }
 
-task dotnetPublish(type: Exec, group: '.NET', description: 'publish dotnet') {
+task DotnetPublish(type: Exec, group: '.NET', description: 'Publish dotnet') {
     workingDir './'
     commandLine "dotnet", "publish", "-c", "Release", "-o", "out"
 }
 
-task dotnetRun(type: Exec, group: '.NET', description: 'run dotnet') {
+task DotnetRun(type: Exec, group: '.NET', description: 'Run dotnet') {
     workingDir './'
     commandLine "dotnet", "run"
 }
 
-task checkSwarm(type: Exec, group: 'Docker', description: 'build dotnet docker') {
+task CheckSwarm(type: Exec, group: 'Docker', description: 'Build dotnet docker') {
     commandLine "sh", "-c", "./checkSwarm.sh"
     doLast {
         if(execResult.exitValue == 0) {
@@ -51,37 +51,44 @@ task checkSwarm(type: Exec, group: 'Docker', description: 'build dotnet docker')
     }
 }
 
-task dockerBuildJava(type: Exec, group: 'Docker', description: 'build java docker') {
+task DockerBuildJava(type: Exec, group: 'Docker', description: 'Build java docker') {
     workingDir './'
     commandLine "docker", "build", "-t", "javanetapp", "-f", "docker/java.Dockerfile", "."
 }
 
-task dockerBuildDotnet(type: Exec, group: 'Docker', description: 'build dotnet docker') {
+task DockerBuildDotnet(type: Exec, group: 'Docker', description: 'Build dotnet docker') {
     workingDir './'
     commandLine "docker", "build", "-t", "dotnetapp", "-f", "docker/dotnet.Dockerfile", "."
 }
 
-task dockerClean(type: Exec, group: 'Docker', description: 'remove dotnet and java docker images') {
+task DockerClean(type: Exec, group: 'Docker', description: 'Remove dotnet and java docker images') {
     workingDir './'
     commandLine "docker", "rmi", "javanetapp", "dotnetapp"
 }
 
-task stackStop(type: Exec, group: 'Docker', description: 'stop stack') {
+task StackStop(type: Exec, group: 'Docker', description: 'Stop stack') {
     workingDir './'
     commandLine "docker", "stack", "rm", "app"
 }
 
-task stackRun(type: Exec, group: 'Docker', description: 'run stack') {
+task StackRun(type: Exec, group: 'Docker', description: 'Run stack') {
     workingDir './'
     commandLine "docker", "stack", "deploy", "-c", "stack.docker.yml", "app"
 }
 
-task stackBuildAndRun(type: Exec, group: 'Docker', description: 'run stack') {
+task StackBuildAndRun(type: Exec, group: 'Docker', description: 'Build and run stack') {
     workingDir './'
     commandLine "docker", "stack", "deploy", "-c", "stack.docker.yml", "app"
 }
 
-stackBuildAndRun.dependsOn checkSwarm
-stackBuildAndRun.dependsOn stackStop
-stackBuildAndRun.mustRunAfter dockerBuildJava
-stackBuildAndRun.mustRunAfter dockerBuildDotnet
+task Run(type: Exec, group: 'Docker', description: 'Run all in Docker swarm') {
+    workingDir './'
+    commandLine "echo", "Run stack..."
+}
+
+StackBuildAndRun.dependsOn CheckSwarm
+StackBuildAndRun.dependsOn StackStop
+StackBuildAndRun.mustRunAfter DockerBuildJava
+StackBuildAndRun.mustRunAfter DockerBuildDotnet
+
+Run.dependsOn StackBuildAndRun
