@@ -12,13 +12,12 @@ https://github.com/jbogard/MediatR
 ```
 ./gradlew Run
 ```
-
-#### For available tasks
-> ./gradlew tasks
-
 point your browser to  
 > https://localhost:8080   
 > https://localhost  
+
+#### For available tasks
+> ./gradlew tasks
 
 ### Stack & tools
 Java13, .NETcore3 C#8, Angular8, Gradle6, Maven3, Docker3, Jetty9, Redis5, Tinkerpop3, Alpine3
