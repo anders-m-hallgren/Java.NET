@@ -10,18 +10,24 @@ https://github.com/jbogard/MediatR
 
 ### Run
 ```
-./gradlew stackRun
+./gradlew Run
 ```
 point your browser to  
 > https://localhost:8080   
 > https://localhost  
 
+#### For available tasks
+> ./gradlew tasks
+
 ### Stack & tools
-Java13, .NETcore3 C#8, Angular8, Gradle6, Maven3, Docker3, Jetty9, Redis5, Tinkerpop3, Alpine3
+Java13, .NETcore3 C#8, Angular8, Gradle6, Maven3, Docker3, Jetty9, Redis5, RabbitMQ3, Tinkerpop3, Alpine3, Visual Studio Code & extensions
 
 ### Features
-Build complete stack from Gradle, Http2, serviceloader(java), redis cache,
-separate domain logic to handlers, querys, commands and notifications 
+- Build .NET, Java and stack using Gradle  
+- Http2 with TLS  
+- serviceloader(java)   
+- redis cache  
+- separate domain logic providers to handlers, querys, commands and notifications 
 
 ## Java and .NET Core (c#) project side by side
 
