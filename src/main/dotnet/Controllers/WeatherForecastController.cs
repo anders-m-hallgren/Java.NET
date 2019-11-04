@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -24,7 +21,7 @@ namespace se.clouds.app.javanet.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<WeatherForecast>> GetAsync()
+        public async Task<WeatherForecast[]> GetAsync()
         {
             return await _mediator.Send(new GetWeatherForecast(), new CancellationToken());
         }

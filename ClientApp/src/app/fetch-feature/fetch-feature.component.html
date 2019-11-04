@@ -1,0 +1,22 @@
+<h1 id="tableLabel">Features</h1>
+
+<p>This component demonstrates fetching feature from the server.</p>
+
+<p *ngIf="!features"><em>Loading...</em></p>
+
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="features">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Activated</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let feature of features">
+      <td>{{ feature.name }}</td>
+      <td>{{ feature.activated }}</td>
+      <td>{{ feature.description }}</td>
+    </tr>
+  </tbody>
+</table>
