@@ -11,10 +11,11 @@ https://github.com/jbogard/MediatR
 ### Run
 ```
 ./gradlew Run
-
-For available tasks
-./gradlew tasks
 ```
+
+#### For available tasks
+> ./gradlew tasks
+
 point your browser to  
 > https://localhost:8080   
 > https://localhost  
