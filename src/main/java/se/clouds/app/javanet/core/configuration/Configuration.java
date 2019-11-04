@@ -1,14 +1,12 @@
 package se.clouds.app.javanet.core.configuration;
 
 import java.net.UnknownHostException;
-
 import org.json.JSONObject;
 
 public class Configuration implements IConfiguration
 {
     private String myDevelopmentHost = "Anders-Mac.local";
     private static JSONObject _configuration;
-
     public static String Get(String section, String key)
     {
         return _configuration.optJSONObject(section).getString(key);

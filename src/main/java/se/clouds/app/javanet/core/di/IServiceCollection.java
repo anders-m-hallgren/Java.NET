@@ -10,6 +10,7 @@ import java.util.ServiceLoader;
 
 import se.clouds.app.javanet.core.app.Router;
 import se.clouds.app.javanet.core.controller.IController;
+import se.clouds.app.javanet.core.mediator.INotification;
 import se.clouds.app.javanet.core.mediator.IRequest;
 import se.clouds.app.javanet.core.mediator.IRequestHandler;
 import se.clouds.app.javanet.core.service.IMessageService;
@@ -20,6 +21,7 @@ public class IServiceCollection {
     public List<IService> services = new LinkedList<IService>();
     private static ServiceLoader<IRequestHandler> handlerLoader = ServiceLoader.load(IRequestHandler.class);
     private static ServiceLoader<IRequest> queryLoader = ServiceLoader.load(IRequest.class);
+    private static ServiceLoader<INotification> notificationLoader = ServiceLoader.load(INotification.class);
 
     public static class Builder {
 
@@ -58,6 +60,14 @@ public class IServiceCollection {
             }
             return this;
         }
+
+        public Builder AddServiceLoadedNotifications() {
+            for (INotification notification : notificationLoader) {
+                Di.Add(INotification.class, notification);
+            }
+            return this;
+        }
+
         public Builder AddHandlers(String domainHandlersPackage) {
             Class<?>[] classes=null;
             Object instance = null;

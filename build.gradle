@@ -3,8 +3,8 @@ plugins {
     id 'application'
 }
 
-sourceCompatibility = 13
-targetCompatibility = 13
+sourceCompatibility = 12
+targetCompatibility = 12
 
 application {
     mainClassName = 'se.clouds.app.javanet.app.Program'
@@ -40,11 +40,6 @@ task dotnetRun(type: Exec, group: '.NET', description: 'run dotnet') {
     commandLine "dotnet", "run"
 }
 
-task dockerBuildJava(type: Exec, group: 'Docker', description: 'build java docker') {
-    workingDir './'
-    commandLine "docker", "build", "-t", "javanetapp", "-f", "docker/java.Dockerfile", "."
-}
-
 task checkSwarm(type: Exec, group: 'Docker', description: 'build dotnet docker') {
     commandLine "sh", "-c", "./checkSwarm.sh"
     doLast {
@@ -55,15 +50,38 @@ task checkSwarm(type: Exec, group: 'Docker', description: 'build dotnet docker')
         }
     }
 }
+
+task dockerBuildJava(type: Exec, group: 'Docker', description: 'build java docker') {
+    workingDir './'
+    commandLine "docker", "build", "-t", "javanetapp", "-f", "docker/java.Dockerfile", "."
+}
+
 task dockerBuildDotnet(type: Exec, group: 'Docker', description: 'build dotnet docker') {
     workingDir './'
     commandLine "docker", "build", "-t", "dotnetapp", "-f", "docker/dotnet.Dockerfile", "."
 }
 
-task stackRun(type: Exec, group: '.NET', description: 'run stack') {
+task dockerClean(type: Exec, group: 'Docker', description: 'remove dotnet and java docker images') {
+    workingDir './'
+    commandLine "docker", "rmi", "javanetapp", "dotnetapp"
+}
+
+task stackStop(type: Exec, group: 'Docker', description: 'stop stack') {
+    workingDir './'
+    commandLine "docker", "stack", "rm", "app"
+}
+
+task stackRun(type: Exec, group: 'Docker', description: 'run stack') {
     workingDir './'
     commandLine "docker", "stack", "deploy", "-c", "stack.docker.yml", "app"
 }
-stackRun.dependsOn checkSwarm
-stackRun.dependsOn dockerBuildJava
-stackRun.dependsOn dockerBuildDotnet
+
+task stackBuildAndRun(type: Exec, group: 'Docker', description: 'run stack') {
+    workingDir './'
+    commandLine "docker", "stack", "deploy", "-c", "stack.docker.yml", "app"
+}
+
+stackBuildAndRun.dependsOn checkSwarm
+stackBuildAndRun.dependsOn stackStop
+stackBuildAndRun.mustRunAfter dockerBuildJava
+stackBuildAndRun.mustRunAfter dockerBuildDotnet

@@ -5,28 +5,40 @@ import java.util.Optional;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Consumer;
 
-import se.clouds.app.javanet.app.domain.query.GetControllerResult;
-
-
 
 class Storage<T> {
 
     T value;
+    INotification event;
 
     T getValue() {
         return value;
+    }
+
+    INotification getEvent() {
+        return event;
     }
 
     void setValue(Mediatr<T> mediator, IRequest<T> requestObject, T value) {
         this.value = value;
         mediator.notifyObservers(requestObject);
     }
+
+    void publishEvent(Mediatr<INotification> mediator, INotification event) {
+        this.event = event;
+        mediator.notifySubscribers(event);
+    }
+    void cancelEvent(T event) {
+        this.event = null;
+    }
 }
 
 public class Mediatr<T> implements IMediator{
     static int nrOfMediatr;
     private final HashMap<IRequest<T>, Storage<T>> requestMap = new HashMap<>();
+    private final HashMap<INotification, Storage<INotification>> notificationMap = new HashMap<>();
     private final CopyOnWriteArrayList<Consumer<Object>> requestObservers = new CopyOnWriteArrayList<>();
+    private final CopyOnWriteArrayList<Consumer<Object>> subscribers = new CopyOnWriteArrayList<>();
 
     public Mediatr() {
         nrOfMediatr++;
@@ -45,15 +57,13 @@ public class Mediatr<T> implements IMediator{
         storage.setValue(this, requestObject, value);
     }
 
-    public Optional<T> getRequest(IRequest<T> requestObject) {
-        Storage storage = requestMap.get(requestObject.getClass().componentType());
-        return requestMap
-            .entrySet()
-            .stream()
-            .filter(item -> item.getKey() instanceof GetControllerResult)
-            .map(v -> (T) v.getValue().getValue())
-            .findFirst();
-  }
+    public void Publish(INotification event) {
+        Storage<INotification> storage = notificationMap.computeIfAbsent(event, key -> new Storage<INotification>());
+        storage.publishEvent((Mediatr<INotification>)this, event);
+        //storage.cancelEvent();
+    }
+
+
 
   public void addRequestObserver(IRequest<T> requestObject, Runnable observer) {
     requestObservers.add(request -> {
@@ -63,8 +73,20 @@ public class Mediatr<T> implements IMediator{
     });
   }
 
+  public void addSubscriber(INotification event, Runnable subscriber) {
+    subscribers.add(ev -> {
+      if (ev.equals(event)) {
+        subscriber.run();
+      }
+    });
+  }
+
   void notifyObservers(IRequest<T> request) {
     requestObservers.forEach(observer -> observer.accept(request));
+  }
+
+  void notifySubscribers(INotification event) {
+    subscribers.forEach(subscriber -> subscriber.accept(event));
   }
 
   public void ShowMediatr() {

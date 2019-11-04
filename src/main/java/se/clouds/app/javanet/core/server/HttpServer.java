@@ -74,7 +74,7 @@ public class HttpServer {
         handlers.setHandlers(new Handler[] { list, contexts, new DefaultHandler() });
 
         server.setHandler(handlers);
-        System.out.println(server.isFailed());
+        //System.out.println(server.isFailed());
         //server.setDumpAfterStart(false);
         //server.dumpStdErr();
         server.start();

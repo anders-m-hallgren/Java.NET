@@ -9,8 +9,8 @@ import se.clouds.app.javanet.core.di.IApplication;
 import se.clouds.app.javanet.core.di.IServiceCollection;
 import se.clouds.app.javanet.core.server.Server;
 
-public class App {
-
+public class App
+{
     public static void Run(Startup startup) {
         Build(startup);
         Server.Run();
@@ -25,12 +25,16 @@ public class App {
         // Services
         IServiceCollection.Builder serviceBuilder = new IServiceCollection.Builder();
         startup.ConfigureServices(serviceBuilder);
-        //Handlers
-        serviceBuilder.AddServiceLoadedHandlers();
-        serviceBuilder.AddServiceLoadedQuerys();
-        //serviceBuilder.AddHandlers("se.clouds.app.javanet.app.domain.handler");
-        //TODO add Querys and Commands
-        var serviceCollection = serviceBuilder.Build();
+
+        //ServiceLoad Handler, Request, Notification
+        var serviceCollection = serviceBuilder
+            .AddServiceLoadedHandlers()
+            .AddServiceLoadedQuerys()
+            .AddServiceLoadedNotifications()
+            .Build();
+
+        //TODO for core load directly instead
+        // serviceBuilder.AddHandlers("se.clouds.app.javanet.app.domain.handler");
 
         // App
         IApplication.Builder appBuilder = new IApplication.Builder(serviceCollection);

@@ -2,7 +2,6 @@ package se.clouds.app.javanet.core.di;
 
 import java.util.LinkedList;
 import java.util.List;
-
 import se.clouds.app.javanet.core.flow.pipeline.IPipeResponse;
 import se.clouds.app.javanet.core.flow.pipeline.Step;
 import se.clouds.app.javanet.services.EmailService;

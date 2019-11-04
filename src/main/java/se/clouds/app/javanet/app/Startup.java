@@ -1,8 +1,6 @@
 package se.clouds.app.javanet.app;
 
 import se.clouds.app.javanet.app.Controllers.WeatherForecastController;
-import se.clouds.app.javanet.app.domain.handler.ControllerResultHandler;
-import se.clouds.app.javanet.app.domain.handler.FlowResultHandler;
 import se.clouds.app.javanet.core.di.IApplication;
 import se.clouds.app.javanet.core.di.IServiceCollection;
 import se.clouds.app.javanet.core.service.IMessageService;
@@ -17,7 +15,6 @@ public class Startup {
             .AddSingleton(IMessageService.class, EmailService.class)
             .AddSingleton(IShortMessageService.class, SmsService.class)
             .AddController("/weatherforecast", WeatherForecastController.class)
-            //.AddHandlers("se.clouds.app.javanet.app.domain.handler") //or via service loader
 
             .AddEmail()
             .AddSms();

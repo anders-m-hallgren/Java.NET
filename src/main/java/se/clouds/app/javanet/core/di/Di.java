@@ -102,8 +102,14 @@ public abstract class Di {
     }
 
     public static void Show() {
+        Show(true);
+    }
+    public static void Show(boolean shortMode) {
         for (var set : container.entrySet()){
-            System.out.println(set.getKey() + ":" + set.getValue());
+            if(shortMode)
+                System.out.println(set.getKey().getSimpleName() + ":" + set.getValue());
+            else
+                System.out.println(set.getKey() + ":" + set.getValue());
         }
     }
 }
