@@ -39,3 +39,31 @@ task dotnetRun(type: Exec, group: '.NET', description: 'run dotnet') {
     workingDir './'
     commandLine "dotnet", "run"
 }
+
+task dockerBuildJava(type: Exec, group: 'Docker', description: 'build java docker') {
+    workingDir './'
+    commandLine "docker", "build", "-t", "javanetapp", "-f", "docker/java.Dockerfile", "."
+}
+
+task checkSwarm(type: Exec, group: 'Docker', description: 'build dotnet docker') {
+    commandLine "sh", "-c", "./checkSwarm.sh"
+    doLast {
+        if(execResult.exitValue == 0) {
+            println('OK')
+        } else {
+            throw new GradleException('ERROR: Not a swarm node, see output above from checkSwarm')
+        }
+    }
+}
+task dockerBuildDotnet(type: Exec, group: 'Docker', description: 'build dotnet docker') {
+    workingDir './'
+    commandLine "docker", "build", "-t", "dotnetapp", "-f", "docker/dotnet.Dockerfile", "."
+}
+
+task stackRun(type: Exec, group: '.NET', description: 'run stack') {
+    workingDir './'
+    commandLine "docker", "stack", "deploy", "-c", "stack.docker.yml", "app"
+}
+stackRun.dependsOn checkSwarm
+stackRun.dependsOn dockerBuildJava
+stackRun.dependsOn dockerBuildDotnet
