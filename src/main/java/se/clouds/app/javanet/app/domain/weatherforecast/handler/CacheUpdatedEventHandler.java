@@ -4,11 +4,11 @@ import se.clouds.app.javanet.app.domain.weatherforecast.notification.UpdatedCach
 import se.clouds.app.javanet.core.di.Di;
 import se.clouds.app.javanet.core.mediator.IMediator;
 import se.clouds.app.javanet.core.mediator.INotificationHandler;
-import se.clouds.app.javanet.core.mediator.Mediatr;
+import se.clouds.app.javanet.core.mediator.MediatR;
 
 public class CacheUpdatedEventHandler implements INotificationHandler<UpdatedCacheEvent> {
 
-    private Mediatr<UpdatedCacheEvent> mediatr = (Mediatr) Di.GetSingleton(IMediator.class, Mediatr.class);
+    private MediatR<UpdatedCacheEvent> mediatr = (MediatR) Di.GetSingleton(IMediator.class, MediatR.class);
 
     public CacheUpdatedEventHandler() {
         Register(new UpdatedCacheEvent());
@@ -20,12 +20,12 @@ public class CacheUpdatedEventHandler implements INotificationHandler<UpdatedCac
 
     public void Register(UpdatedCacheEvent event) {
         var subscriberTask = new Task(event);
-        mediatr.addSubscriber(event, subscriberTask);
+        //mediatr.addSubscriber(event, subscriberTask);
     }
 
     public void Publish(UpdatedCacheEvent event) {
         // var task = getTask(handler, request);
-        mediatr.Publish(event); // not needed ActionResult?
+      //  mediatr.Publish(event); // not needed ActionResult?
     }
 
     public class Task implements Runnable {

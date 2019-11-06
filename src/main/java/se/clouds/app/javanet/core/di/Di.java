@@ -8,11 +8,17 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import se.clouds.app.javanet.core.mediator.IMediator;
 import se.clouds.app.javanet.core.mediator.IRequest;
 import se.clouds.app.javanet.core.mediator.IRequestHandler;
+import se.clouds.app.javanet.core.mediator.MediatR;
 
 public abstract class Di {
     public static Map<Class<?>, List<Object>> container = new HashMap<Class<?>, List<Object>>();
+
+    public static MediatR GetMediator() {
+        return (MediatR)Di.GetSingleton(IMediator.class, MediatR.class);
+    }
 
     public static Object GetSingleton(Class<?> type, Class<?> clazz)
     {

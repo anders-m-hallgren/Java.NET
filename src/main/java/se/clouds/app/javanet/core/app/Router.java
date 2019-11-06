@@ -8,9 +8,6 @@ import java.util.Set;
 
 import se.clouds.app.javanet.core.controller.IController;
 
-/**
- * Router
- */
 public class Router {
 
     private static Map<String, IController> container = new HashMap<String, IController>();
@@ -27,7 +24,6 @@ public class Router {
         | InvocationTargetException | NoSuchMethodException | SecurityException e) {
             e.printStackTrace();
         }
-        //var path=instance.getRoutePath();
         container.put(path, instance);
     }
 
@@ -41,5 +37,9 @@ public class Router {
 
     public static Set<Entry<String, IController>> GetAllControllers(){
         return container.entrySet();
+    }
+
+    public static void Show(){
+        container.entrySet().forEach(r -> System.out.println("Route ctrl: " + r));
     }
 }

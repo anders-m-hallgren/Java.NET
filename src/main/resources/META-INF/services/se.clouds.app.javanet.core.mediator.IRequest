@@ -1,4 +1,3 @@
-se.clouds.app.javanet.app.domain.weatherforecast.query.GetControllerResult
-se.clouds.app.javanet.app.domain.weatherforecast.query.GetFlowResult
+se.clouds.app.javanet.app.domain.weatherforecast.query.GetWeatherForecast
 se.clouds.app.javanet.app.domain.weatherforecast.command.StoreInCache
 se.clouds.app.javanet.app.domain.feature.query.GetFeature

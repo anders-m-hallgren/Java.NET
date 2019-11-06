@@ -14,7 +14,7 @@
             "type": "java",
             "name": "Java MediatorDemo (Launch) MediatorDemo",
             "request": "launch",
-            "mainClass": "se.clouds.app.javanet.app.MediatorDemo",
+            "mainClass": "se.clouds.app.javanet.core.mediator.MediatorDemo",
             //"vmArgs": "-Djavax.net.debug=ssl:handshake:verbose"
             //"vmArgs": "-Djavax.net.debug=all -Djavax.net.debug=ssl:handshake:verbose"
             },

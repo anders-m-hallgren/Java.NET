@@ -1,17 +1,19 @@
 package se.clouds.app.javanet.app.domain.weatherforecast.handler;
 
 import java.util.Optional;
+import java.util.concurrent.Callable;
+
 import redis.clients.jedis.Jedis;
 import se.clouds.app.javanet.app.domain.weatherforecast.command.StoreInCache;
 import se.clouds.app.javanet.core.configuration.Configuration;
 import se.clouds.app.javanet.core.di.Di;
 import se.clouds.app.javanet.core.mediator.IMediator;
 import se.clouds.app.javanet.core.mediator.IRequestHandler;
-import se.clouds.app.javanet.core.mediator.Mediatr;
+import se.clouds.app.javanet.core.mediator.MediatR;
 
 public class StoreCacheHandler implements IRequestHandler<StoreInCache, Void>
 {
-    private Mediatr<Void> mediatr = (Mediatr)Di.GetSingleton(IMediator.class, Mediatr.class);
+    private MediatR<Void> mediatr = (MediatR)Di.GetSingleton(IMediator.class, MediatR.class);
     private Jedis jedis;
 
     public StoreCacheHandler() {
@@ -26,7 +28,7 @@ public class StoreCacheHandler implements IRequestHandler<StoreInCache, Void>
 
     public void Register(StoreInCache request) {
         var task = new Task(this, request);
-        mediatr.addRequestObserver(request, task);
+        //mediatr.AddHandler(request, task);
     }
 
     /* public void Publish(StoreInCache request) {
@@ -34,13 +36,13 @@ public class StoreCacheHandler implements IRequestHandler<StoreInCache, Void>
     } */
 
     public Optional<Void> Send(StoreInCache request) {
-        //var task = getTask(handler, request);
         //Publish(request);
-        var result = mediatr.getValue(request); //not needed ActionResult?
-        return result;
+//        var result = mediatr.getValue(request); //not needed ActionResult?
+ //       return result;
+ return null;
     }
 
-    public class Task implements Runnable{
+    public class Task implements Callable<Void>{
         private StoreCacheHandler handler;
         private StoreInCache request;
         public Task(StoreCacheHandler handler, StoreInCache request) {
@@ -49,9 +51,11 @@ public class StoreCacheHandler implements IRequestHandler<StoreInCache, Void>
             this.request = request;
         }
         @Override
-        public void run() {
+        public Void call() {
             System.out.println("Implement store in cache here, send to Redis");
-            //content = handler.Handle(request);
+            Handle(request);
+            return null;
         }
     }
+
 }

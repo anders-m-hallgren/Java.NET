@@ -4,12 +4,11 @@ import se.clouds.app.javanet.app.domain.feature.query.GetFeature;
 import se.clouds.app.javanet.core.controller.AppController;
 import se.clouds.app.javanet.core.controller.IActionResult;
 import se.clouds.app.javanet.core.di.Di;
-import se.clouds.app.javanet.core.mediator.IMediator;
-import se.clouds.app.javanet.core.mediator.Mediatr;
+import se.clouds.app.javanet.core.mediator.MediatR;
 
 public class FeatureController extends AppController
 {
-    private Mediatr<IActionResult> mediatr = (Mediatr)Di.GetSingleton(IMediator.class, Mediatr.class);
+    private MediatR<IActionResult> mediatr = (MediatR)Di.GetMediator();
     private static String routePath = "/feature";
     private static final long serialVersionUID = 998887766L;
 
@@ -20,7 +19,9 @@ public class FeatureController extends AppController
 
     public IActionResult Get()
     {
-        var result = mediatr.getValue(new GetFeature());
+        System.out.println("\n   --- Controller");
+        System.out.println("User Controller: " + this.getClass().getSimpleName());
+        var result = mediatr.SendRequest(new GetFeature());
         return result.orElseThrow();
     }
 }

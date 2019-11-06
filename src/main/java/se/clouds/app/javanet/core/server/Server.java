@@ -10,9 +10,6 @@ public class Server {
 
     public static void Run() {
         try {
-            if (server == null) {
-                server = new Server();
-            }
             HttpServer.start(new TlsEngine(), sslPort);
         } catch (Exception e) {
             e.printStackTrace();

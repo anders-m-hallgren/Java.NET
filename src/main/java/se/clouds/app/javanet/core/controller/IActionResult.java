@@ -10,4 +10,5 @@ public interface IActionResult {
     IRequest getRequest();
     void SetStaticPath(String path);
     String GetStaticPath();
+    void SetStatus(ResultStatus.Status status);
 }

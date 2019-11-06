@@ -1,4 +1,3 @@
-se.clouds.app.javanet.app.domain.handler.ControllerResultHandler
-se.clouds.app.javanet.app.domain.weatherforecast.handler.FlowResultHandler
 se.clouds.app.javanet.app.domain.weatherforecast.handler.StoreCacheHandler
+se.clouds.app.javanet.app.domain.weatherforecast.handler.GetWeatherForecastHandler
 se.clouds.app.javanet.app.domain.feature.handler.GetFeatureHandler

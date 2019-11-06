@@ -7,7 +7,6 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ServiceLoader;
-
 import se.clouds.app.javanet.core.app.Router;
 import se.clouds.app.javanet.core.controller.IController;
 import se.clouds.app.javanet.core.mediator.INotification;

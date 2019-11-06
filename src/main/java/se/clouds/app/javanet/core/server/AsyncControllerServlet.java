@@ -3,6 +3,7 @@ package se.clouds.app.javanet.core.server;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
+import java.util.NoSuchElementException;
 
 import javax.servlet.AsyncContext;
 import javax.servlet.ServletOutputStream;
@@ -11,45 +12,54 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import se.clouds.app.javanet.app.domain.handler.ControllerResultHandler;
-import se.clouds.app.javanet.app.domain.weatherforecast.command.StoreInCache;
-import se.clouds.app.javanet.app.domain.weatherforecast.handler.FlowResultHandler;
-import se.clouds.app.javanet.app.domain.weatherforecast.handler.StoreCacheHandler;
-import se.clouds.app.javanet.app.domain.weatherforecast.query.GetControllerResult;
-import se.clouds.app.javanet.app.domain.weatherforecast.query.GetFlowResult;
-import se.clouds.app.javanet.core.controller.IController;
+import se.clouds.app.javanet.app.domain.feature.query.GetFeature;
+import se.clouds.app.javanet.app.domain.weatherforecast.query.GetWeatherForecast;
+import se.clouds.app.javanet.core.controller.IActionResult;
 import se.clouds.app.javanet.core.di.Di;
-import se.clouds.app.javanet.core.mediator.IRequestHandler;
+import se.clouds.app.javanet.core.mediator.IRequest;
+import se.clouds.app.javanet.core.mediator.MediatR;
 
 @SuppressWarnings("serial")
-public class AsyncControllerServlet extends HttpServlet {
-    private boolean includePipeProcessingResult = false;
-    private String ctxPath;
+public class AsyncControllerServlet extends HttpServlet implements IControllerServlet{
+    //private boolean includePipeProcessingResult = false;
     private static String content;
 
-    public AsyncControllerServlet(IController ctrl) {
+    public AsyncControllerServlet() {
         super();
-        this.ctxPath=ctrl.getRoutePath();
-        includePipeProcessingResult = ctrl.getIncludePipeProcessing();
-        this.includePipeProcessingResult = ctrl.getIncludePipeProcessing();
     }
 
     @Override
     protected void doGet(HttpServletRequest servletRequest, HttpServletResponse response) throws IOException {
-        //todo no dependencies to domain here, fix !
-        var request = new GetControllerResult().setPath(ctxPath);
-        Di.Show();
-        var handler = (ControllerResultHandler)Di.GetHandler(IRequestHandler.class, ControllerResultHandler.class);
-        content  = handler.Send(handler, request).orElseThrow().GetContent();
+        var mediatr = ((MediatR<IActionResult>)Di.GetMediator());
+        IRequest<?> request = null; //servletRequest.getServletPath());
+        //TODO fix this, should check DI or Mediatr and Router for which to use
+        switch (servletRequest.getServletPath())
+        {
+            case "/feature":
+                request = new GetFeature();
+                break;
+            case "/weatherforecast":
+                request = new GetWeatherForecast();
+                break;
+        }
+        System.out.println("-------------");
+        mediatr.Show();
+        System.out.println("-------------");
 
-        if (includePipeProcessingResult){
+        try {
+            mediatr.SendRequest(request).ifPresent(v -> content = v.GetContent());
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        System.out.println("\nServlet content: " + content);
+
+        /* if (includePipeProcessingResult){
             var cache = (StoreCacheHandler)Di.GetHandler(IRequestHandler.class, StoreCacheHandler.class);
             cache.Send(new StoreInCache());
-
-            var flow = (FlowResultHandler)Di.GetHandler(IRequestHandler.class, FlowResultHandler.class);
-            var flowResponse = flow.Send(new GetFlowResult()).orElseThrow().Response();
+            var pipeMediatr = ((MediatR<IPipeResponse>)Di.GetMediator());
+            var flowResponse = pipeMediatr.SendRequest(new GetFlowResult()).orElseThrow().Response();
             System.out.println("flowResponse: " + flowResponse);
-        }
+        } */
 
         ByteBuffer bb = ByteBuffer.wrap(content.getBytes(StandardCharsets.UTF_8));
         AsyncContext async = servletRequest.startAsync();
@@ -76,13 +86,6 @@ public class AsyncControllerServlet extends HttpServlet {
         });
     }
 
-    public String getName() {
-        return ctxPath;
-    }
-
-    public void setCtxPath(String ctxPath) {
-        this.ctxPath = ctxPath;
-    }
 
 
 }

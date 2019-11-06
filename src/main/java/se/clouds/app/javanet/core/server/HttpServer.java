@@ -20,6 +20,7 @@ import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.util.ssl.SslContextFactory;
 
 import se.clouds.app.javanet.core.app.Router;
+import se.clouds.app.javanet.core.di.Di;
 
 public class HttpServer {
     private static Server server;
@@ -65,7 +66,7 @@ public class HttpServer {
 
         var ctrls = Router.GetAllControllers();
         ctrls.forEach(ctrl -> {
-            root.addServlet(new ServletHolder(new AsyncControllerServlet(ctrl.getValue())), ctrl.getKey());
+            root.addServlet(new ServletHolder((AsyncControllerServlet)Di.GetSingleton(IControllerServlet.class, AsyncControllerServlet.class)), ctrl.getKey());
         });
 
         HandlerCollection handlers = new HandlerCollection();

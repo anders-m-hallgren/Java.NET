@@ -74,7 +74,8 @@
             <arguments>
               <argument>-classpath</argument>
               <classpath/>
-              <argument>se.clouds.app.javanet.app.Program</argument>
+              <argument>se.clouds.app.javanet.core.mediator.MediatorDemo</argument>
+              <!-- <argument>se.clouds.app.javanet.app.Program</argument> -->
             </arguments>
           </configuration>
         </plugin>

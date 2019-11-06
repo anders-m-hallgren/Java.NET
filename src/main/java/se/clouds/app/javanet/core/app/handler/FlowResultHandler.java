@@ -1,8 +1,9 @@
-package se.clouds.app.javanet.app.domain.weatherforecast.handler;
+package se.clouds.app.javanet.core.app.handler;
 
 import java.util.Optional;
+import java.util.concurrent.Callable;
 
-import se.clouds.app.javanet.app.domain.weatherforecast.query.GetFlowResult;
+import se.clouds.app.javanet.core.app.query.GetFlowResult;
 import se.clouds.app.javanet.core.controller.Response;
 import se.clouds.app.javanet.core.di.Di;
 import se.clouds.app.javanet.core.flow.FirstStep;
@@ -11,11 +12,11 @@ import se.clouds.app.javanet.core.flow.pipeline.IPipeResponse;
 import se.clouds.app.javanet.core.flow.pipeline.PipeResponse;
 import se.clouds.app.javanet.core.mediator.IMediator;
 import se.clouds.app.javanet.core.mediator.IRequestHandler;
-import se.clouds.app.javanet.core.mediator.Mediatr;
+import se.clouds.app.javanet.core.mediator.MediatR;
 
 public class FlowResultHandler implements IRequestHandler<GetFlowResult, IPipeResponse> {
 
-    private Mediatr<IPipeResponse> mediatr = (Mediatr)Di.GetSingleton(IMediator.class, Mediatr.class);
+    private MediatR<IPipeResponse> mediatr = (MediatR)Di.GetSingleton(IMediator.class, MediatR.class);
 
     public FlowResultHandler() {
         Register(new GetFlowResult());
@@ -29,34 +30,31 @@ public class FlowResultHandler implements IRequestHandler<GetFlowResult, IPipeRe
     }
 
     public void Register(GetFlowResult request) {
-        var task = new Task(this, request);
-        mediatr.addRequestObserver(request, task);
+        var task = new Task(request);
+        //mediatr.AddHandler(request, task);
     }
 
     public void Publish(GetFlowResult request) {
-        //var task = getTask(handler, request);
-        mediatr.setValue(request, Handle(request)); //not needed ActionResult?
+        //mediatr.setValue(request, Handle(request)); //not needed ActionResult?
     }
 
     public Optional<IPipeResponse> Send(GetFlowResult request) {
-        //var task = getTask(handler, request);
         Publish(request);
-        var result = mediatr.getValue(request); //not needed ActionResult?
-        return result;
+        //var result = mediatr.getValue(request); //not needed ActionResult?
+        //return result;
+        return null;
     }
 
-    public class Task implements Runnable{
-        private FlowResultHandler handler;
+    public class Task implements Callable<IPipeResponse>{
         private IPipeResponse response;
         private GetFlowResult request;
-        public Task(FlowResultHandler handler, GetFlowResult request) {
+        public Task(GetFlowResult request) {
             super();
-            this.handler = handler;
             this.request = request;
         }
         @Override
-        public void run() {
-            response = handler.Handle(request);
+        public IPipeResponse call() {
+            return Handle(request);
         }
 
         public IPipeResponse getResponse() {
