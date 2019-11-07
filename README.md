@@ -16,6 +16,9 @@ point your browser to
 > https://localhost:8080   
 > https://localhost  
 
+### Up when
+> docker service ls
+> all services has at least 1 Replica
 #### For available tasks
 > ./gradlew tasks
 
