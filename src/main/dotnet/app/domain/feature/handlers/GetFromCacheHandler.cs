@@ -35,10 +35,10 @@ namespace se.clouds.javanet.app.domain.feature.handlers
             var options = new DistributedCacheEntryOptions().SetSlidingExpiration(CachedTime);
             await _cache.SetAsync(keyId, Encoding.UTF8.GetBytes(serialized), options, cancellationToken);
              */
-                TimeSpan CachedTime = TimeSpan.FromMinutes(10);
+                TimeSpan CachedTime = TimeSpan.FromMinutes(1);
                 var options = new DistributedCacheEntryOptions().SetSlidingExpiration(CachedTime);
-                await _cache.SetAsync("shared-cache-0", Encoding.UTF8.GetBytes("hello from shared cache, set by .NET"), options, cancellationToken);
-                return "hello from shared cache";
+                await _cache.SetAsync("shared-cache-0", Encoding.UTF8.GetBytes(", shared cache, set by .NET"), options, cancellationToken);
+                return ", shared cache, set by .NET";
             }
         }
     }

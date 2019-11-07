@@ -1,5 +1,6 @@
 package se.clouds.javanet.app.domain.feature.handler;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -7,10 +8,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import redis.clients.jedis.Jedis;
-import se.clouds.javanet.app.domain.feature.Feature;
-import se.clouds.javanet.app.domain.feature.command.StoreInCache;
-import se.clouds.javanet.app.domain.feature.query.GetFeature;
 import se.clouds.javanet.app.domain.feature.query.GetFromCache;
+import se.clouds.javanet.core.cache.RedisPool;
 import se.clouds.javanet.core.configuration.Configuration;
 import se.clouds.javanet.core.controller.ActionResult;
 import se.clouds.javanet.core.controller.IActionResult;
@@ -22,16 +21,17 @@ import se.clouds.javanet.core.mediator.Task;
 
 public class GetFromCacheHandler implements IRequestHandler<GetFromCache, IActionResult>
 {
-    private Jedis jedis;
     private MediatR<IActionResult> mediatr = (MediatR)Di.GetMediator();
 
     public GetFromCacheHandler()
     {
         var host = Configuration.Get("Redis", "Host");
-        jedis = new Jedis(host);
 
-        mediatr.addRequestHandler(new GetFromCache(), new HandlerTask(jedis)); //TODO get From pool
+        try (Jedis jedis = RedisPool.GetPool(host).getResource()) {
+            mediatr.addRequestHandler(new GetFromCache(), new HandlerTask(jedis));
+        }
     }
+
 
     public class HandlerTask implements Task<IActionResult>
     {
@@ -51,11 +51,13 @@ public class GetFromCacheHandler implements IRequestHandler<GetFromCache, IActio
             }
             else
             {
-                jedis.hset("shared-cache-0", "data", "hello from shared cache, set by Java");
-                jedis.expire("shared-cache-0", 60 * 5);
+                var hello = ", shared cache, set by Java";
+                jedis.hset("shared-cache-0", "data", hello);
+                jedis.expire("shared-cache-0", 60 * 1);
+                result.SetContent(hello);
+                result.SetStatus(ResultStatus.Status.OK);
             }
-            result.SetContent(cache);
-            result.SetStatus(ResultStatus.Status.OK);
+
             return result;
         }
     }

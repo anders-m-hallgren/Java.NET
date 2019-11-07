@@ -2,6 +2,7 @@ package se.clouds.javanet.app.domain.feature.handler;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -37,7 +38,14 @@ public class GetFeatureHandler implements IRequestHandler<GetFeature, IActionRes
             var cache = mediatr.SendRequest(new GetFromCache());
 
             var list = new ArrayList<Map<String, Object>>();
-            list.add(new Feature("javaOrDotnet", true, "Hello from Java, shared cache:" + cache.orElseThrow().GetContent()).AsMap());
+            var feature = new Feature("javaOrDotnet", true, "Hello from Java");
+            try {
+                feature.setDescription(feature.getDescription() + cache.orElseThrow().GetContent());
+            }
+            catch (NoSuchElementException e){
+                System.out.println("Cache service not responding");
+            }
+            list.add(feature.AsMap());
             list.stream().map(feat ->
                 arr.put(new JSONObject(feat)))
                     .collect(Collectors.toList());
