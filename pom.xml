@@ -74,7 +74,7 @@
             <arguments>
               <argument>-classpath</argument>
               <classpath/>
-              <argument>se.clouds.app.javanet.core.mediator.MediatorDemo</argument>
+              <argument>se.clouds.javanet.core.mediator.MediatorDemo</argument>
               <!-- <argument>se.clouds.app.javanet.app.Program</argument> -->
             </arguments>
           </configuration>
@@ -95,7 +95,7 @@
             <archive>
               <manifest>
                 <addClasspath>true</addClasspath>
-                <mainClass>se.clouds.app.javanet.app.Program</mainClass>
+                <mainClass>se.clouds.javanet.app.Program</mainClass>
               </manifest>
             </archive>
             <descriptors>

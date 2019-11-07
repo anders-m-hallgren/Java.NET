@@ -14,7 +14,7 @@
             "type": "java",
             "name": "Java MediatorDemo (Launch) MediatorDemo",
             "request": "launch",
-            "mainClass": "se.clouds.app.javanet.core.mediator.MediatorDemo",
+            "mainClass": "se.clouds.javanet.core.mediator.MediatorDemo",
             //"vmArgs": "-Djavax.net.debug=ssl:handshake:verbose"
             //"vmArgs": "-Djavax.net.debug=all -Djavax.net.debug=ssl:handshake:verbose"
             },
@@ -22,7 +22,7 @@
                 "type": "java",
                 "name": "Java Debug (Launch) Program",
                 "request": "launch",
-                "mainClass": "se.clouds.app.javanet.app.Program",
+                "mainClass": "se.clouds.javanet.app.Program",
                 //"vmArgs": "-Djavax.net.debug=ssl:handshake:verbose"
                 //"vmArgs": "-Djavax.net.debug=all -Djavax.net.debug=ssl:handshake:verbose"
             },

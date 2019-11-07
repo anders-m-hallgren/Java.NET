@@ -1,0 +1,4 @@
+se.clouds.javanet.app.domain.weatherforecast.query.GetWeatherForecast
+se.clouds.javanet.app.domain.feature.command.StoreInCache
+se.clouds.javanet.app.domain.feature.query.GetFeature
+se.clouds.javanet.app.domain.feature.query.GetFromCache
