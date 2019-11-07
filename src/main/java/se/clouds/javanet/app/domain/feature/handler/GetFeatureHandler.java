@@ -6,10 +6,10 @@ import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import se.clouds.javanet.app.domain.feature.Feature;
 import se.clouds.javanet.app.domain.feature.command.StoreInCache;
 import se.clouds.javanet.app.domain.feature.query.GetFeature;
 import se.clouds.javanet.app.domain.feature.query.GetFromCache;
+import se.clouds.javanet.app.domain.model.SharedFeature;
 import se.clouds.javanet.core.controller.ActionResult;
 import se.clouds.javanet.core.controller.IActionResult;
 import se.clouds.javanet.core.controller.ResultStatus;
@@ -38,7 +38,7 @@ public class GetFeatureHandler implements IRequestHandler<GetFeature, IActionRes
             var cache = mediatr.SendRequest(new GetFromCache());
 
             var list = new ArrayList<Map<String, Object>>();
-            var feature = new Feature("javaOrDotnet", true, "Hello from Java");
+            var feature = new SharedFeature("javaOrDotnet", true, "Hello from Java");
             try {
                 feature.setDescription(feature.getDescription() + cache.orElseThrow().GetContent());
             }

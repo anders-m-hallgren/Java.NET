@@ -7,8 +7,8 @@ import java.util.concurrent.Callable;
 import java.util.stream.Collectors;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import se.clouds.javanet.app.domain.feature.Feature;
 import se.clouds.javanet.app.domain.feature.query.GetFeature;
+import se.clouds.javanet.app.domain.model.SharedFeature;
 import se.clouds.javanet.app.domain.weatherforecast.WeatherForecast;
 import se.clouds.javanet.app.domain.weatherforecast.query.GetWeatherForecast;
 import se.clouds.javanet.core.controller.ActionResult;
@@ -61,7 +61,6 @@ public class MediatorDemo
             System.out.println("Executing the Handler task");
             return "wow got it!";
         }); */
-
         mediatrString.setValue(GetFeature.class, "hello feature world");
 
         mediatrString.Show();
@@ -89,7 +88,7 @@ public class MediatorDemo
                 JSONArray arr = new JSONArray();
 
                 var list = new ArrayList<Map<String, Object>>();
-                list.add(new Feature("javaOrDotnet", true, "Hello from Java").AsMap());
+                list.add(new SharedFeature("javaOrDotnet", true, "Hello from Java").AsMap());
                 list.stream().map(feat ->
                     arr.put(new JSONObject(feat)))
                         .collect(Collectors.toList());

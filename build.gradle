@@ -10,6 +10,16 @@ application {
     mainClassName = 'se.clouds.javanet.app.Program'
 }
 
+sourceSets {
+    main {
+        java {
+            srcDirs 'src/main/java'
+            srcDirs 'src/main/resources'
+            srcDirs 'src/main/shared'
+        }
+    }
+}
+
 repositories {
     jcenter()
 }

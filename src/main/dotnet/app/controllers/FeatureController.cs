@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using se.clouds.javanet.app.domain.feature;
 using se.clouds.javanet.app.domain.feature.queries;
+using se.clouds.javanet.app.domain.model;
 
 namespace se.clouds.javanet.app.Controllers
 {
@@ -20,7 +21,7 @@ namespace se.clouds.javanet.app.Controllers
             _logger = logger;
         }
         [HttpGet]
-        public async Task<Feature[]> GetAsync()
+        public async Task<SharedFeature[]> GetAsync()
         {
             return await _mediator.Send(new GetFeature(), new CancellationToken());
         }

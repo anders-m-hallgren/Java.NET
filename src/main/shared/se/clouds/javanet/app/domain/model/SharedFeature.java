@@ -1,15 +1,15 @@
-package se.clouds.javanet.app.domain.feature;
+package se.clouds.javanet.app.domain.model;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class Feature
+public class SharedFeature
 {
     public String Name;
     public boolean Activated;
     public String Description;
 
-    public Feature(String name, boolean activated, String description) {
+    public SharedFeature(String name, boolean activated, String description) {
         Name = name;
         Activated = activated;
         Description = description;

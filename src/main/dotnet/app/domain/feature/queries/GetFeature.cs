@@ -1,9 +1,10 @@
 using MediatR;
+using se.clouds.javanet.app.domain.model;
 
 namespace se.clouds.javanet.app.domain.feature.queries
 {
-    public class GetFeature : IRequest<Feature[]>
+    public class GetFeature : IRequest<SharedFeature[]>
     {
-        public Feature Feature { get; set; }
+        public SharedFeature Feature { get; set; }
     }
 }

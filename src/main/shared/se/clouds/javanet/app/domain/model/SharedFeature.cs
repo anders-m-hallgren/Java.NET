@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 using se.clouds.javanet.core.domain;
 
-namespace se.clouds.javanet.app.domain.feature
+namespace se.clouds.javanet.app.domain.model
 {
-    public class Feature : AggregateRoot<Feature>
+    public class SharedFeature : AggregateRoot<SharedFeature>
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
@@ -24,7 +24,7 @@ namespace se.clouds.javanet.app.domain.feature
             return string.Format($"Feature (Name = {Name}, Activated = {Activated})");
         }
 
-        protected override bool EqualsCore(Feature other)
+        protected override bool EqualsCore(SharedFeature other)
         {
             throw new NotImplementedException();
         }
