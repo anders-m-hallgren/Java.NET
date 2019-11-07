@@ -59,6 +59,47 @@ public class Startup {
     }
 }
 ```
+### Example Java Controller
+```
+public class WeatherForecastController extends AppController
+{
+    private MediatR<IActionResult> mediatr = (MediatR)Di.GetMediator();
+    private static String routePath = "/weatherforecast";
+
+    public WeatherForecastController()
+    {
+        super(routePath);
+    }
+
+    public IActionResult Get()
+    {
+        var result = mediatr.SendRequest(new GetWeatherForecast());
+        return result.orElseThrow();
+    }
+}
+```
+### Example Java Handler Task
+```
+public class HandlerTask implements Task<IActionResult>
+    {
+        @Override
+        public IActionResult call() throws Exception {
+            var result = new ActionResult();
+            JSONArray arr = new JSONArray();
+
+            new Random().ints(5, -20, 50)
+                .mapToObj(rnd ->
+                    arr.put(new JSONObject(
+                        new WeatherForecast(rnd, Summaries[new Random().nextInt((Summaries.length))])
+                            .AsMap()))).collect(Collectors.toList());
+
+            result.SetContent(JSONObject.valueToString(arr));
+            result.SetStatus(ResultStatus.Status.OK);
+            return result;
+        }
+    }
+```
+
 ## IDE
 with VS code, hit F5
 ## OR
