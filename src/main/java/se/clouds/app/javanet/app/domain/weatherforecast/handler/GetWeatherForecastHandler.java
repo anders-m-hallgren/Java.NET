@@ -1,8 +1,6 @@
 package se.clouds.app.javanet.app.domain.weatherforecast.handler;
 
-import java.util.Optional;
 import java.util.Random;
-import java.util.concurrent.Callable;
 import java.util.stream.Collectors;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -11,7 +9,6 @@ import se.clouds.app.javanet.app.domain.weatherforecast.query.GetWeatherForecast
 import se.clouds.app.javanet.core.controller.ActionResult;
 import se.clouds.app.javanet.core.controller.IActionResult;
 import se.clouds.app.javanet.core.di.Di;
-import se.clouds.app.javanet.core.mediator.IMediator;
 import se.clouds.app.javanet.core.mediator.IRequestHandler;
 import se.clouds.app.javanet.core.mediator.MediatR;
 import se.clouds.app.javanet.core.mediator.Task;
@@ -35,7 +32,6 @@ public class GetWeatherForecastHandler implements IRequestHandler<GetWeatherFore
     {
         @Override
         public IActionResult call() throws Exception {
-            System.out.println("\nUser Handler Task");
             var result = new ActionResult();
             JSONArray arr = new JSONArray();
 

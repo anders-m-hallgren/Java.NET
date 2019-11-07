@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import se.clouds.app.javanet.app.domain.feature.query.GetFeature;
 import se.clouds.app.javanet.app.domain.weatherforecast.query.GetWeatherForecast;
+import se.clouds.app.javanet.core.app.Router;
 import se.clouds.app.javanet.core.controller.IActionResult;
 import se.clouds.app.javanet.core.di.Di;
 import se.clouds.app.javanet.core.mediator.IRequest;
@@ -29,28 +30,11 @@ public class AsyncControllerServlet extends HttpServlet implements IControllerSe
     }
 
     @Override
-    protected void doGet(HttpServletRequest servletRequest, HttpServletResponse response) throws IOException {
-        var mediatr = ((MediatR<IActionResult>)Di.GetMediator());
-        IRequest<?> request = null; //servletRequest.getServletPath());
-        //TODO fix this, should check DI or Mediatr and Router for which to use
-        switch (servletRequest.getServletPath())
-        {
-            case "/feature":
-                request = new GetFeature();
-                break;
-            case "/weatherforecast":
-                request = new GetWeatherForecast();
-                break;
-        }
-        System.out.println("-------------");
-        mediatr.Show();
-        System.out.println("-------------");
+    protected void doGet(HttpServletRequest servletRequest, HttpServletResponse response) throws IOException
+    {
+        var ctrl = Router.GetController(servletRequest.getServletPath());
+        content = ctrl.Get().GetContent();
 
-        try {
-            mediatr.SendRequest(request).ifPresent(v -> content = v.GetContent());
-        } catch (Exception e){
-            e.printStackTrace();
-        }
         System.out.println("\nServlet content: " + content);
 
         /* if (includePipeProcessingResult){
