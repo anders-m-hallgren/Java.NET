@@ -16,6 +16,9 @@ point your browser to
 > https://localhost:8080   
 > https://localhost  
 
+### Up when
+> docker service ls  
+> all services has at least 1 Replica
 #### For available tasks
 > ./gradlew tasks
 
@@ -77,27 +80,6 @@ public class WeatherForecastController extends AppController
         return result.orElseThrow();
     }
 }
-```
-### Example Java Handler Task
-```
-public class HandlerTask implements Task<IActionResult>
-    {
-        @Override
-        public IActionResult call() throws Exception {
-            var result = new ActionResult();
-            JSONArray arr = new JSONArray();
-
-            new Random().ints(5, -20, 50)
-                .mapToObj(rnd ->
-                    arr.put(new JSONObject(
-                        new WeatherForecast(rnd, Summaries[new Random().nextInt((Summaries.length))])
-                            .AsMap()))).collect(Collectors.toList());
-
-            result.SetContent(JSONObject.valueToString(arr));
-            result.SetStatus(ResultStatus.Status.OK);
-            return result;
-        }
-    }
 ```
 
 ## IDE
