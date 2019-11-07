@@ -12,10 +12,6 @@ public class Router {
 
     private static Map<String, IController> container = new HashMap<String, IController>();
 
-    public static void Add(String path, IController controller){
-        container.put(path, controller);
-    }
-
     public static void Add(String path, Class<? extends IController> clazz){
         IController instance = null;
         try {

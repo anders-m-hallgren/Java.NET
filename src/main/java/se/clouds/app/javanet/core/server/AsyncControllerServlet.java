@@ -15,8 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 import se.clouds.app.javanet.app.domain.feature.query.GetFeature;
 import se.clouds.app.javanet.app.domain.weatherforecast.query.GetWeatherForecast;
 import se.clouds.app.javanet.core.app.Router;
+import se.clouds.app.javanet.core.app.query.GetFlowResult;
 import se.clouds.app.javanet.core.controller.IActionResult;
 import se.clouds.app.javanet.core.di.Di;
+import se.clouds.app.javanet.core.flow.pipeline.IPipeResponse;
 import se.clouds.app.javanet.core.mediator.IRequest;
 import se.clouds.app.javanet.core.mediator.MediatR;
 
@@ -36,14 +38,17 @@ public class AsyncControllerServlet extends HttpServlet implements IControllerSe
         content = ctrl.Get().GetContent();
 
         System.out.println("\nServlet content: " + content);
-
-        /* if (includePipeProcessingResult){
-            var cache = (StoreCacheHandler)Di.GetHandler(IRequestHandler.class, StoreCacheHandler.class);
-            cache.Send(new StoreInCache());
+            // var cache = (StoreCacheHandler)Di.GetHandler(IRequestHandler.class, StoreCacheHandler.class);
+            // cache.Send(new StoreInCache());
+        try
+        {
             var pipeMediatr = ((MediatR<IPipeResponse>)Di.GetMediator());
             var flowResponse = pipeMediatr.SendRequest(new GetFlowResult()).orElseThrow().Response();
             System.out.println("flowResponse: " + flowResponse);
-        } */
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
 
         ByteBuffer bb = ByteBuffer.wrap(content.getBytes(StandardCharsets.UTF_8));
         AsyncContext async = servletRequest.startAsync();

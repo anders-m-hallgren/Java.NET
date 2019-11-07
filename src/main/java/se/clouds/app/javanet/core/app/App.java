@@ -27,6 +27,7 @@ public class App
 
         //ServiceLoad Handler, Request, Notification
         var serviceCollection = serviceBuilder
+            .AddHandlers("se.clouds.app.javanet.core.app.handler")
             .AddServiceLoadedHandlers()
             .AddServiceLoadedQuerys()
             .AddServiceLoadedNotifications()
