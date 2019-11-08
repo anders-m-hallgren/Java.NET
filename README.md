@@ -197,6 +197,7 @@ var expDate = cert.GetExpirationDateString();
 ```
 
 ## Cleanup
-> remove certificate from keychain  
-> docker stack rm app  
+> remove certificate from keychain
+> ./gradlew StackStop
+> ./gradlew DockerClean
 > rm myPrivateServerCert.pfx myPublicServer.cer clienttruststore.pfx
