@@ -30,6 +30,7 @@ Java13, .NETcore3 C#8, Angular8, Gradle6, Maven3, Docker3, Jetty9, Redis5, Rabbi
 - Http2 with TLS  
 - serviceloader(java)   
 - redis cache  
+- rabbit messaging  
 - separate domain logic providers to handlers, querys, commands and notifications 
 
 ## Java and .NET Core (c#) project side by side
@@ -200,7 +201,7 @@ var expDate = cert.GetExpirationDateString();
 ```
 
 ## Cleanup
-> remove certificate from keychain
-> ./gradlew StackStop
-> ./gradlew DockerClean
-> rm myPrivateServerCert.pfx myPublicServer.cer clienttruststore.pfx
+> remove certificate from keychain  
+> ./gradlew StackStop  
+> ./gradlew DockerClean  
+> rm myPrivateServerCert.pfx myPublicServer.cer clienttruststore.pfx  
