@@ -1,12 +1,5 @@
 package se.clouds.javanet.app.domain.feature.handler;
 
-import java.time.Duration;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.stream.Collectors;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import redis.clients.jedis.Jedis;
 import se.clouds.javanet.app.domain.feature.query.GetFromCache;
 import se.clouds.javanet.core.cache.RedisPool;

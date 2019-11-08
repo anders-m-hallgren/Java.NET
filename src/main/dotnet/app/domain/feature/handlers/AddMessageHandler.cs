@@ -20,7 +20,6 @@ public class AddMessageHandler : IRequestHandler<AddStartupMessage, Unit>
         _logger = logger;
         _mediator = mediator;
     }
-        //public TimeSpan CachedTime { get; set; } = TimeSpan.FromHours(12);
     public Task<Unit> Handle(AddStartupMessage request, CancellationToken cancellationToken)
     {
         var factory = new ConnectionFactory() { HostName = _conf["Rabbit:Host"] };
@@ -43,7 +42,5 @@ public class AddMessageHandler : IRequestHandler<AddStartupMessage, Unit>
             Console.WriteLine(" [x] Sent {0}", message);
         }
         return Unit.Task;
-        //Console.WriteLine(" Press [enter] to exit.");
-        //Console.ReadLine();
     }
 }

@@ -6,7 +6,6 @@ import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import se.clouds.javanet.app.domain.feature.command.StoreInCache;
 import se.clouds.javanet.app.domain.feature.query.GetFeature;
 import se.clouds.javanet.app.domain.feature.query.GetFromCache;
 import se.clouds.javanet.app.domain.model.SharedFeature;

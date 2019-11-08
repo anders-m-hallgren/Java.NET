@@ -2,3 +2,4 @@ se.clouds.javanet.app.domain.feature.handler.StoreCacheHandler
 se.clouds.javanet.app.domain.weatherforecast.handler.GetWeatherForecastHandler
 se.clouds.javanet.app.domain.feature.handler.GetFeatureHandler
 se.clouds.javanet.app.domain.feature.handler.GetFromCacheHandler
+se.clouds.javanet.app.domain.feature.handler.AddMessageHandler
