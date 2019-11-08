@@ -26,7 +26,6 @@ public class MediatorDemo
         mediatrString.setValue(GetFeature.class, "hello feature");
         mediatrString.getValue(GetFeature.class).ifPresent(age -> System.out.println("getFeature: " + age));
 
-
         mediatrString.addObserver(GetFeature.class, () -> {
             System.out.println("first observer: new feature: " + mediatrString.getValue(GetFeature.class).orElseThrow(RuntimeException::new));
         });
