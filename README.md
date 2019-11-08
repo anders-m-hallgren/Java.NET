@@ -51,7 +51,10 @@ public class Startup {
        services
             .AddSingleton(IMessageService.class, EmailService.class)
             .AddSingleton(IShortMessageService.class, SmsService.class)
+            
             .AddController("/weatherforecast", WeatherForecastController.class)
+            .AddController("/feature", FeatureController.class)
+            .AddController("/hello", HelloController.class)
 
             .AddEmail()
             .AddSms();
