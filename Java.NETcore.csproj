@@ -19,6 +19,7 @@
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.0.0" />
     <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="3.0.0" />
+    <PackageReference Include="RabbitMQ.Client" Version="5.1.2" />
   </ItemGroup>
 
   <ItemGroup>
