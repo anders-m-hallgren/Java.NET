@@ -116,10 +116,10 @@ https://localhost
 > - docker run -it --entrypoint /bin/bash $IMAGE_NAME -s  
 
 #### build & run
-> - docker build -t javanetapp -f docker/java.Dockerfile 
-> - docker build -t dotnetapp -f docker/dotnet.Dockerfile  
-> - docker run -it --rm --name javanetapp -p 8080:8080 javanetapp
-> - docker run -it --rm --name dotnetapp -p 80:80 -p 443:443 dotnetapp
+> - docker build -t javanetapp -f docker/java.Dockerfile .  
+> - docker build -t dotnetapp -f docker/dotnet.Dockerfile .  
+> - docker run -it --rm --name javanetapp -p 8080:8080 javanetapp  
+> - docker run -it --rm --name dotnetapp -p 80:80 -p 443:443 dotnetapp  
 
 ## Option
 ### Run Angular/Frontend separatly
