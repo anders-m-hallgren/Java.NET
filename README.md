@@ -74,25 +74,6 @@ public class Startup {
 <img height="300" width="500" align="right" src="Screenshot.png"
      alt="screenshot"
      style="float: left; margin-right: 10px;" />
-### Example Java Controller
-```
-public class WeatherForecastController extends AppController
-{
-    private MediatR<IActionResult> mediatr = (MediatR)Di.GetMediator();
-    private static String routePath = "/weatherforecast";
-
-    public WeatherForecastController()
-    {
-        super(routePath);
-    }
-
-    public IActionResult Get()
-    {
-        var result = mediatr.SendRequest(new GetWeatherForecast());
-        return result.orElseThrow();
-    }
-}
-```
 
 ## IDE
 with VS code, hit F5
