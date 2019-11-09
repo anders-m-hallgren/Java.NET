@@ -10,9 +10,10 @@ import se.clouds.javanet.core.service.IShortMessageService;
 import se.clouds.javanet.services.EmailService;
 import se.clouds.javanet.services.SmsService;
 
-public class Startup {
-
-    public void ConfigureServices(IServiceCollection.Builder services) {
+public class Startup
+{
+    public void ConfigureServices(IServiceCollection.Builder services)
+    {
        services
             .AddSingleton(IMessageService.class, EmailService.class)
             .AddSingleton(IShortMessageService.class, SmsService.class)
@@ -24,8 +25,8 @@ public class Startup {
             .AddSms();
     }
 
-    //in order as listed
-    public void Configure(IApplication.Builder app){
+    public void Configure(IApplication.Builder app)
+    {
         app.UseEmail();
         app.UseSms();
     }

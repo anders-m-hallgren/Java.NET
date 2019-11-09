@@ -1,87 +1,18 @@
 <project>
     <modelVersion>4.0.0</modelVersion>
-    <groupId>se.clouds.app.javanet</groupId>
-    <artifactId>Java.NET</artifactId>
+    <groupId>se.clouds.javanet.module</groupId>
+    <artifactId>aggregator</artifactId>
     <version>1.0</version>
     <packaging>pom</packaging>
-    <modules>
-        <module>shared</module>
-        <module>core</module>
-    </modules>
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>12</maven.compiler.source>
-        <maven.compiler.target>12</maven.compiler.target>
-    </properties>
 
-    <dependencies>
-        <dependency>
-        <groupId>org.eclipse.jetty</groupId>
-        <artifactId>jetty-server</artifactId>
-        <version>10.0.0-alpha0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.jetty.http2</groupId>
-            <artifactId>http2-server</artifactId>
-            <version>10.0.0-alpha0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-alpn-java-server</artifactId>
-            <version>10.0.0-alpha0</version>
-        </dependency>
-        <dependency>
-        <groupId>org.eclipse.jetty</groupId>
-        <artifactId>jetty-servlet</artifactId>
-        <version>10.0.0-alpha0</version>
-        </dependency>
-        <dependency>
-        <groupId>org.json</groupId>
-        <artifactId>json</artifactId>
-        <version>20190722</version>
-        </dependency>
-        <dependency>
-            <groupId>redis.clients</groupId>
-            <artifactId>jedis</artifactId>
-            <version>3.1.0</version>
-        </dependency>
-        <dependency>
-        <groupId>junit</groupId>
-        <artifactId>junit</artifactId>
-        <version>4.11</version>
-        <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.rabbitmq</groupId>
-            <artifactId>amqp-client</artifactId>
-            <version>5.7.3</version>
-        </dependency>
-    </dependencies>
+    <modules>
+        <module>Components</module>
+    </modules>
+
     <build>
         <pluginManagement>
         <plugins>
-            <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>exec-maven-plugin</artifactId>
-            <version>1.6.0</version>
-            <executions>
-                <execution>
-                <goals>
-                    <goal>exec</goal>
-                </goals>
-                </execution>
-            </executions>
-            <configuration>
-                <executable>java</executable>
-                <arguments>
-                <argument>-classpath</argument>
-                <classpath/>
-                <!-- <argument>se.clouds.javanet.core.mediator.MediatorDemo</argument> -->
-                <argument>se.clouds.javanet.app.Program</argument>
-                </arguments>
-            </configuration>
-            </plugin>
-            <plugin>
+    <plugin>
             <artifactId>maven-assembly-plugin</artifactId>
             <version>3.1.1</version>
             <executions>
@@ -101,47 +32,11 @@
                 </manifest>
                 </archive>
                 <descriptors>
-                <descriptor>core/src/assembly.xml</descriptor>
+                <descriptor>assembly.xml</descriptor>
                 </descriptors>
             </configuration>
             </plugin>
-            <plugin>
-            <artifactId>maven-clean-plugin</artifactId>
-            <version>3.1.0</version>
-            </plugin>
-            <plugin>
-            <artifactId>maven-resources-plugin</artifactId>
-            <version>3.0.2</version>
-            </plugin>
-            <plugin>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <version>3.8.0</version>
-            </plugin>
-            <plugin>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <version>2.22.1</version>
-            </plugin>
-            <plugin>
-            <artifactId>maven-jar-plugin</artifactId>
-            <version>3.0.2</version>
-            </plugin>
-            <plugin>
-            <artifactId>maven-install-plugin</artifactId>
-            <version>2.5.2</version>
-            </plugin>
-            <plugin>
-            <artifactId>maven-deploy-plugin</artifactId>
-            <version>2.8.2</version>
-            </plugin>
-            <plugin>
-            <artifactId>maven-site-plugin</artifactId>
-            <version>3.7.1</version>
-            </plugin>
-            <plugin>
-            <artifactId>maven-project-info-reports-plugin</artifactId>
-            <version>3.0.0</version>
-            </plugin>
         </plugins>
         </pluginManagement>
-    </build>
+            </build>
 </project>
