@@ -13,9 +13,10 @@ application {
 sourceSets {
     main {
         java {
-            srcDirs 'src/main/java'
-            srcDirs 'src/main/resources'
-            srcDirs 'src/main/shared'
+            srcDirs 'Components/shared/src/main/java'
+            srcDirs 'Components/core/src/main/java'
+            srcDirs 'Components/app/src/main/java'
+            srcDirs 'Components/app/src/main/resources'
         }
     }
 }
@@ -52,7 +53,7 @@ task DotnetRun(type: Exec, group: '.NET', description: 'Run dotnet') {
 }
 
 task CheckSwarm(type: Exec, group: 'Docker', description: 'Build dotnet docker') {
-    commandLine "sh", "-c", "./checkSwarm.sh"
+    commandLine "sh", "-c", "./Tools/checkSwarm.sh"
     doLast {
         if(execResult.exitValue == 0) {
             println('OK')
