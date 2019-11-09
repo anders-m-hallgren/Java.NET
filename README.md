@@ -12,7 +12,7 @@ https://github.com/jbogard/MediatR
 ```
 ./gradlew Run
 ```
-<img height="300" width="500" align="right" src="ScreenshotRun.png"
+<img height="300" width="500" align="right" src="Tools/assets/ScreenshotRun.png"
      alt="screenshotRun"
      style="float: left; margin-right: 10px;" />
 point your browser to  
@@ -71,7 +71,7 @@ public class Startup {
     }
 }
 ```
-<img height="300" width="500" align="right" src="Screenshot.png"
+<img height="300" width="500" align="right" src="Tools/assets/Screenshot.png"
      alt="screenshot"
      style="float: left; margin-right: 10px;" />
 
