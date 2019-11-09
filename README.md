@@ -43,9 +43,6 @@ Java13, .NETcore3 C#8, Angular8, Gradle6, Maven3, Docker3, Jetty9, Redis5, Rabbi
 ## Java App start the .NET Core way
 
 ### Program.java
-<img height="300" width="500" align="right" src="Screenshot.png"
-     alt="screenshot"
-     style="float: left; margin-right: 10px;" />
 ```
 public class Program {
     public static void main(String[] args) {
@@ -74,6 +71,9 @@ public class Startup {
     }
 }
 ```
+<img height="300" width="500" align="right" src="Screenshot.png"
+     alt="screenshot"
+     style="float: left; margin-right: 10px;" />
 ### Example Java Controller
 ```
 public class WeatherForecastController extends AppController
