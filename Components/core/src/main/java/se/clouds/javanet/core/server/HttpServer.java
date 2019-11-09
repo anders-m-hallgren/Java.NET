@@ -48,7 +48,7 @@ public class HttpServer {
 
         ResourceHandler staticCtx = new ResourceHandler();
         staticCtx.setDirectoriesListed(true);
-        staticCtx.setResourceBase("ClientApp/dist");
+        staticCtx.setResourceBase("../../ClientApp/dist");
 
         ContextHandlerCollection contexts = new ContextHandlerCollection();
         ServletContextHandler root = new ServletContextHandler(contexts, "/",

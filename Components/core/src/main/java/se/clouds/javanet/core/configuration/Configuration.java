@@ -24,9 +24,9 @@ public class Configuration implements IConfiguration
         }
 
         if ( hostName.equals(myDevelopmentHost) )
-            AppSettings.readAppAsettings(builder, "appsettings.Development.json");
+            AppSettings.readAppAsettings(builder, "../../appsettings.Development.json");
         else
-            AppSettings.readAppAsettings(builder, "appsettings.json");
+            AppSettings.readAppAsettings(builder, "../../appsettings.json");
 
         System.out.println("--- Configuration loaded:" + builder.toString());
         _configuration = new JSONObject(builder.toString());

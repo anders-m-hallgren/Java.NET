@@ -1,0 +1,22 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+application {
+    mainClassName = 'se.clouds.javanet.app.Program'
+}
+sourceSets {
+    main {
+        java {
+            srcDirs 'src/main/java'
+            srcDirs 'src/main/resources'
+        }
+    }
+}
+dependencies {
+    compile project(':Components:shared')
+    compile project(':Components:core')
+
+    testImplementation 'junit:junit:4.12'
+}

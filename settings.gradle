@@ -1,0 +1,4 @@
+rootProject.name = 'Java.NET'
+include ':Components:shared'
+include ':Components:core'
+include ':Components:app'

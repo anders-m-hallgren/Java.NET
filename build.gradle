@@ -1,40 +1,19 @@
 plugins {
     id 'java'
-    id 'application'
+
+}
+
+subprojects {
+    version = '1.0'
 }
 
 sourceCompatibility = 12
 targetCompatibility = 12
 
-application {
-    mainClassName = 'se.clouds.javanet.app.Program'
-}
-
-sourceSets {
-    main {
-        java {
-            srcDirs 'Components/shared/src/main/java'
-            srcDirs 'Components/core/src/main/java'
-            srcDirs 'Components/app/src/main/java'
-            srcDirs 'Components/app/src/main/resources'
-        }
+allprojects {
+    repositories {
+        jcenter()
     }
-}
-
-repositories {
-    jcenter()
-}
-
-dependencies {
-    compile group: 'org.json', name: 'json', version: '20190722'
-    compile group: 'org.eclipse.jetty', name: 'jetty-server', version: '10.0.0-alpha0'
-    compile group: 'org.eclipse.jetty', name: 'jetty-alpn-java-server', version: '10.0.0-alpha0'
-    compile group: 'org.eclipse.jetty.http2', name: 'http2-server', version: '10.0.0-alpha0'
-    compile group: 'org.eclipse.jetty', name: 'jetty-servlet', version: '10.0.0-alpha0'
-    compile group: 'redis.clients', name: 'jedis', version: '3.1.0'
-    compile group: 'com.rabbitmq', name: 'amqp-client', version: '5.7.3'
-
-    testImplementation 'junit:junit:4.12'
 }
 
 task DotnetBuild(type: Exec, group: '.NET', description: 'Build dotnet') {
