@@ -12,13 +12,14 @@ https://github.com/jbogard/MediatR
 ```
 ./gradlew Run
 ```
+<img height="300" width="500" align="right" src="ScreenshotRun.png"
+     alt="screenshotRun"
+     style="float: left; margin-right: 10px;" />
 point your browser to  
 > https://localhost:8080   
 > https://localhost  
 
-<img height="300" width="500" align="right" src="ScreenshotRun.png"
-     alt="screenshotRun"
-     style="float: left; margin-right: 10px;" />
+
 ### Up when
 > docker service ls  
 > all services has at least 1 Replica
@@ -36,14 +37,15 @@ Java13, .NETcore3 C#8, Angular8, Gradle6, Maven3, Docker3, Jetty9, Redis5, Rabbi
 - rabbit messaging  
 - separate domain logic providers to handlers, querys, commands and notifications 
 
-<img height="300" width="500" align="right" src="Screenshot.png"
-     alt="screenshot"
-     style="float: left; margin-right: 10px;" />
+
 ## Java and .NET Core (c#) project side by side
 
 ## Java App start the .NET Core way
 
 ### Program.java
+<img height="300" width="500" align="right" src="Screenshot.png"
+     alt="screenshot"
+     style="float: left; margin-right: 10px;" />
 ```
 public class Program {
     public static void main(String[] args) {
