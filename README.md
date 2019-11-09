@@ -33,8 +33,8 @@ Java13, .NETcore3 C#8, Angular8, Gradle6, Maven3, Docker3, Jetty9, Redis5, Rabbi
 - rabbit messaging  
 - separate domain logic providers to handlers, querys, commands and notifications 
 
-<img src="screenshoot"
-     alt="screenshoot"
+<img src="Screenshot.png"
+     alt="screenshot"
      style="float: left; margin-right: 10px;" />
 ## Java and .NET Core (c#) project side by side
 
