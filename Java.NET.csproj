@@ -9,7 +9,8 @@
     <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
     <!-- <RunWorkingDirectory>$(MSBuildThisFileDirectory)</RunWorkingDirectory> -->
     <!-- <RunWorkingDirectory>$(MSBuildProjectDirectory)</RunWorkingDirectory> -->
-    <!-- <RunWorkingDirectory>src/main/dotnet</RunWorkingDirectory> -->
+    <!-- <RunWorkingDirectory>Components/app/src/main/dotnet</RunWorkingDirectory> -->
+    <StartupObject>se.clouds.javanet.app.Program</StartupObject>
     <!-- Set this to true if you enable server-side prerendering -->
     <BuildServerSideRenderer>false</BuildServerSideRenderer>
   </PropertyGroup>

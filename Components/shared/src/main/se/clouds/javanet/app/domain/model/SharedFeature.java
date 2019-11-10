@@ -6,12 +6,14 @@ import java.util.Map;
 public class SharedFeature
 {
     public String Name;
+    public String Value;
     public boolean Activated;
     public String Description;
 
-    public SharedFeature(String name, boolean activated, String description) {
+    public SharedFeature(String name, boolean activated, String value, String description) {
         Name = name;
         Activated = activated;
+        Value = value;
         Description = description;
     }
 
@@ -43,6 +45,7 @@ public class SharedFeature
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("name", Name);
         map.put("activated", Activated);
+        map.put("value", Value);
         map.put("description", Description);
         return map;
     }

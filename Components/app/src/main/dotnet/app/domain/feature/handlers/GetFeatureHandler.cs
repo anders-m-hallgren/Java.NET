@@ -22,6 +22,7 @@ namespace se.clouds.javanet.app.domain.feature.handlers
                 new SharedFeature() {
                     Name = "javaOrDotnet",
                     Activated = true,
+                    Value = ".NET",
                     Description = "Hello from .NET" + await _mediator.Send(new GetFromCache())
                 },
                 new SharedFeature() {

@@ -15,13 +15,15 @@ namespace se.clouds.javanet.app.domain.model
 
         public bool Activated { get; set; }
 
+        public string Value { get; set; }
         public string Version { get; set; }
 
         public string Description { get; set; }
 
+
         public override string ToString()
         {
-            return string.Format($"Feature (Name = {Name}, Activated = {Activated})");
+            return string.Format($"Feature (Name = {Name}, Activated = {Activated}, Value = {Value}, Description = {Description})");
         }
 
         protected override bool EqualsCore(SharedFeature other)
