@@ -27,7 +27,7 @@ point your browser to
 > ./gradlew tasks
 
 ### Stack & tools
-Java13, .NETcore3 C#8, Angular8, Gradle6, Maven3, Docker3, Jetty9, Redis5, RabbitMQ3, Tinkerpop3, Alpine3, Visual Studio Code & extensions
+Java13, .NETcore3 C#8, Angular8, Gradle6, Docker3, Jetty9, Redis5, RabbitMQ3, Tinkerpop3, Alpine3, Visual Studio Code & extensions
 
 ### Features
 - Build .NET, Java and stack using Gradle  
@@ -79,11 +79,10 @@ public class Startup {
 with VS code, hit F5
 ## OR
 ### Run .NET
-> dotnet run
+> ./gradlew DotnetRun
+> (dotnet run)  
 ### Run Java
 > ./gradlew run  
-#### OR
-> mvn exec:exec
 
 # Docker hints
 #### stack
