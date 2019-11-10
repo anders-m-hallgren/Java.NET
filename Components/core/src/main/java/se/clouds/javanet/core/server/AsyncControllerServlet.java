@@ -35,8 +35,7 @@ public class AsyncControllerServlet extends HttpServlet implements IControllerSe
         try
         {
             var pipeMediatr = ((MediatR<IPipeResponse>)Di.GetMediator());
-            var flowResponse = pipeMediatr.SendRequest(new GetFlowResult()).orElseThrow().Response();
-            System.out.println("flowResponse: " + flowResponse);
+            pipeMediatr.SendRequest(new GetFlowResult()).ifPresent(r -> System.out.println("flowResponse: " +r.Response()));
         } catch (Exception e)
         {
             e.printStackTrace();

@@ -26,7 +26,7 @@ public class TlsEngine {
             keyStore = KeyStore.getInstance("PKCS12");
             char[] password= "changeit".toCharArray();
 
-            keyStore.load(new FileInputStream("../../myPrivateServerCert.pfx"),password);
+            keyStore.load(new FileInputStream("myPrivateServerCert.pfx"),password);
 
             // Create key manager
             KeyManagerFactory kmf = KeyManagerFactory.getInstance("SunX509");
