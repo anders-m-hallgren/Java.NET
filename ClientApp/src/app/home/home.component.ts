@@ -16,6 +16,7 @@ export class HomeComponent {
 
 interface Feature {
   name: string;
+  value: string;
   activated: boolean;
   description: string;
 }

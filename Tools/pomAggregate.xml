@@ -1,0 +1,14 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>se.clouds.javanet</groupId>
+    <artifactId>aggregator</artifactId>
+    <version>1.0</version>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>Components/shared</module>
+        <module>Components/core</module>
+        <module>Components/app</module>
+    </modules>
+
+</project>

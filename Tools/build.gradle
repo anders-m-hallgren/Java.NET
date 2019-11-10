@@ -1,0 +1,25 @@
+import org.gradle.internal.logging.text.StyledTextOutput
+import org.gradle.internal.logging.text.StyledTextOutputFactory
+import org.gradle.internal.logging.text.StyledTextOutput.Style
+
+plugins {
+    id 'java'
+    id 'application'
+}
+
+def out = services.get(StyledTextOutputFactory).create("an-ouput")
+StyledTextOutput.Style.values().each {
+    out.style(it).println("This line has the style $it")
+}
+out.style(Style.ProgressStatus).text('This is ').style(Style.Failure).text('a multicolor ').style(Style.Identifier).println('line')
+
+def color = { color, text ->
+ def colors = [black: 30, red: 31, green: 32, yellow: 33, blue: 34, magenta: 35, cyan: 36, white: 37]
+ return new String((char) 27) + "[${colors[color]}m${text}" + new String((char) 27) + "[0m"
+}
+
+task myTask() {
+    doLast {
+		println "this is ${color 'green', 'some'} ${color 'red', 'colorful'} ${color 'white', 'text'}"
+    }
+}

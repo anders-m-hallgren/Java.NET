@@ -12,5 +12,5 @@ EXPOSE 443
 ENV ASPNETCORE_URLS=https://+
 WORKDIR /app
 COPY --from=build-env /app/out .
-
+#ENTRYPOINT ["bin/Release/netcoreapp3.0/publish/Java.NET"]
 ENTRYPOINT ["dotnet", "Java.NET.dll"]

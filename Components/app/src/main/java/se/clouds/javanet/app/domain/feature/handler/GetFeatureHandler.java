@@ -37,7 +37,7 @@ public class GetFeatureHandler implements IRequestHandler<GetFeature, IActionRes
             var cache = mediatr.SendRequest(new GetFromCache());
 
             var list = new ArrayList<Map<String, Object>>();
-            var feature = new SharedFeature("javaOrDotnet", true, "Hello from Java");
+            var feature = new SharedFeature("javaOrDotnet", true, "Java", "Hello from Java");
             try {
                 feature.setDescription(feature.getDescription() + cache.orElseThrow().GetContent());
             }
