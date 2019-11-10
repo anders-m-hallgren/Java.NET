@@ -3,7 +3,7 @@ Attempt to provide unopinionated aid in language transition between one and the 
 Using clean architecture and design patterns, such as Pipeline, IOC, Mediator and CQRS.
 Domain and test driven.
 
-Serving SPA over HTTP2
+Scafolding project serving SPA(Angular or React) over HTTP2
 
 https://docs.microsoft.com/en-us/dotnet/core/  
 https://github.com/jbogard/MediatR  
@@ -27,7 +27,7 @@ point your browser to
 > ./gradlew tasks
 
 ### Stack & tools
-Java13, .NETcore3 C#8, Angular8, Gradle6, Docker3, Jetty9, Redis5, RabbitMQ3, Tinkerpop3, Alpine3, Visual Studio Code & extensions
+Java13, .NETcore3 C#8, Angular8, React16, Gradle6, Docker3, Jetty9, Redis5, RabbitMQ3, Tinkerpop3, Alpine3, Visual Studio Code & extensions
 
 ### Features
 - Build .NET, Java and stack using Gradle  
