@@ -1,23 +1,12 @@
-package se.clouds.javanet.app.controllers;
+package se.clouds.javanet.app.domain.feature;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assumptions.assumeTrue;
-
-import java.nio.file.FileSystems;
-import java.nio.file.Path;
-
-import javax.xml.catalog.CatalogFeatures.Feature;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
-
 import se.clouds.javanet.app.domain.feature.handler.GetFeatureHandler;
 import se.clouds.javanet.app.domain.model.SharedFeature;
 import se.clouds.javanet.core.controller.ActionResult;
-import se.clouds.javanet.core.controller.IActionResult;
 
 public class GetFeatureHandlerTest {
     private final GetFeatureHandler handler = new GetFeatureHandler();
