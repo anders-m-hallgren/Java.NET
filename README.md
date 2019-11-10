@@ -71,7 +71,7 @@ public class Startup {
     }
 }
 ```
-<img height="300" width="500" align="right" src="Tools/assets/Screenshot.png"
+<img height="300" width="500" align="right" src="Tools/assets/ScreenshotVSC2.png"
      alt="screenshot"
      style="float: left; margin-right: 10px;" />
 
