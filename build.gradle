@@ -25,6 +25,36 @@ allprojects {
     }
 }
 
+sourceSets {
+    intTest {
+        java {
+            compileClasspath += sourceSets.main.output
+            runtimeClasspath += sourceSets.main.output
+            srcDir file('src/integration-test/java')
+        }
+        resources.srcDir file('src/integration-test/resources')
+    }
+}
+configurations {
+    intTestImplementation.extendsFrom implementation
+    intTestRuntimeOnly.extendsFrom runtimeOnly
+}
+
+dependencies {
+    intTestImplementation 'org.junit.jupiter:junit-jupiter-api:5.1.0'
+}
+
+task integrationTest(type: Test) {
+    description = 'Runs integration tests.'
+    group = 'verification'
+
+    testClassesDirs = sourceSets.intTest.output.classesDirs
+    classpath = sourceSets.intTest.runtimeClasspath
+    shouldRunAfter test
+}
+
+check.dependsOn integrationTest
+
 task DotnetBuild(type: Exec, group: '.NET', description: 'Build dotnet') {
     workingDir './'
     commandLine "dotnet", "build"

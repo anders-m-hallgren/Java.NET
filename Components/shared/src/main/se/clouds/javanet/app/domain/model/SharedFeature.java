@@ -49,4 +49,12 @@ public class SharedFeature
         map.put("description", Description);
         return map;
     }
+    public static SharedFeature FromMap(Map<String, Object> map)
+    {
+        return new SharedFeature(
+            (String)map.get("name"),
+            (boolean)map.get("activated"),
+            (String)map.get("value"),
+            (String)map.get("description"));
+    }
 }

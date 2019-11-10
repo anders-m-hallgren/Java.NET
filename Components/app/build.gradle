@@ -1,10 +1,8 @@
 plugins {
-    id 'application'
+    id 'java'
 }
 
-application {
-    mainClassName = 'se.clouds.javanet.app.Program'
-}
+
 sourceSets {
     main {
         java {
@@ -17,5 +15,10 @@ dependencies {
     compile project(':Components:shared')
     compile project(':Components:core')
 
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.1.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.1.0'
+}
+
+test {
+    useJUnitPlatform()
 }

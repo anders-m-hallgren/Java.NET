@@ -1,5 +1,7 @@
 package se.clouds.javanet.core;
 
+import java.io.File;
+
 import se.clouds.javanet.app.Startup;
 import se.clouds.javanet.core.configuration.Configuration;
 import se.clouds.javanet.core.configuration.IConfiguration;
@@ -14,6 +16,10 @@ public class App
 
     public static void Run(Startup startup)
     {
+        File file=new File(".");
+        System.out.println("Current Working Directory: " + file.getAbsolutePath());
+        //System.setProperty("user.dir", "/tmp");
+        //System.out.println("New Current Working Directory: " + file.getAbsolutePath());
         Build(startup);
 
         Server.Run();
