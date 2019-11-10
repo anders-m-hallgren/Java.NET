@@ -1,7 +1,7 @@
 <project>
     <modelVersion>4.0.0</modelVersion>
-    <groupId>se.clouds.javanet.app</groupId>
-    <artifactId>Java.NET.module</artifactId>
+    <groupId>se.clouds.javanet</groupId>
+    <artifactId>Java.NET</artifactId>
     <version>1.0</version>
     <packaging>pom</packaging>
 

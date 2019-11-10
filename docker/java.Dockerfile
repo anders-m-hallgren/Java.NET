@@ -1,5 +1,5 @@
 FROM openjdk:12-alpine AS build-env
-WORKDIR /build
+WORKDIR /appbuild
 COPY . ./
 RUN ./gradlew build install
 
@@ -8,5 +8,5 @@ WORKDIR /app
 COPY appsettings*json ./
 COPY myPrivateServerCert.pfx ./
 COPY ClientApp/dist ./ClientApp/dist
-COPY --from=build-env /build/Components/app/build/install/app ./
-ENTRYPOINT ["bin/app"]
+COPY --from=build-env ["appbuild/build/install/Java.NET", "./"]
+ENTRYPOINT ["bin/Java.NET"]

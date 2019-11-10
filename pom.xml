@@ -1,42 +1,14 @@
 <project>
     <modelVersion>4.0.0</modelVersion>
-    <groupId>se.clouds.javanet.module</groupId>
+    <groupId>se.clouds.javanet</groupId>
     <artifactId>aggregator</artifactId>
     <version>1.0</version>
     <packaging>pom</packaging>
 
     <modules>
-        <module>Components</module>
+        <module>Components/shared</module>
+        <module>Components/core</module>
+        <module>Components/app</module>
     </modules>
 
-    <build>
-        <pluginManagement>
-        <plugins>
-    <plugin>
-            <artifactId>maven-assembly-plugin</artifactId>
-            <version>3.1.1</version>
-            <executions>
-                <execution>
-                <id>make-assembly</id>
-                <phase>package</phase>
-                <goals>
-                    <goal>single</goal>
-                </goals>
-                </execution>
-            </executions>
-            <configuration>
-                <archive>
-                <manifest>
-                    <addClasspath>true</addClasspath>
-                    <mainClass>se.clouds.javanet.app.Program</mainClass>
-                </manifest>
-                </archive>
-                <descriptors>
-                <descriptor>assembly.xml</descriptor>
-                </descriptors>
-            </configuration>
-            </plugin>
-        </plugins>
-        </pluginManagement>
-            </build>
 </project>

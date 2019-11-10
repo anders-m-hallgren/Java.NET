@@ -1,8 +1,17 @@
 plugins {
     id 'java'
-    id 'distribution'
+    id 'application'
 }
 
+application {
+    mainClassName = 'se.clouds.javanet.app.Program'
+}
+
+dependencies {
+    compile project(':Components:shared')
+    compile project(':Components:core')
+    compile project(':Components:app')
+}
 subprojects {
     version = '1.0'
 }

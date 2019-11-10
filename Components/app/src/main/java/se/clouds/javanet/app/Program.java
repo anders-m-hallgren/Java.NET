@@ -1,6 +1,6 @@
 package se.clouds.javanet.app;
 
-import se.clouds.javanet.core.app.App;
+import se.clouds.javanet.core.App;
 
 public class Program
 {

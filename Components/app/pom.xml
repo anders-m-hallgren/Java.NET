@@ -3,24 +3,24 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>se.clouds.javanet.app</groupId>
-    <artifactId>Java.NET.module</artifactId>
+    <groupId>se.clouds.javanet</groupId>
+    <artifactId>Java.NET</artifactId>
     <version>1.0</version>
   </parent>
 
   <name>Java.NET scafold application, app module</name>
-  <groupId>se.clouds.javanet.app</groupId>
-  <artifactId>Java.NET</artifactId>
+  <groupId>se.clouds.javanet</groupId>
+  <artifactId>app</artifactId>
   <version>1.0</version>
 
   <dependencies>
     <dependency>
-      <groupId>se.clouds.javanet.app</groupId>
+      <groupId>se.clouds.javanet</groupId>
       <artifactId>shared</artifactId>
       <version>1.0</version>
     </dependency>
     <dependency>
-      <groupId>se.clouds.javanet.app</groupId>
+      <groupId>se.clouds.javanet</groupId>
       <artifactId>core</artifactId>
       <version>1.0</version>
     </dependency>
