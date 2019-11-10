@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using se.clouds.javanet.app.domain.weatherforecast;
+using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 
 namespace se.clouds.javanet.app
 {
@@ -66,6 +67,7 @@ namespace se.clouds.javanet.app
                 if (env.IsDevelopment())
                 {
                     spa.UseAngularCliServer(npmScript: "start");
+                    //spa.UseReactDevelopmentServer(npmScript: "start");
                 }
             });
         }
