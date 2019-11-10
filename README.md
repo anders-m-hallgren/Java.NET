@@ -12,7 +12,7 @@ https://github.com/jbogard/MediatR
 ```
 ./gradlew Run
 ```
-<img height="300" width="500" align="right" src="Tools/assets/ScreenshotRun.png"
+<img height="300" width="500" align="right" src="Tools/assets/ScreenshotVSC.png"
      alt="screenshotRun"
      style="float: left; margin-right: 10px;" />
 point your browser to  
